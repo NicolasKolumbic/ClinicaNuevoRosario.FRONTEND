@@ -1,0 +1,31 @@
+@import url('primerng.cnr-style.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin:0;
+    padding:0;
+    color: var(--cnr-black);
+    background-color: var(--gainsboro);
+    overflow-y: hidden;
+}
+
+:root {
+    --gainsboro: #dfe0e2;
+    --cadet-blue-crayola: #a2aebb;
+    --pewter-blue: #75abbc;
+    --pacific-blue: #23b5d3;
+    --cnr-black: #071013;
+}
+
+.separator-blue {
+    border: none;
+    border-top: 1px solid black;
+    border-color: var(--pacific-blue);
+}
+
+.fc-toolbar-title {
+    color: var(--pewter-blue)
+}

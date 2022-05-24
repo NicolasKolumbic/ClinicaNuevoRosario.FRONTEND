@@ -1,0 +1,37 @@
+:host {
+  background-color: var(--cadet-blue-crayola);
+  color: white;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.navbar {
+
+
+  &_list {
+    margin:0;
+    padding:0 1rem;
+    list-style-type: none;
+  }
+
+  &_item {
+    margin: 0.75rem 0;
+  }
+
+  &_link {
+    color: white;
+    font-size: 1.10rem;
+    font-weight: 300;
+    text-decoration: none;
+    &:hover {
+      color: var(--pacific-blue);
+    }
+  }
+
+  &_separator {
+    border: none;
+    border-top: 1px solid white;
+    height:0;
+  }
+}

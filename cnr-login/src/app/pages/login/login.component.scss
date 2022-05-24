@@ -1,0 +1,11 @@
+.login {
+  background: url(../../../assets/background-rosario.jpg);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .login-container {
+    background-color: white;
+    padding: 1rem;
+  }
+}
