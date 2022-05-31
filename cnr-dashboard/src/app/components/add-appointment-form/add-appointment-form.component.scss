@@ -1,0 +1,28 @@
+.cnr-add-appointment-form {
+  min-width: 60vw;
+  display: block;
+  &_container {
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+    grid-template-rows: 4rem 1fr;
+    justify-content: end;
+  }
+}
+
+.field-control {
+  padding: 0.75rem 0.25rem;
+  &_control {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_label {
+    padding-right: 0.5rem;
+    line-height: 2.6;
+    font-weight: 500;
+    & + * {
+      flex-grow: 1;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<section class="cnr-content-panel" [class.box]="isHide">
+  <div class="cnr-content-panel_tools">
+      <div>
+        <h6 class="cnr-content-panel_tools_title">Visualización</h6>
+        <h2 class="cnr-content-panel_tools_name" *ngIf="isHide">{{panel.name}}</h2>
+      </div>
+
+      <ul class="cnr-content-panel_tools_btn-tools">
+        <li >
+          <button type="button" class="cnr-content-panel_tools_button" (click)="moveToTop()" pTooltip="Mover a primero" tooltipPosition="top">
+            <i class="pi pi-arrow-circle-up" style="font-size: 0.785rem"></i>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="cnr-content-panel_tools_button" (click)="minimaze()" pTooltip="Minimizar" tooltipPosition="top">
+            <i class="pi pi-eye-slash" style="font-size: 0.785rem"></i>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="cnr-content-panel_tools_button"  (click)="moveToUp()" pTooltip="Mover arriba" tooltipPosition="top">
+            <i class="pi pi-arrow-up" style="font-size: 0.785rem"></i>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="cnr-content-panel_tools_button"  (click)="moveToDown()" pTooltip="Mover abajo" tooltipPosition="top">
+            <i class="pi pi-arrow-down" style="font-size: 0.785rem"></i>
+          </button>
+        </li>
+      </ul>
+  </div>
+  <div class="cnr-content-panel_content"  *ngIf="!isHide">
+    <ng-content></ng-content>
+  </div>
+</section>

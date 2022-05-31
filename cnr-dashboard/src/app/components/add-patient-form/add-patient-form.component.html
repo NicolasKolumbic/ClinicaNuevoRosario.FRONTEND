@@ -1,0 +1,56 @@
+<div class="cnr-add-patient-form">
+  <form id="add-patient" [formGroup]="addPatientForm" (ngSubmit)="AddPatient($event)">
+    <div class="cnr-add-patient-form_container">
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">Nombre</label>
+              <input id="name" type="text" formControlName="name" pInputText maxlength="50" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">Apellido</label>
+              <input id="name" type="text" formControlName="lastName" pInputText maxlength="50" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">Email</label>
+              <input id="name" type="email" formControlName="email" pInputText maxlength="50" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">DNI</label>
+              <p-inputNumber inputId="dni" formControlName="id">
+              </p-inputNumber>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">Teléfono</label>
+              <p-inputNumber  mode="decimal" formControlName="phone" inputId="withoutgrouping" [useGrouping]="false">
+                </p-inputNumber>
+                </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">Obra Social/ Prepaga</label>
+              <p-dropdown [options]="cities" optionLabel="name" [filter]="true" filterby="name"></p-dropdown>
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+</div>

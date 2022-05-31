@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { Panel } from '../../models/panel';
+import { PanelManagmentService } from '../../services/panel-managment.service';
 
 
 @Component({
@@ -10,20 +10,38 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
 
-  public formCalendar!: FormGroup;
+  public panels: Panel[] = [
+    {
+      name: 'Ver Agenda',
+      order: 1,
+      hide: false
+    },
+    {
+      name: 'Buscar Paciente',
+      order: 2,
+      hide: false
+    },
+    {
+      name: 'Calendario',
+      order: 3,
+      hide: false
+    }
+  ];
 
+  constructor(private panelManagmentService: PanelManagmentService ) {}
 
-  constructor(private formBuilder: FormBuilder) {
+  ngOnInit(): void {}
 
-
-   }
-
-  ngOnInit(): void {
-    this.formCalendar = this.formBuilder.group({
-      date: ['']
-    });
+  moveToTop(panel: any) {
+    this.panels = this.panelManagmentService.moveToTop(panel, this.panels);
   }
 
+  moveToUp(panel: any) {
+    this.panels = this.panelManagmentService.moveToUp(panel, this.panels);
+  }
 
+  moveToDown(panel: any) {
+    this.panels = this.panelManagmentService.moveToDown(panel, this.panels);
+  }
 
 }

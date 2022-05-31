@@ -1,0 +1,69 @@
+<div class="cnr-see-schedule-panel">
+  <form>
+    <fieldset>
+        <legend>Ver Agenda</legend>
+        <div class="fields-group">
+          <div class="field-control">
+            <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
+          </div>
+          <div class="field-control">
+            <cnr-doctor-search-engine></cnr-doctor-search-engine>
+          </div>
+          <div class="field-control doctor-information">
+            <h4 class="doctor-information_title">Información</h4>
+        <div class="doctor-information_list">
+          <div>
+            <label class="doctor_information_label" >
+              Nombre: <span class="doctor_information_value">Nicolas</span>
+            </label>
+          </div>
+          <div>
+            <label class="doctor_information_label" >
+              Apellido: <span class="doctor_information_value">Kolumbic</span>
+            </label>
+          </div>
+          <div>
+            <label class="doctor_information_label" >
+              DNI: <span class="doctor_information_value">30.002.341</span>
+            </label>
+          </div>
+          <div>
+            <label class="doctor_information_label" >
+              Teléfono: <span class="doctor_information_value">3416609651</span>
+            </label>
+          </div>
+          <div>
+            <label class="doctor_information_label" >
+              email: <span class="doctor_information_value">nicolaskolumbic@hotmail.com</span>
+            </label>
+          </div>
+          </div>
+          </div>
+          <div class="buttons">
+            <p-button label="Buscar" icon="pi pi-search" iconPos="left" class="mr-1"></p-button>
+            <p-button label="Nuevo Turno" icon="pi pi-plus" iconPos="left"></p-button>
+          </div>
+        </div>
+    </fieldset>
+  </form>
+  <p-dialog [(visible)]="display" [modal]="true">
+    <ng-template pTemplate="header">
+        <div class="modal-header">
+          <h3 class="modal-header_title">Nuevo Turno</h3>
+        </div>
+    </ng-template>
+    <div class="modal-body">
+      <hr class="modal-body_separator" />
+      <cnr-add-appointment-form></cnr-add-appointment-form>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="buttons">
+        <button type="button" pButton label="Cancelar" icon="pi pi-times" iconPos="left" class="p-button-outlined mr-1" (click)="CloseModal($event)"></button>
+        <button form="add-patient" pButton type="submit" label="Guardar" icon="pi pi-save"></button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+

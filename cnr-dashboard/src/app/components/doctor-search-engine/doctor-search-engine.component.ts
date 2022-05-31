@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Doctor } from '../../models/doctor';
+import { DoctorService } from '../../services/doctor.service';
 
 interface City {
   name: string,
@@ -12,22 +14,29 @@ interface City {
 })
 export class DoctorSearchEngineComponent implements OnInit {
 
-  cities: City[] = [];
+  private doctors?: Doctor[]= [];
 
-  selectedCity!: City;
+  selectedDoctor?: Doctor;
 
-  constructor() {
-
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-    ];
-  }
+  constructor(private doctorService: DoctorService) { }
 
   ngOnInit(): void {
+
+  }
+
+  get doctorOptions(): any[] {
+    return this.doctors as any[];
+  }
+
+  searchDoctor(value: {originalEvnet: any, filter: string}) {
+    if(value.filter.length > 3) {
+      this.doctorService.search(value.filter)
+      .subscribe((doctorsReponse: Doctor[]) => this.doctors = doctorsReponse);
+    }
+  }
+
+  filterDoctor(value: any) {
+    console.log("Filter Doctor");
   }
 
 }

@@ -1,0 +1,10 @@
+<div class="cnr-patient-search-engine">
+  <div class="cnr-patient-search-engine_container">
+    <label class="cnr-patient-search-engine_label">
+      Buscar paciente
+    </label>
+    <div class="cnr-patient-search-engine_control">
+      <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" filterby="name"></p-dropdown>
+    </div>
+  </div>
+</div>

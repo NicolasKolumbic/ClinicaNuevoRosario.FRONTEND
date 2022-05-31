@@ -1,6 +1,29 @@
 <div class="dashboard">
-  <main class="main-cotent">
-    <cnr-calendar-filter></cnr-calendar-filter>
-    <cnr-calendar></cnr-calendar>
-  </main>
+  <div class="dashboard_content">
+    <main class="main-cotent">
+      <cnr-content-panel [panel]="panels[0]"
+        (onMoveToTop)="moveToTop($event)"
+        (onMoveToDown)="moveToTop($event)"
+        (onMoveToTUp)="moveToTop($event)"
+      >
+        <cnr-see-schedule-panel ></cnr-see-schedule-panel>
+      </cnr-content-panel>
+
+      <cnr-content-panel [panel]="panels[1]"
+        (onMoveToTop)="moveToTop($event)"
+        (onMoveToDown)="moveToTop($event)"
+        (onMoveToTUp)="moveToTop($event)"
+      >
+        <cnr-search-patient-panel></cnr-search-patient-panel>
+      </cnr-content-panel>
+
+      <cnr-content-panel [panel]="panels[2]"
+        (onMoveToTop)="moveToTop($event)"
+        (onMoveToDown)="moveToTop($event)"
+        (onMoveToTUp)="moveToTop($event)"
+      >
+        <cnr-calendar></cnr-calendar>
+      </cnr-content-panel>
+    </main>
+  </div>
 </div>

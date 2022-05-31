@@ -1,0 +1,56 @@
+.fields-group {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: 4rem 1fr;
+}
+
+.field-control {
+  padding: 0.75rem 0.25rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  grid-column: 1 / 3;
+}
+
+.doctor_information {
+  grid-column: 1 / 3;
+
+  &_title {
+    margin: 0;
+  }
+
+  &_list {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(2, 2rem);
+    padding-top: 1rem;
+  }
+
+  &_label {
+    font-weight: 600;
+    color: var(--cadet-blue-crayola);
+  }
+
+  &_value {
+    font-weight: 400;
+    color: var(--cnr-black);
+  }
+}
+
+.modal-body {
+  &_separator {
+    border: 1px solid var(--pewter-blue);
+    height: 0;
+  }
+}
+
+.modal-header {
+  &_title {
+    margin: 0;
+    padding-left: 0.5rem;
+    font-size: 1.3rem;
+  }
+}

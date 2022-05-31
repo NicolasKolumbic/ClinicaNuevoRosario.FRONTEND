@@ -1,0 +1,22 @@
+.cnr-patient-search-engine {
+
+  &_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_label {
+    width: 128px;
+    padding-right: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--pewter-blue)
+  }
+
+  &_control {
+    flex-grow: 1;
+    min-width: 150px;
+  }
+
+}

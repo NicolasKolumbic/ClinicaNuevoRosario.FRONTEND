@@ -1,0 +1,33 @@
+.user-bar {
+  display: flex;
+  justify-content: space-between;
+  background-color:  darken(#a2aebb, 10%);
+  color: white;
+  height: 4rem;
+  &_icon {
+    fill: white;
+  }
+
+  &_icon-container {
+    background-color: #a2aebb;
+    border-radius: 2rem;
+    margin:0 0.5rem 0 1rem;
+    padding: 0.25rem 0.5rem;
+    width: 50px;
+    height: 50px;
+    border: 2px solid darken(#a2aebb, 30%)
+  }
+
+  &_data {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &_logout {
+    border:none;
+    background-color: transparent;
+    color: white;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+}
