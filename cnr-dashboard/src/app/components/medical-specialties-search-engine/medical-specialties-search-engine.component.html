@@ -1,8 +1,13 @@
 <div class="cnr-medical-specialties-search-engine">
   <label class="cnr-medical-specialties-search-engine_label">
-    Seleccionar una especialidad
+    Especialidad
   </label>
   <div class="cnr-medical-specialties-search-engine_control">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" filterby="name"></p-dropdown>
+    <p-dropdown [options]="medicalSpecialities"
+                [(ngModel)]="selectedmedicalSpeciality"
+                optionLabel="name"
+                [filter]="true"
+                filterby="name"
+                placeholder="Seleccionar una especialidad"></p-dropdown>
   </div>
 </div>

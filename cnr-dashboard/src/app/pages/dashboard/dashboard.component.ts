@@ -10,38 +10,39 @@ import { PanelManagmentService } from '../../services/panel-managment.service';
 })
 export class DashboardComponent implements OnInit {
 
-  public panels: Panel[] = [
-    {
-      name: 'Ver Agenda',
-      order: 1,
-      hide: false
-    },
-    {
-      name: 'Buscar Paciente',
-      order: 2,
-      hide: false
-    },
-    {
-      name: 'Calendario',
-      order: 3,
-      hide: false
-    }
-  ];
+  public seeSchedule: Panel;
+  public searchPatient: Panel;
+  public calendar: Panel;
 
-  constructor(private panelManagmentService: PanelManagmentService ) {}
 
-  ngOnInit(): void {}
+  constructor(private panelManagmentService: PanelManagmentService ) {
+    this.calendar = this.panelManagmentService.calendar;
+    this.searchPatient = this.panelManagmentService.searchPatient;
+    this.seeSchedule = this.panelManagmentService.seeSchedule;
+  }
+
+  ngOnInit(): void {
+  }
 
   moveToTop(panel: any) {
-    this.panels = this.panelManagmentService.moveToTop(panel, this.panels);
+    this.panelManagmentService.moveToTop(panel);
+    this.calendar = this.panelManagmentService.calendar;
+    this.searchPatient = this.panelManagmentService.searchPatient;
+    this.seeSchedule = this.panelManagmentService.seeSchedule;
   }
 
   moveToUp(panel: any) {
-    this.panels = this.panelManagmentService.moveToUp(panel, this.panels);
+    this.panelManagmentService.moveToUp(panel);
+    this.calendar = this.panelManagmentService.calendar;
+    this.searchPatient = this.panelManagmentService.searchPatient;
+    this.seeSchedule = this.panelManagmentService.seeSchedule;
   }
 
   moveToDown(panel: any) {
-    this.panels = this.panelManagmentService.moveToDown(panel, this.panels);
+    this.panelManagmentService.moveToDown(panel);
+    this.calendar = this.panelManagmentService.calendar;
+    this.searchPatient = this.panelManagmentService.searchPatient;
+    this.seeSchedule = this.panelManagmentService.seeSchedule;
   }
 
 }

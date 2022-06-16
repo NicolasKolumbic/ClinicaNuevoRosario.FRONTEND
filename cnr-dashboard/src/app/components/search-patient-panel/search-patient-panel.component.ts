@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientService } from 'src/app/services/patient.service';
 import { Panel } from '../../models/panel';
 
 @Component({
@@ -23,7 +24,7 @@ export class SearchPatientPanelComponent implements OnInit {
     }
   ]
 
-  constructor() {
+  constructor(private patientService: PatientService) {
 
 
   }

@@ -22,6 +22,8 @@
     &_btn-tools {
       margin:0;
       padding:0;
+      padding-right: 1.5rem;
+      margin-bottom: 0.5rem;
       list-style-type: none;
       display: inline-flex;
     }
@@ -31,6 +33,33 @@
       background-color: transparent;
       cursor: pointer;
     }
+
+  }
+
+  &_content {
+    position: relative;
+    border: 2px solid var(--pewter-blue);
+    border-top: none;
+  }
+
+  &_header {
+    position: absolute;
+    top: -10px;
+    left: -2px;
+    display: grid;
+    grid-template-columns: 20px auto 1fr;
+    width: calc(100% + 4px);
+    &_title {
+      padding: 0 0.5rem;
+      color: var(--pewter-blue);
+    }
+  }
+
+  &_line::before {
+    content: '';
+    display: block;
+    border-bottom: 2px solid var(--pewter-blue);
+    height: 50%;
   }
 
 }

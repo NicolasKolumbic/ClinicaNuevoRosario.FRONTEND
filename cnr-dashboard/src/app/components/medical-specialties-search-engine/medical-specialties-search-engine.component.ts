@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MedicalSpeciality } from 'src/app/models/medical-speciality';
+import { DoctorService } from 'src/app/services/doctor.service';
 
-interface City {
-  name: string,
-  code: string
-}
 
 @Component({
   selector: 'cnr-medical-specialties-search-engine',
@@ -12,22 +10,17 @@ interface City {
 })
 export class MedicalSpecialtiesSearchEngineComponent implements OnInit {
 
-  cities: City[] = [];
+  medicalSpecialities: MedicalSpeciality[] = [];
 
-  selectedCity!: City;
+  selectedmedicalSpeciality!: MedicalSpeciality;
 
-  constructor() {
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-  ];
+  constructor(private doctorService: DoctorService ) {
 
    }
 
   ngOnInit(): void {
+    this.doctorService.getAllMedicalSpecialities()
+    .subscribe(medicalSpecialities => this.medicalSpecialities = medicalSpecialities);
   }
 
 }

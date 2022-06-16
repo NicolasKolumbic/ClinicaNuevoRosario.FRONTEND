@@ -29,7 +29,7 @@ export class DoctorSearchEngineComponent implements OnInit {
   }
 
   searchDoctor(value: {originalEvnet: any, filter: string}) {
-    if(value.filter.length > 3) {
+    if(value && value.filter.length > 3) {
       this.doctorService.search(value.filter)
       .subscribe((doctorsReponse: Doctor[]) => this.doctors = doctorsReponse);
     }

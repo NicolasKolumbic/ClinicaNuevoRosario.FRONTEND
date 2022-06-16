@@ -2,7 +2,7 @@
   <div class="cnr-content-panel_tools">
       <div>
         <h6 class="cnr-content-panel_tools_title">Visualización</h6>
-        <h2 class="cnr-content-panel_tools_name" *ngIf="isHide">{{panel.name}}</h2>
+        <h2 class="cnr-content-panel_tools_name" *ngIf="isHide">{{name}}</h2>
       </div>
 
       <ul class="cnr-content-panel_tools_btn-tools">
@@ -29,6 +29,13 @@
       </ul>
   </div>
   <div class="cnr-content-panel_content"  *ngIf="!isHide">
+    <div class="cnr-content-panel_header">
+      <div class="cnr-content-panel_line"></div>
+      <div class="cnr-content-panel_header_title">
+        {{name}}
+      </div>
+      <div class="cnr-content-panel_line"></div>
+    </div>
     <ng-content></ng-content>
   </div>
 </section>
