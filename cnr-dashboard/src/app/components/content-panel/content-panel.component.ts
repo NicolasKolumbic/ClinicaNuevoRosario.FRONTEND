@@ -1,19 +1,20 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Panel } from '../../models/panel';
 
 @Component({
   selector: 'cnr-content-panel',
   templateUrl: './content-panel.component.html',
-  styleUrls: ['./content-panel.component.scss']
+  styleUrls: ['./content-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContentPanelComponent implements OnInit {
 
-  #panel!: Panel;
+  currentPanel!: Panel;
 
   @Input() set panel(panel: Panel) {
-    console.log(panel.name);
-    this.#panel = panel;
+    this.currentPanel = panel;
     this.elRef.nativeElement.style.order = panel.order;
+
   }
 
   @Output() onMoveToTop: EventEmitter<Panel> = new EventEmitter<Panel>();
@@ -23,7 +24,11 @@ export class ContentPanelComponent implements OnInit {
   constructor(private elRef: ElementRef) {}
 
   get isHide() {
-    return this.#panel.hide;
+    return this.currentPanel.hide;
+  }
+
+  get name() {
+    return this.currentPanel.name;
   }
 
   ngOnInit(): void {
@@ -31,23 +36,19 @@ export class ContentPanelComponent implements OnInit {
   }
 
   moveToDown() {
-    this.#panel.order++;
-    this.elRef.nativeElement.style.order = this.panel.order;
-    this.onMoveToDown.emit(this.panel);
+    this.onMoveToDown.emit(this.currentPanel);
   }
 
   moveToUp() {
-    this.panel.order--;
-    this.elRef.nativeElement.style.order = this.panel.order;
-    this.onMoveToUp.emit(this.panel);
+    this.onMoveToUp.emit(this.currentPanel);
   }
 
   moveToTop() {
-    this.onMoveToTop.emit(this.#panel);
+    this.onMoveToTop.emit(this.currentPanel);
   }
 
   minimaze() {
-    this.#panel.hide = !this.#panel.hide;
+    this.currentPanel.hide = !this.currentPanel.hide;
   }
 
 }

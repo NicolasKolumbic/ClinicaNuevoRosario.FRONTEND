@@ -6,6 +6,8 @@
 }
 
 .main-cotent{
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 5rem);
   padding: 0 0.75rem;
   overflow: scroll;

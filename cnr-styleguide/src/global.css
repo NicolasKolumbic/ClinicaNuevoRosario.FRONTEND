@@ -31,7 +31,7 @@ body {
 }
 
 fieldset {
-    border-color: var(--pewter-blue);
+    border:none;
 }
 
 legend {
