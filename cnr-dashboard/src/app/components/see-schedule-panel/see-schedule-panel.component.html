@@ -6,41 +6,41 @@
             <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
           </div>
           <div class="field-control">
-            <cnr-doctor-search-engine></cnr-doctor-search-engine>
+            <cnr-doctor-search-engine (onSelectDoctor)="assignDoctor($event)"></cnr-doctor-search-engine>
           </div>
-          <div class="field-control doctor-information">
-            <h4 class="doctor-information_title">Información</h4>
+          <div class="field-control doctor-information" *ngIf="doctor">
+            <h4 class="doctor-information_title">Información (Profesional)</h4>
         <div class="doctor-information_list">
           <div>
             <label class="doctor_information_label" >
-              Nombre: <span class="doctor_information_value">Nicolas</span>
+              Nombre: <span class="doctor_information_value">{{doctor?.name}}</span>
             </label>
           </div>
           <div>
             <label class="doctor_information_label" >
-              Apellido: <span class="doctor_information_value">Kolumbic</span>
+              Apellido: <span class="doctor_information_value">{{doctor?.lastname}}</span>
             </label>
           </div>
           <div>
             <label class="doctor_information_label" >
-              DNI: <span class="doctor_information_value">30.002.341</span>
+              Matrícula: <span class="doctor_information_value">{{doctor?.medicalLicense}}</span>
             </label>
           </div>
           <div>
             <label class="doctor_information_label" >
-              Teléfono: <span class="doctor_information_value">3416609651</span>
+              Teléfono: <span class="doctor_information_value">{{doctor?.phoneNumber}}</span>
             </label>
           </div>
           <div>
             <label class="doctor_information_label" >
-              email: <span class="doctor_information_value">nicolaskolumbic@hotmail.com</span>
+              email: <span class="doctor_information_value">{{doctor?.email}}</span>
             </label>
           </div>
           </div>
           </div>
           <div class="buttons">
             <p-button label="Buscar" icon="pi pi-search" iconPos="left" class="mr-1"></p-button>
-            <p-button label="Nuevo Turno" icon="pi pi-plus" iconPos="left"></p-button>
+            <p-button label="Nuevo Turno" icon="pi pi-plus" iconPos="left" (click)="display = true"></p-button>
           </div>
         </div>
     </fieldset>

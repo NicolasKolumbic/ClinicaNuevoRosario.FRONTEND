@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EnvironmentService } from './environment.service';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
 import { Doctor } from '../models/doctor';
 import { MedicalSpeciality } from '../models/medical-speciality';
 
@@ -19,16 +19,23 @@ export class DoctorService {
 
     return this.http.get<Doctor[]>(`${this.environmentService.baseUrl}v1/Doctor/SearchDoctor?text=${texto}`)
     .pipe(
+      map((doctors: Doctor[]) => doctors.map(d => new Doctor(d))),
       debounceTime(5000),
-      distinctUntilChanged()
+      distinctUntilChanged(),    
     );
   }
 
-  getAllMedicalSpecialities() {
-
+  allMedicalSpeacilities() {
     return this.http.get<MedicalSpeciality[]>(`${this.environmentService.baseUrl}v1/Doctor/AllMedicalSpecial`)
     .pipe(
       map((medicalSpecialities: any[]) => medicalSpecialities.map(me => new MedicalSpeciality(me)))
+    );
+  }
+
+  getDoctorsByMedicalSpeciality(medicalSpeciality: number) {
+    return this.http.get<Doctor[]>(`${this.environmentService.baseUrl}v1/Doctor/GetDoctorsByMedicalSpeciality?medicalSpecialityId=${medicalSpeciality}`)
+    .pipe(
+      map((doctors: any[]) => doctors.map(d => new Doctor(d)))
     );
   }
 }

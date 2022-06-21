@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Patient } from 'src/app/models/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { Panel } from '../../models/panel';
 
@@ -10,30 +11,19 @@ import { Panel } from '../../models/panel';
 export class SearchPatientPanelComponent implements OnInit {
 
   public display: boolean = false;
+  public patient?: Patient
 
-  public panels: Panel[] = [
-    {
-      name: 'Ver Agenda',
-      order: 1,
-      hide: false
-    },
-    {
-      name: 'Buscar Paciente',
-      order: 2,
-      hide: false
-    }
-  ]
-
-  constructor(private patientService: PatientService) {
-
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }
 
   CloseModal(event: any) {
     this.display = false;
+  }
+
+  selectPatient(patient: Patient) {
+    this.patient = patient;
   }
 
 }

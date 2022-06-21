@@ -5,10 +5,10 @@
   <div class="cnr-doctor-search-engine_control">
     <p-dropdown [options]="doctorOptions"
      [(ngModel)]="selectedDoctor"
-      optionLabel="name"
+      optionLabel="fullName"
       [filter]="true"
-      filterby="name"
-      (ngModelChange)="searchDoctor($event)"
+      filterby="fullName"
+      (onChange)="selectDoctor($event)"
       (onFilter)="searchDoctor($event)"></p-dropdown>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Doctor } from 'src/app/models/doctor';
 import { Panel } from '../../models/panel';
 import { PanelManagmentService } from '../../services/panel-managment.service';
 
@@ -44,5 +45,6 @@ export class DashboardComponent implements OnInit {
     this.searchPatient = this.panelManagmentService.searchPatient;
     this.seeSchedule = this.panelManagmentService.seeSchedule;
   }
+
 
 }

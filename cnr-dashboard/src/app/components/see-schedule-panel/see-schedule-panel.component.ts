@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Doctor } from 'src/app/models/doctor';
+import { MedicalSpeciality } from 'src/app/models/medical-speciality';
 import { Panel } from '../../models/panel';
 
 @Component({
@@ -9,24 +11,9 @@ import { Panel } from '../../models/panel';
 export class SeeSchedulePanelComponent implements OnInit {
 
   public display: boolean = false;
+  public doctor?: Doctor;
 
-  public panels: Panel[] = [
-    {
-      name: 'Ver Agenda',
-      order: 1,
-      hide: false
-    },
-    {
-      name: 'Buscar Paciente',
-      order: 2,
-      hide: false
-    }
-  ]
-
-  constructor() {
-
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -34,4 +21,9 @@ export class SeeSchedulePanelComponent implements OnInit {
   CloseModal(event: any) {
     this.display = false;
   }
+
+  assignDoctor(doctor: Doctor) {
+    this.doctor = doctor;
+  }
+
 }
