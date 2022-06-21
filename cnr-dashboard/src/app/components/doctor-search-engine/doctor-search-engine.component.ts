@@ -1,27 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MedicalSpeciality } from 'src/app/models/medical-speciality';
+import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
+import { MedicalSpecialitySubject } from 'src/app/patterns/observer/concrete-classes/medical-specialitity-subject';
+import { Observer } from 'src/app/patterns/observer/interfaces/observer';
+import { Subject } from 'src/app/patterns/observer/interfaces/subject';
 import { Doctor } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor.service';
-
-interface City {
-  name: string,
-  code: string
-}
 
 @Component({
   selector: 'cnr-doctor-search-engine',
   templateUrl: './doctor-search-engine.component.html',
   styleUrls: ['./doctor-search-engine.component.scss']
 })
-export class DoctorSearchEngineComponent implements OnInit {
+export class DoctorSearchEngineComponent implements Observer<Doctor[]> {
 
   private doctors?: Doctor[]= [];
 
   selectedDoctor?: Doctor;
 
-  constructor(private doctorService: DoctorService) { }
+  @Output() onSelectDoctor: EventEmitter<Doctor> = new EventEmitter();
 
-  ngOnInit(): void {
+  constructor(
+    private doctorService: DoctorService,
+    private medicalSpecialitiesSubject: MedicalSpecialitySubject,
+    private doctorSubject: DoctorSubject 
+  ) {
+      medicalSpecialitiesSubject.attach(this);
+   }
 
+  update(subject: Subject<Doctor[]>): void {
+    this.doctors = subject.getState();
   }
 
   get doctorOptions(): any[] {
@@ -35,8 +43,11 @@ export class DoctorSearchEngineComponent implements OnInit {
     }
   }
 
-  filterDoctor(value: any) {
-    console.log("Filter Doctor");
+  selectDoctor(event: any) {
+    if(event.value) {
+      this.doctorSubject.updateMedicalSpeciality(event.value.medicalSpeciality);
+      this.onSelectDoctor.emit(event.value);
+    }
   }
 
 }

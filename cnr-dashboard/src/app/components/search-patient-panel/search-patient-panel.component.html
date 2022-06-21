@@ -4,7 +4,7 @@
     <fieldset>
       <div class="fields-group">
         <div class="field-control">
-          <cnr-patient-search-engine></cnr-patient-search-engine>
+          <cnr-patient-search-engine (onSelectPatient)="selectPatient($event)"></cnr-patient-search-engine>
         </div>
         <div class="field-control">
           <ul class="button-list">
@@ -16,32 +16,27 @@
             </li>
           </ul>
         </div>
-        <div class="field-control patient-information">
-          <h4 class="patient-information_title">Información</h4>
+        <div class="field-control patient-information" *ngIf="patient">
+          <h4 class="patient-information_title">Información (Paciente)</h4>
           <div class="patient-information_list">
             <div>
               <label class="patient-information_label" >
-                Nombre: <span class="patient-information_value">Nicolas</span>
+                Nombre: <span class="patient-information_value">{{patient.name}}</span>
               </label>
             </div>
             <div>
               <label class="patient-information_label" >
-                Apellido: <span class="patient-information_value">Kolumbic</span>
+                Apellido: <span class="patient-information_value">{{patient.lastname}}</span>
               </label>
             </div>
             <div>
               <label class="patient-information_label" >
-                DNI: <span class="patient-information_value">30.002.341</span>
+                Email: <span class="patient-information_value">{{patient.email}}</span>
               </label>
             </div>
             <div>
               <label class="patient-information_label" >
-                Teléfono: <span class="patient-information_value">3416609651</span>
-              </label>
-            </div>
-            <div>
-              <label class="patient-information_label" >
-                email: <span class="patient-information_value">nicolaskolumbic@hotmail.com</span>
+                Teléfono: <span class="patient-information_value">{{patient.phoneNumber}}</span>
               </label>
             </div>
         </div>

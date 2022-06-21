@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Pantient } from '../models/patient';
+import { map } from 'rxjs/operators';
+import { Patient } from '../models/patient';
 import { EnvironmentService } from './environment.service';
 
 @Injectable({
@@ -14,6 +15,9 @@ export class PatientService {
   ) { }
 
   search(texto: string) {
-    return this.http.get<Pantient[]>(`${this.environmentService.baseUrl}v1/Patient/SearchPatient?text=${texto}`);
+    return this.http.get<Patient[]>(`${this.environmentService.baseUrl}v1/Patient/SearchPatient?text=${texto}`)
+                    .pipe(
+                      map(patients => patients.map(p => new Patient(p)))
+                    );
   }
 }

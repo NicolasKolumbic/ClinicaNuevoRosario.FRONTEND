@@ -1,3 +1,5 @@
+import { MedicalSpeciality } from "./medical-speciality";
+
 export class Doctor {
   doctorId!: number;
   medicalLicense!: string;
@@ -5,9 +7,18 @@ export class Doctor {
   lastname!: string;
   email!: string;
   phoneNumber!: number;
+  fullName!: string;
+  medicalSpeciality!: MedicalSpeciality;
 
-  get fullName() {
-    return `${this.name} ${this.lastname}`
+  constructor(doctor: Doctor) {
+    this.doctorId = doctor.doctorId;
+    this.medicalLicense = doctor.medicalLicense;
+    this.name = doctor.name;
+    this.lastname = doctor.lastname;
+    this.email = doctor.email;
+    this.phoneNumber = doctor.phoneNumber;
+    this.fullName = `${this.name} ${this.lastname}`;
+    this.medicalSpeciality = doctor.medicalSpeciality;
   }
 
 }

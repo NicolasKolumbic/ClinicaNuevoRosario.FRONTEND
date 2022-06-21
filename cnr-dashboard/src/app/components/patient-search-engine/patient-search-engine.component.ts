@@ -1,33 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-
-interface City {
-  name: string,
-  code: string
-}
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Patient } from 'src/app/models/patient';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'cnr-patient-search-engine',
   templateUrl: './patient-search-engine.component.html',
   styleUrls: ['./patient-search-engine.component.scss']
 })
-export class PatientSearchEngineComponent implements OnInit {
+export class PatientSearchEngineComponent {
 
-  cities: City[] = [];
+  patients: Patient[] = [];
 
-  selectedCity!: City;
+  selectedPatient!: Patient;
 
-  constructor() {
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-    ];
+  @Output() onSelectPatient: EventEmitter<Patient> = new EventEmitter();
 
-   }
+  get patientOptions() {
+    return this.patients as any[];
+  }
 
-  ngOnInit(): void {
+  constructor(private patientService: PatientService) {}
+
+  searchPatient(value: {originalEvnet: any, filter: string}) {
+    if(value && value.filter.length > 3) {
+      this.patientService.search(value.filter)
+      .subscribe((patientsReponse: Patient[]) => this.patients = patientsReponse);
+    }
+  }
+
+  selectPatient(event: any) {
+    if(event.value) {
+      this.onSelectPatient.emit(event.value);
+    }
   }
 
 }

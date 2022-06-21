@@ -4,7 +4,14 @@
       Buscar paciente
     </label>
     <div class="cnr-patient-search-engine_control">
-      <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" filterby="name"></p-dropdown>
+      <p-dropdown [options]="patientOptions"
+                  [(ngModel)]="selectedPatient"
+                  optionLabel="fullName"
+                  [filter]="true"
+                  filterby="fullName"
+                  (onChange)="selectPatient($event)"
+                  (onFilter)="searchPatient($event)">
+      </p-dropdown>
     </div>
   </div>
 </div>
