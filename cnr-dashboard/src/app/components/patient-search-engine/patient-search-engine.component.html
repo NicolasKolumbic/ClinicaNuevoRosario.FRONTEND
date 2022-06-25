@@ -9,7 +9,7 @@
                   optionLabel="fullName"
                   [filter]="true"
                   filterby="fullName"
-                  (onChange)="selectPatient($event)"
+                  (onBlur)="PatientUpdateBlur($event)"
                   (onFilter)="searchPatient($event)">
       </p-dropdown>
     </div>

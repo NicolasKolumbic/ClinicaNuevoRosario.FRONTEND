@@ -12,7 +12,13 @@
           <cnr-patient-search-engine></cnr-patient-search-engine>
       </div>
       <div class="field-control" >
-          <p-calendar  [showTime]="true" [showSeconds]="true"  inputId="time" [inline]="true"></p-calendar>
+          <p-calendar
+          [showTime]="true"
+          [showSeconds]="true"
+          inputId="time"
+          [inline]="true"
+          [style]="{width:'100%'}"
+          [minDate]="today"></p-calendar>
       </div>
     </div>
   </form>

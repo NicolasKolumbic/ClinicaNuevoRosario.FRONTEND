@@ -22,7 +22,7 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit, Observer
   constructor(
     private doctorService: DoctorService,
     private medicalSpecialitiesSubject: MedicalSpecialitySubject,
-    private doctorSubject: DoctorSubject 
+    private doctorSubject: DoctorSubject
   ) {
     this.doctorSubject.attach(this);
   }
@@ -44,10 +44,10 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit, Observer
 
   public ChangeMedicalSpeciality(event: any) {
     if(event.value) {
-      this.doctorService.getDoctorsByMedicalSpeciality(event.value.id)
+      this.doctorService.getDoctorsByMedicalSpeciality(event.value.medicalSpecialtyId)
       .subscribe((doctors: Doctor[]) => this.medicalSpecialitiesSubject.updateDoctors(doctors));
     }
-   
+
   }
 
 

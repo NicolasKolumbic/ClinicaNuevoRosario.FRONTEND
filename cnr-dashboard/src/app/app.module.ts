@@ -10,6 +10,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import momentPlugin from '@fullcalendar/moment';
 
 import {CalendarModule} from 'primeng/calendar';
 import {DropdownModule} from 'primeng/dropdown';
@@ -44,7 +45,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
   timeGridPlugin,
-  bootstrap5Plugin
+  bootstrap5Plugin,
+  momentPlugin
 ]);
 
 @NgModule({

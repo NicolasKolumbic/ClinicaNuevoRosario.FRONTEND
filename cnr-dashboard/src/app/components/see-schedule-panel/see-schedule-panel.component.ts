@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Appointment } from 'src/app/models/appointment';
 import { Doctor } from 'src/app/models/doctor';
-import { MedicalSpeciality } from 'src/app/models/medical-speciality';
-import { Panel } from '../../models/panel';
+import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
+import { AppointmentService } from 'src/app/services/appointment.service';
+
 
 @Component({
   selector: 'cnr-see-schedule-panel',
@@ -13,7 +15,10 @@ export class SeeSchedulePanelComponent implements OnInit {
   public display: boolean = false;
   public doctor?: Doctor;
 
-  constructor() { }
+  constructor(
+    private appointmentService: AppointmentService,
+    private appointmentSubject: AppointmentSubject
+  ) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +29,19 @@ export class SeeSchedulePanelComponent implements OnInit {
 
   assignDoctor(doctor: Doctor) {
     this.doctor = doctor;
+  }
+
+  seeSchedule(event: any) {
+    if(this.doctor && this.doctor.doctorSchedules && this.doctor.doctorSchedules.length > 0) {
+      this.appointmentService.getAppointmentByDoctorId(this.doctor.doctorId)
+                             .subscribe((appointments: Appointment[]) => {
+                                if(this.doctor && this.doctor.doctorSchedules &&  this.doctor.doctorSchedules.length > 0){
+                                  const events = this.appointmentService.generateEvents(this.doctor.doctorSchedules, this.doctor.appointmentDurationDefault, appointments);
+                                  this.appointmentSubject.updateAppointments(events);
+                                }
+                              });
+
+    }
   }
 
 }

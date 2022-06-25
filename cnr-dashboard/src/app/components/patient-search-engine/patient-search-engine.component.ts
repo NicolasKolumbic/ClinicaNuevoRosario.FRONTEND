@@ -9,9 +9,9 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class PatientSearchEngineComponent {
 
-  patients: Patient[] = [];
+  patients?: Patient[] = [];
 
-  selectedPatient!: Patient;
+  selectedPatient?: Patient;
 
   @Output() onSelectPatient: EventEmitter<Patient> = new EventEmitter();
 
@@ -28,10 +28,13 @@ export class PatientSearchEngineComponent {
     }
   }
 
-  selectPatient(event: any) {
-    if(event.value) {
-      this.onSelectPatient.emit(event.value);
+
+  PatientUpdateBlur(evento: any) {
+    if(this.selectedPatient) {
+      this.onSelectPatient.emit(this.selectedPatient);
     }
   }
+
+
 
 }
