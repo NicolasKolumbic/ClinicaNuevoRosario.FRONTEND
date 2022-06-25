@@ -1,3 +1,4 @@
+import { DoctorSchedule } from "./doctor-schedule";
 import { MedicalSpeciality } from "./medical-speciality";
 
 export class Doctor {
@@ -7,8 +8,10 @@ export class Doctor {
   lastname!: string;
   email!: string;
   phoneNumber!: number;
+  appointmentDurationDefault!: number;
   fullName!: string;
-  medicalSpeciality!: MedicalSpeciality;
+  medicalSpecialties!: MedicalSpeciality[];
+  doctorSchedules?: DoctorSchedule[];
 
   constructor(doctor: Doctor) {
     this.doctorId = doctor.doctorId;
@@ -17,8 +20,10 @@ export class Doctor {
     this.lastname = doctor.lastname;
     this.email = doctor.email;
     this.phoneNumber = doctor.phoneNumber;
+    this.appointmentDurationDefault = doctor.appointmentDurationDefault;
     this.fullName = `${this.name} ${this.lastname}`;
-    this.medicalSpeciality = doctor.medicalSpeciality;
+    this.medicalSpecialties = doctor.medicalSpecialties.map(ms => new MedicalSpeciality(ms));
+    this.doctorSchedules = doctor.doctorSchedules?.map(ds => new DoctorSchedule(ds));
   }
 
 }

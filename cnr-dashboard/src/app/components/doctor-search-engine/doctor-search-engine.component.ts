@@ -23,7 +23,7 @@ export class DoctorSearchEngineComponent implements Observer<Doctor[]> {
   constructor(
     private doctorService: DoctorService,
     private medicalSpecialitiesSubject: MedicalSpecialitySubject,
-    private doctorSubject: DoctorSubject 
+    private doctorSubject: DoctorSubject
   ) {
       medicalSpecialitiesSubject.attach(this);
    }
@@ -45,7 +45,7 @@ export class DoctorSearchEngineComponent implements Observer<Doctor[]> {
 
   selectDoctor(event: any) {
     if(event.value) {
-      this.doctorSubject.updateMedicalSpeciality(event.value.medicalSpeciality);
+      this.doctorSubject.updateMedicalSpeciality(event.value.medicalSpecialties[0]);
       this.onSelectDoctor.emit(event.value);
     }
   }

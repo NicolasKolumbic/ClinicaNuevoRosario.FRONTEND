@@ -1,9 +1,9 @@
 export class MedicalSpeciality {
-  public id!: number;
+  public medicalSpecialtyId!: number;
   public name!: string;
 
-  constructor(me: MedicalSpeciality) {
-    this.id = me.id;
+  constructor(me: any) {
+    this.medicalSpecialtyId = me.medicalSpecialtyId;
     this.name = me.name;
   }
 }

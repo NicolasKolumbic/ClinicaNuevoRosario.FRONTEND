@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/angular';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
+import { AppointmentEvent } from 'src/abstraction/appointment-event';
+import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
+import { Observer } from 'src/app/patterns/observer/interfaces/observer';
+import { Subject } from 'src/app/patterns/observer/interfaces/subject';
+
 
 @Component({
   selector: 'cnr-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, Observer<AppointmentEvent[]> {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -24,21 +29,41 @@ export class CalendarComponent implements OnInit {
       year: 'numeric'
     },
     nowIndicator: true,
+    dayMaxEvents: 7,
+    moreLinkClick: 'popover',
     dateClick: this.handleDateClick.bind(this),
-    events: [
-      { title: 'event 1', date: '2022-05-21' },
-      { title: 'event 2', date: '2022-05-22' }
-    ]
+    events: [],
+    eventClick: (appointment: EventClickArg) => console.log(appointment.event.title),
+    slotLabelFormat: {
+      hour:'2-digit',
+      minute:'2-digit',
+      hour12: true
+    },
+    slotDuration: '00:15',
+    slotLabelInterval: '00:15'
+
 
   };
 
-  constructor() { }
+  constructor(private appointmentSubject: AppointmentSubject) {
+    appointmentSubject.attach(this);
+  }
+
+  update(subject: Subject<AppointmentEvent[]>): void {
+    const events = {events: subject.getState()};
+
+    this.calendarOptions = {
+      ...this.calendarOptions,
+      events
+    };
+  }
 
   ngOnInit(): void {
+
   }
 
   handleDateClick(arg: any) {
-    alert('date click! ' + arg.dateStr)
+    console.log(arg)
   }
 
 }
