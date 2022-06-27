@@ -3,7 +3,7 @@ import { AppointmentEvent } from "../../abstraction/appointment-event";
 export class AvailableAppointmentEvent implements AppointmentEvent {
   start!: string;
   end!: string;
-  title: string = 'Turno Disponible';
+  title: string = 'Turnos Disponible';
   backgroundColor: string = '#a2aebb';
   borderColor: string = '#dfe0e2'
 

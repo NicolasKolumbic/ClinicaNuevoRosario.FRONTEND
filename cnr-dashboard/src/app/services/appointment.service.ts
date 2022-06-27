@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Doctor } from '../models/doctor';
+
 import { EnvironmentService } from './environment.service';
-import * as moment from 'moment';
 import { DoctorSchedule } from '../models/doctor-schedule';
 import { AppointmentEvent } from '../../abstraction/appointment-event';
 import { AppointmentEventBuilder } from '../patterns/builder/concrete-classes/appointment-event-builder';

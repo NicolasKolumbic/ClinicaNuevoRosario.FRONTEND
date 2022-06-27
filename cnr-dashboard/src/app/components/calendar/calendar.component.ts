@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
 import { AppointmentEvent } from 'src/abstraction/appointment-event';
-import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
+import { AppointmentSubject } from '../../patterns/observer/concrete-classes/appointments-subject';
 import { Observer } from 'src/app/patterns/observer/interfaces/observer';
 import { Subject } from 'src/app/patterns/observer/interfaces/subject';
 

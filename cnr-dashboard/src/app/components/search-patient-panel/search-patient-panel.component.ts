@@ -13,7 +13,7 @@ export class SearchPatientPanelComponent implements OnInit {
   public display: boolean = false;
   public patient?: Patient
 
-  constructor() {}
+  constructor(private patientService: PatientService) {}
 
   ngOnInit(): void {
   }
@@ -24,6 +24,19 @@ export class SearchPatientPanelComponent implements OnInit {
 
   selectPatient(patient: Patient) {
     this.patient = patient;
+  }
+
+  showPatientModal() {
+    this.display = true;
+  }
+
+  seePatient() {
+    this.display = true;
+  }
+
+  addPatient(patient: Patient) {
+    this.patientService.addPatient(patient).subscribe(patientId => console.log(patientId))
+    this.display = false;
   }
 
 }

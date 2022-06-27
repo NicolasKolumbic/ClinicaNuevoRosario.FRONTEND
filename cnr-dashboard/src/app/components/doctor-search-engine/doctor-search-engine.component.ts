@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MedicalSpeciality } from 'src/app/models/medical-speciality';
+import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
 import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
 import { MedicalSpecialitySubject } from 'src/app/patterns/observer/concrete-classes/medical-specialitity-subject';
 import { Observer } from 'src/app/patterns/observer/interfaces/observer';
@@ -23,7 +24,8 @@ export class DoctorSearchEngineComponent implements Observer<Doctor[]> {
   constructor(
     private doctorService: DoctorService,
     private medicalSpecialitiesSubject: MedicalSpecialitySubject,
-    private doctorSubject: DoctorSubject
+    private doctorSubject: DoctorSubject,
+    private appointmentSubject: AppointmentSubject
   ) {
       medicalSpecialitiesSubject.attach(this);
    }
@@ -43,10 +45,11 @@ export class DoctorSearchEngineComponent implements Observer<Doctor[]> {
     }
   }
 
-  selectDoctor(event: any) {
-    if(event.value) {
-      this.doctorSubject.updateMedicalSpeciality(event.value.medicalSpecialties[0]);
-      this.onSelectDoctor.emit(event.value);
+  selectDoctor(doctor: Doctor) {
+    if(doctor) {
+      this.appointmentSubject.updateAppointments([]);
+      this.doctorSubject.updateMedicalSpeciality(doctor.medicalSpecialties[0]);
+      this.onSelectDoctor.emit(doctor);
     }
   }
 
