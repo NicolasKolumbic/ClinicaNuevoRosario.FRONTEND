@@ -8,7 +8,7 @@
       optionLabel="fullName"
       [filter]="true"
       filterby="fullName"
-      (onChange)="selectDoctor($event)"
+      (ngModelChange)="selectDoctor($event)"
       (onFilter)="searchDoctor($event)"></p-dropdown>
   </div>
 </div>

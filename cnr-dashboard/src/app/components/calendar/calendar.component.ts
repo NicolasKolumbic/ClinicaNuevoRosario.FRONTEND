@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
 import { AppointmentEvent } from 'src/abstraction/appointment-event';
-import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
+import { AppointmentSubject } from '../../patterns/observer/concrete-classes/appointments-subject';
 import { Observer } from 'src/app/patterns/observer/interfaces/observer';
 import { Subject } from 'src/app/patterns/observer/interfaces/subject';
+import { AppointmentModalSubject } from 'src/app/patterns/observer/concrete-classes/appointment-modal-subject';
+import { AppointmentModal } from 'src/app/models/appointment-modal';
+import { Appointment } from 'src/app/models/appointment';
 
 
 @Component({
@@ -33,7 +36,15 @@ export class CalendarComponent implements OnInit, Observer<AppointmentEvent[]> {
     moreLinkClick: 'popover',
     dateClick: this.handleDateClick.bind(this),
     events: [],
-    eventClick: (appointment: EventClickArg) => console.log(appointment.event.title),
+    eventClick: (appointmentEvent: EventClickArg) => {
+        const appointmentModal = new AppointmentModal();
+        const appointment = new Appointment();
+        appointment.time = appointmentEvent.event.startStr;
+        appointmentModal.appointment = appointment;
+        appointmentModal.open = true;
+        this.appointmentModalSubject.subject?.update(appointmentModal);
+
+    },
     slotLabelFormat: {
       hour:'2-digit',
       minute:'2-digit',
@@ -45,7 +56,10 @@ export class CalendarComponent implements OnInit, Observer<AppointmentEvent[]> {
 
   };
 
-  constructor(private appointmentSubject: AppointmentSubject) {
+  constructor(
+    private appointmentSubject: AppointmentSubject,
+    private appointmentModalSubject: AppointmentModalSubject
+  ) {
     appointmentSubject.attach(this);
   }
 

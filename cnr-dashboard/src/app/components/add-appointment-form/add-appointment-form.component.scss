@@ -1,12 +1,6 @@
 .cnr-add-appointment-form {
-  min-width: 60vw;
   display: block;
-  &_container {
-    display: grid;
-    grid-template-columns: repeat(2,50%);
-    grid-template-rows: 4rem 1fr;
-    justify-content: end;
-  }
+  width: 100%;
 }
 
 .field-control {

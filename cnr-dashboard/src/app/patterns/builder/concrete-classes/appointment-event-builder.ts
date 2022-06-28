@@ -30,7 +30,7 @@ export class AppointmentEventBuilder implements Builder {
 
   mergeWithRegisteredAppointment(appointments: Appointment[]): void {
       const registeredAppointmentEvents = appointments.map((appointment: Appointment) => {
-          const appointmentEventStart = moment(appointment.time).format(this.timeFormat).toString();
+          const appointmentEventStart = moment(appointment.time).set('s',0).format(this.timeFormat).toString();
           const appointmentEvent = new RegisteredAppointmentEvent(appointmentEventStart, appointmentEventStart, appointment.patient.fullName);
           return appointmentEvent
       });

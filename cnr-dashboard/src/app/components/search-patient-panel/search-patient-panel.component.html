@@ -9,10 +9,10 @@
         <div class="field-control">
           <ul class="button-list">
             <li>
-              <p-button label="Alta Paciente" icon="pi pi-user-plus" iconPos="left"></p-button>
+              <p-button label="Alta Paciente" icon="pi pi-user-plus" iconPos="left" (onClick)="showPatientModal()"></p-button>
             </li>
             <li>
-              <p-button label="Ver Datos Completos" icon="pi pi-user" iconPos="left"></p-button>
+              <p-button label="Ver Datos Completos" icon="pi pi-user" iconPos="left" (onClick)="seePatient()"></p-button>
             </li>
           </ul>
         </div>
@@ -48,12 +48,12 @@
   <p-dialog [(visible)]="display" [modal]="true">
     <ng-template pTemplate="header">
         <div class="modal-header">
-          <h3 class="modal-header_title">Nuevo Turno</h3>
+          <h3 class="modal-header_title">Agregar Paciente</h3>
         </div>
     </ng-template>
     <div class="modal-body">
       <hr class="modal-body_separator" />
-      <cnr-add-appointment-form></cnr-add-appointment-form>
+      <cnr-add-patient-form (onAddPatient)="addPatient($event)"></cnr-add-patient-form>
     </div>
 
     <ng-template pTemplate="footer">

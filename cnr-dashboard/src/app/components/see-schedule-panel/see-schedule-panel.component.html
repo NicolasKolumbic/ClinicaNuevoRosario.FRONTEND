@@ -1,68 +1,68 @@
 <div class="cnr-see-schedule-panel">
   <form>
     <fieldset>
-        <div class="fields-group">
-          <div class="field-control">
-            <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
-          </div>
-          <div class="field-control">
-            <cnr-doctor-search-engine (onSelectDoctor)="assignDoctor($event)"></cnr-doctor-search-engine>
-          </div>
-          <div class="field-control doctor-information" *ngIf="doctor">
-            <h4 class="doctor-information_title">Información (Profesional)</h4>
-        <div class="doctor-information_list">
-          <div>
-            <label class="doctor_information_label" >
-              Nombre: <span class="doctor_information_value">{{doctor?.name}}</span>
-            </label>
-          </div>
-          <div>
-            <label class="doctor_information_label" >
-              Apellido: <span class="doctor_information_value">{{doctor?.lastname}}</span>
-            </label>
-          </div>
-          <div>
-            <label class="doctor_information_label" >
-              Matrícula: <span class="doctor_information_value">{{doctor?.medicalLicense}}</span>
-            </label>
-          </div>
-          <div>
-            <label class="doctor_information_label" >
-              Teléfono: <span class="doctor_information_value">{{doctor?.phoneNumber}}</span>
-            </label>
-          </div>
-          <div>
-            <label class="doctor_information_label" >
-              email: <span class="doctor_information_value">{{doctor?.email}}</span>
-            </label>
-          </div>
-          </div>
-          </div>
-          <div class="buttons">
-            <p-button label="Ver Agenda" icon="pi pi-search" iconPos="left" class="mr-1" (onClick)="seeSchedule($event)"></p-button>
-            <p-button label="Nuevo Turno" icon="pi pi-plus" iconPos="left" (click)="display = true"></p-button>
+      <div class="fields-group">
+        <div class="field-control">
+          <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
+        </div>
+        <div class="field-control">
+          <cnr-doctor-search-engine></cnr-doctor-search-engine>
+        </div>
+        <div class="field-control doctor-information" *ngIf="doctor">
+          <h4 class="doctor-information_title">Información (Profesional)</h4>
+          <div class="doctor-information_list">
+            <div>
+              <label class="doctor_information_label">
+                Nombre: <span class="doctor_information_value">{{doctor?.name}}</span>
+              </label>
+            </div>
+            <div>
+              <label class="doctor_information_label">
+                Apellido: <span class="doctor_information_value">{{doctor?.lastname}}</span>
+              </label>
+            </div>
+            <div>
+              <label class="doctor_information_label">
+                Matrícula: <span class="doctor_information_value">{{doctor?.medicalLicense}}</span>
+              </label>
+            </div>
+            <div>
+              <label class="doctor_information_label">
+                Teléfono: <span class="doctor_information_value">{{doctor?.phoneNumber}}</span>
+              </label>
+            </div>
+            <div>
+              <label class="doctor_information_label">
+                email: <span class="doctor_information_value">{{doctor?.email}}</span>
+              </label>
+            </div>
           </div>
         </div>
+        <div class="buttons">
+          <p-button label="Ver Agenda" icon="pi pi-search" iconPos="left" class="mr-1" (onClick)="seeSchedule($event)">
+          </p-button>
+          <p-button label="Nuevo Turno" icon="pi pi-plus" iconPos="left" (click)="display = true"></p-button>
+        </div>
+      </div>
     </fieldset>
   </form>
   <p-dialog [(visible)]="display" [modal]="true">
     <ng-template pTemplate="header">
-        <div class="modal-header">
-          <h3 class="modal-header_title">Nuevo Turno</h3>
-        </div>
+      <div class="modal-header">
+        <h3 class="modal-header_title">Nuevo Turno</h3>
+      </div>
     </ng-template>
     <div class="modal-body">
       <hr class="modal-body_separator" />
-      <cnr-add-appointment-form></cnr-add-appointment-form>
+      <cnr-add-appointment></cnr-add-appointment>
     </div>
 
     <ng-template pTemplate="footer">
       <div class="buttons">
-        <button type="button" pButton label="Cancelar" icon="pi pi-times" iconPos="left" class="p-button-outlined mr-1" (click)="CloseModal($event)"></button>
+        <button type="button" pButton label="Cancelar" icon="pi pi-times" iconPos="left" class="p-button-outlined mr-1"
+          (click)="CloseModal($event)"></button>
         <button form="add-patient" pButton type="submit" label="Guardar" icon="pi pi-save"></button>
       </div>
     </ng-template>
   </p-dialog>
 </div>
-
-

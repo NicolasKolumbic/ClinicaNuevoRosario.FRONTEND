@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-interface City {
-  name: string,
-  code: string
-}
+import { HealthInsurance } from 'src/app/models/health-insurance';
+import { Patient } from 'src/app/models/patient';
+import { Plan } from 'src/app/models/plan';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'cnr-add-patient-form',
@@ -13,36 +12,52 @@ interface City {
 })
 export class AddPatientFormComponent implements OnInit {
 
-  cities: City[] = [];
+  public healthInsurrances: HealthInsurance[] = [];
+  public plans: Plan[] = [];
   public addPatientForm: FormGroup;
 
-  selectedCity!: City;
+  selectedhealthInsurrance?: HealthInsurance;
+  selectedPlan?: Plan;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Istanbul', code: 'IST'},
-      {name: 'Paris', code: 'PRS'}
-  ];
+  @Output() onAddPatient: EventEmitter<Patient> = new EventEmitter();
 
-this.addPatientForm = this.formBuilder.group({
-  name: [''],
-  lastName: [''],
-  id: [null],
-  phone: [null],
-  healthInsurrance: [null],
-  email: ['']
-})
+  constructor(
+    private formBuilder: FormBuilder,
+    private patientService: PatientService
+  ) {
+
+    this.addPatientForm = this.formBuilder.group({
+      name: [''],
+      lastName: [''],
+      identificationNumber: [null],
+      phoneNumber: [null],
+      healthInsurrance: [null],
+      email: ['']
+    })
 
   }
 
   ngOnInit(): void {
+    this.patientService.getAllHealthInsurrance()
+      .subscribe((healthInsurrances: HealthInsurance[]) => this.healthInsurrances = healthInsurrances);
   }
 
   AddPatient(e: any) {
-    console.log(this.addPatientForm.value);
+    const newPatient = Object.assign(this.addPatientForm.value, {
+       healthInsurance: this.selectedhealthInsurrance,
+       plan: this.selectedPlan
+    });
+    this.addPatientForm.reset();
+    this.selectedhealthInsurrance = undefined;
+    this.selectedPlan = undefined;
+    this.onAddPatient.emit(newPatient);
+  }
+
+  selectHealthInsurrance(healthInsurance: HealthInsurance) {
+    if(healthInsurance) {
+      this.plans = healthInsurance.plans;
+    }
+
   }
 
 }
