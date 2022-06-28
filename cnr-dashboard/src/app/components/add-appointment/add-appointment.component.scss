@@ -1,0 +1,9 @@
+
+.add-appointment {
+  &_container {
+    min-width: 70vw;
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+    grid-template-rows: 1fr;
+  }
+}

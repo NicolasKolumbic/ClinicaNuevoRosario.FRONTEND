@@ -54,7 +54,10 @@ export class AddPatientFormComponent implements OnInit {
   }
 
   selectHealthInsurrance(healthInsurance: HealthInsurance) {
-    this.plans = healthInsurance.plans;
+    if(healthInsurance) {
+      this.plans = healthInsurance.plans;
+    }
+
   }
 
 }

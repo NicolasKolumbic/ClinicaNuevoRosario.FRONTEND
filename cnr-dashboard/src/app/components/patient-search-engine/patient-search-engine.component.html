@@ -9,7 +9,7 @@
                   optionLabel="fullName"
                   [filter]="true"
                   filterby="fullName"
-                  (onBlur)="PatientUpdateBlur($event)"
+                  (ngModelChange)="PatientUpdateBlur($event)"
                   (onFilter)="searchPatient($event)">
       </p-dropdown>
     </div>

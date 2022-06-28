@@ -40,6 +40,8 @@ import { ContentPanelComponent } from './components/content-panel/content-panel.
 import { UserBarComponent } from './components/user-bar/user-bar.component';
 import { SeeSchedulePanelComponent } from './components/see-schedule-panel/see-schedule-panel.component';
 import { SearchPatientPanelComponent } from './components/search-patient-panel/search-patient-panel.component';
+import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
+import { AppointmentCardComponent } from './components/appointment-card/appointment-card.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -68,7 +70,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ContentPanelComponent,
     UserBarComponent,
     SeeSchedulePanelComponent,
-    SearchPatientPanelComponent
+    SearchPatientPanelComponent,
+    AddAppointmentComponent,
+    AppointmentCardComponent
   ],
   imports: [
     BrowserModule,

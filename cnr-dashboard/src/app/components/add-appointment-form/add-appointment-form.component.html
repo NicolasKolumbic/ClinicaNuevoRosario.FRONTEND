@@ -1,12 +1,9 @@
 <div class="cnr-add-appointment-form">
   <form id="add-patient" [formGroup]="addAppointmenttForm" (ngSubmit)="AddAppointment($event)">
     <div class="cnr-add-appointment-form_container">
-      <div class="field-control">
+      <div>
+        <div class="field-control">
           <cnr-doctor-search-engine></cnr-doctor-search-engine>
-      </div>
-      <div class="field-control">
-        <label class="field-control_label">Seleccione día y fecha</label>
-        <span>29/05/2022 16:45</span>
       </div>
       <div class="field-control">
           <cnr-patient-search-engine></cnr-patient-search-engine>
@@ -18,8 +15,15 @@
           inputId="time"
           [inline]="true"
           [style]="{width:'100%'}"
-          [minDate]="today"></p-calendar>
+          [minDate]="today"
+          [defaultDate]="defaultDate"
+          [showSeconds]="false"
+          [stepMinute]="15"
+          [disabledDays]="disabledDays"
+          (onSelect)="selectDate($event)"></p-calendar>
       </div>
+      </div>
+
     </div>
   </form>
 </div>

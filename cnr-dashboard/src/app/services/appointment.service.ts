@@ -18,7 +18,7 @@ export class AppointmentService {
     private http: HttpClient
   ) { }
 
-  getAppointmentByDoctorId(doctorId: number) {
+  public getAppointmentByDoctorId(doctorId: number) {
     return this.http.get<any[]>(`${this.environmentService.baseUrl}v1/Appointment/GetAppointmentsByDoctorId?doctorId=${doctorId}`)
                     .pipe(
                       map((appointments: Appointment[]) => appointments.map((appointment: Appointment) => new Appointment(appointment)) )
@@ -41,6 +41,11 @@ export class AppointmentService {
 
     return events;
   }
+
+  public addAppointment(command: Appointment) {
+    return this.http.post<number>(`${this.environmentService.baseUrl}v1/Appointment/AddAppointment`, command);
+  }
+
 
 
 

@@ -6,7 +6,7 @@
           <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
         </div>
         <div class="field-control">
-          <cnr-doctor-search-engine (onSelectDoctor)="assignDoctor($event)"></cnr-doctor-search-engine>
+          <cnr-doctor-search-engine></cnr-doctor-search-engine>
         </div>
         <div class="field-control doctor-information" *ngIf="doctor">
           <h4 class="doctor-information_title">Información (Profesional)</h4>
@@ -54,7 +54,7 @@
     </ng-template>
     <div class="modal-body">
       <hr class="modal-body_separator" />
-      <cnr-add-appointment-form></cnr-add-appointment-form>
+      <cnr-add-appointment></cnr-add-appointment>
     </div>
 
     <ng-template pTemplate="footer">

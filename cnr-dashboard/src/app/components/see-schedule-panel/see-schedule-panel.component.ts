@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment';
+import { AppointmentModal } from 'src/app/models/appointment-modal';
 import { Doctor } from 'src/app/models/doctor';
+import { AppointmentModalSubject } from 'src/app/patterns/observer/concrete-classes/appointment-modal-subject';
 import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
+import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
+import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
 import { AppointmentService } from 'src/app/services/appointment.service';
 
 
@@ -10,25 +14,27 @@ import { AppointmentService } from 'src/app/services/appointment.service';
   templateUrl: './see-schedule-panel.component.html',
   styleUrls: ['./see-schedule-panel.component.scss']
 })
-export class SeeSchedulePanelComponent implements OnInit {
+export class SeeSchedulePanelComponent {
 
   public display: boolean = false;
   public doctor?: Doctor;
 
   constructor(
     private appointmentService: AppointmentService,
-    private appointmentSubject: AppointmentSubject
-  ) { }
+    private appointmentSubject: AppointmentSubject,
+    private appointmentModalSubject: AppointmentModalSubject,
+    private doctorSubject: DoctorSubject
+  ) {
 
-  ngOnInit(): void {
+    const doctorObservable = new GenericObserver<Doctor>((doctor: Doctor) => this.doctor = doctor);
+    this.doctorSubject.subject?.attach(doctorObservable);
+
+    const appointmentModalObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => this.display = appointmentModal.open);
+    this.appointmentModalSubject.subject?.attach(appointmentModalObservable);
   }
 
   CloseModal(event: any) {
     this.display = false;
-  }
-
-  assignDoctor(doctor: Doctor) {
-    this.doctor = doctor;
   }
 
   seeSchedule(event: any) {
