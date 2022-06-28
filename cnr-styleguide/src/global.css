@@ -1,5 +1,6 @@
 @import url('primerng.cnr-style.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:wght@300;400;500;700;900&display=swap');
 
 body {
     font-family: "Roboto", sans-serif;
@@ -12,6 +13,8 @@ body {
     overflow-y: hidden;
 }
 
+
+
 :root {
     --gainsboro: #dfe0e2;
     --cadet-blue-crayola: #a2aebb;
@@ -22,6 +25,10 @@ body {
 
 * {
     box-sizing: border-box;
+}
+
+.handwritting {
+    font-family: 'Courgette', cursive;
 }
 
 .separator-blue {

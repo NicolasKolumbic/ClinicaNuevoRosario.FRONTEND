@@ -6,7 +6,6 @@ export function loadFontFace(name: string, url: string) {
 
     fontFace.load().then(function(loaded_face) {
         (document.fonts as any).add(loaded_face);
-        //document.body.style.fontFamily = `${name}`;
     }).catch(function(error) {
         // error occurred
     });
