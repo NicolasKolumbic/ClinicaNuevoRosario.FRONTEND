@@ -35,7 +35,8 @@ export class AppointmentCardComponent {
     this.patientSubject.subject?.attach(patientObservable);
 
     const timeAppointmentObservable = new GenericObserver<moment.Moment>((time: moment.Moment) => {
-      this.date = time.format('DD/MM/YYYY HH:mm');
+      const appointmentDate = moment(time.toDate());
+      this.date = appointmentDate.format('DD/MM/YYYY HH:mm');
     });
     this.appointmentTimeSubject.subject?.attach(timeAppointmentObservable);
 

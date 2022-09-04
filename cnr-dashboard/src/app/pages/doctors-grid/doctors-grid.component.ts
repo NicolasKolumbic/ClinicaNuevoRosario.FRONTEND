@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Doctor } from '../../models/doctor';
+import { DoctorService } from '../../services/doctor.service';
 
 @Component({
   selector: 'cnr-doctors-grid',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorsGridComponent implements OnInit {
 
-  constructor() { }
+  public doctors : Doctor[] = [];
+  loading: boolean = false;
+
+  @ViewChild('doctorsTable', {static: false}) table: any;
+
+  constructor(
+    private doctorService: DoctorService
+  ) { }
 
   ngOnInit(): void {
+    this.doctorService.getAllDoctor().subscribe(doctors => this.doctors = doctors);
   }
+
+  clear(table: any) {
+    table.clear();
+}
+
+searchDoctor(event: any) {
+  this.table.filterGlobal(event.target.value, 'contains')
+}
+
 
 }
