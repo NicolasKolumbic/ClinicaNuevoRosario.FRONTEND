@@ -1,8 +1,45 @@
 <div class="cnr-doctors">
-    <div class="cnr-doctors_header">
-
-    </div>
-    <div class="cnr-doctors_grid">
-
+    <div class="cnr-doctors_content">
+        <div class="cnr-doctors_header">
+            <h2 class="cnr-doctors_title">Profesional Médico</h2>
+            <a label="Nuevo" pButton  icon="pi pi-plus" iconPos="left" routerLink="/agregar-medico" ></a>
+        </div>
+        <div class="cnr-doctors_grid">   
+                <p-table #doctorsTable [value]="doctors" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rows]="5"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5,10,25,50]"
+                [loading]="loading"
+                [globalFilterFields]="['name','lastname']"
+                responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="cnr-doctors_toolbar">                    
+                            <div class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" class="searchBox" (input)="searchDoctor($event)" placeholder="Ingresar nombre o apellido" />
+                            </div>
+                            <button pButton label="Limpiar filtros" class="p-button-outlined clear-button" icon="pi pi-filter-slash" (click)="clear(doctorsTable)"></button>                         
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="lastname">Apellido <p-sortIcon field="lastname"></p-sortIcon>
+                        </th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-doctor>
+                    <tr>
+                        <td>{{doctor.name}}</td>
+                        <td>{{doctor.lastname}}</td>
+                        <td>{{doctor.phoneNumber}}</td>
+                        <td>{{doctor.email}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
 </div>

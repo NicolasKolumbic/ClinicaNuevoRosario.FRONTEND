@@ -1,0 +1,67 @@
+<div class="add-doctor-form">
+        <h3>Foto</h3>
+        <div class="add-doctor-form_photo-section">
+            <figure>
+                <p-avatar icon="pi pi-search" shape="circle" size="xlarge"></p-avatar>
+            </figure>
+            <cnr-image-file-managment></cnr-image-file-managment>
+        </div>
+        <h3>Información Personal</h3>
+        <p>La información personal es obligatoria.</p>
+        <div>
+                <form  [formGroup]="doctorForm" class="add-doctor-form_container" (ngSubmit)="addPersonalInformation($event)">
+                    <div>
+                        <div class="field-control">
+                            <div class="field-control_control">
+                                <label class="field-control_label" for="name">Nombre</label>
+                                <input type="text" id="name" formControlName="name" pInputText maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="field-control">
+                            <div class="field-control_control">
+                                <label class="field-control_label" for="lastName">Apellido</label>
+                                <input type="text" id="lastName" formControlName="lastName" pInputText maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="field-control">
+                            <div class="field-control_control">
+                                <label class="field-control_label" for="email">Email</label>
+                                <input type="text" id="email" formControlName="email" pInputText maxlength="50" />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="field-control">
+                            <div class="field-control_control">
+                                <label class="field-control_label" for="identificationNumber">DNI</label>
+                                <p-inputNumber inputid="identificationNumber" formControlName="identificationNumber" mode="decimal" [useGrouping]="false"></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="field-control">
+                            <div class="field-control_control">
+                                <label class="field-control_label" for="phone">Teléfono</label>
+                                <p-inputNumber inputid="phone" mode="decimal" formControlName="phoneNumber" [useGrouping]="false"></p-inputNumber>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+                <button pButton type="submit" label="Guardar" icon="pi pi-save"></button>
+        </div> 
+          
+                <form>
+                    <div class="field-control">
+                        <div class="field-control_control">
+                            <label class="field-control_label" for="medicalLicense">Matrícula</label>
+                            <input type="text" id="medicalLicense" formControlName="medicalLicense" pInputText maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="field-control">
+                        <div class="field-control_control">
+                            <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
+                        </div>
+                    </div>
+                    <button pButton type="submit" label="Guardar" icon="pi pi-save"></button>
+                </form>
+          
+</div>

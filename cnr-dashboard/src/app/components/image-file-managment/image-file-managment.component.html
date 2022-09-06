@@ -1,0 +1,26 @@
+<div>
+    <p-fileUpload name="files"
+     [customUpload]="true"
+     chooseLabel="Seleccionar"
+     cancelLabel="Cancelar"
+     uploadLabel="Subir"
+     (onSelect)="selectFile($event)">
+        <ng-template pTemplate="toolbar">
+            <p>Subir tu foto profesional</p>
+        </ng-template>
+        <ng-template let-file pTemplate="file">
+            <div class="image-file-managment">
+                <div>
+                    <img [src]="photo" />
+                </div>
+                <div>
+                    <span>{{file.name}}</span>
+                    <span>{{file.type}}</span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="content" let-files>
+            <div>Additional content.</div>
+        </ng-template>
+    </p-fileUpload>
+</div>

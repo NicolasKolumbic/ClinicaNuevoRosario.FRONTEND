@@ -38,6 +38,17 @@ export class DoctorService {
       map((doctors: any[]) => doctors.map(d => new Doctor(d)))
     );
   }
+
+  getAllDoctor() {
+    return this.http.get<Doctor[]>(`${this.environmentService.baseUrl}v1/Doctor/GetAllDoctors`)
+    .pipe(
+      map((doctors: any[]) => doctors.map(d => new Doctor(d)))
+    );
+  }
+
+  addDoctor(doctor: Doctor) {
+    return this.http.post(`${this.environmentService.baseUrl}v1/Doctor/AddDoctor`, doctor);
+  }
 }
 
 

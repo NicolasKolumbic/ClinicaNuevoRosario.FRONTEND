@@ -1,0 +1,30 @@
+.cnr-doctors {
+    padding: 1rem;
+    &_content {
+        background-color: white;
+        padding: 1rem;
+    }
+
+    &_toolbar {
+        display: flex;
+    }
+
+    &_title {
+        margin:0;
+    }
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+}
+
+.clear-button {
+    margin-left: 0.5rem;
+}
+
+.searchBox {
+    min-width: 244px;
+}

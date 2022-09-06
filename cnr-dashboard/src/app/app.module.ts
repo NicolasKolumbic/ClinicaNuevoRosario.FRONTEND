@@ -19,6 +19,9 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {TooltipModule} from 'primeng/tooltip';
+import {FileUploadModule} from 'primeng/fileupload';
+import {TableModule} from 'primeng/table';
+import {AvatarModule} from 'primeng/avatar';
 
 
 import { AppComponent } from './app.component';
@@ -42,6 +45,9 @@ import { SeeSchedulePanelComponent } from './components/see-schedule-panel/see-s
 import { SearchPatientPanelComponent } from './components/search-patient-panel/search-patient-panel.component';
 import { AddAppointmentComponent } from './components/add-appointment/add-appointment.component';
 import { AppointmentCardComponent } from './components/appointment-card/appointment-card.component';
+import { AddDoctorFormComponent } from './components/add-doctor-form/add-doctor-form.component';
+import { ImageFileManagmentComponent } from './components/image-file-managment/image-file-managment.component';
+import { AddDoctorComponent } from './pages/add-doctor/add-doctor.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -72,7 +78,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SeeSchedulePanelComponent,
     SearchPatientPanelComponent,
     AddAppointmentComponent,
-    AppointmentCardComponent
+    AppointmentCardComponent,
+    AddDoctorFormComponent,
+    ImageFileManagmentComponent,
+    AddDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -88,8 +97,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DialogModule,
     InputTextModule,
     InputNumberModule,
-    TooltipModule
-
+    TooltipModule,
+    TableModule,
+    FileUploadModule,
+    AvatarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
