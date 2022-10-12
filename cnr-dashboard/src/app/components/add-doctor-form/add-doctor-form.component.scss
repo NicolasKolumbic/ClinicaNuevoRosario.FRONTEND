@@ -1,13 +1,60 @@
 .add-doctor-form {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 8rem);
+      padding: 0 0.75rem;
+      overflow: scroll;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+          background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          background-color: var(--pacific-blue);
+      }
     &_container {
         display: grid;
         grid-template-columns: repeat(2, 50%);
+        gap: 1rem;
     }
     &_photo-section {
       margin: 1rem 0;
       display: grid;
       grid-template-columns: 200px 1fr;
     }
+
+    &_title {
+      margin:0;
+      color: var(--pewter-blue);
+    }
+
+    &_detail-text {
+      font-weight: 300;
+    }
+
+    &__photo-container {
+      margin:0;
+    }
+
+    &_photo {
+      width: 180px;
+    }
+
+    &_default {
+      background-color: var(--gainsboro);
+      height: 180px;
+      margin-right: 1rem;
+      text-align: center;
+    }
+
+    &_default-image {
+      fill: white;
+      height: 100%;
+    }
+
 }
 
 .field-control {
@@ -18,12 +65,18 @@
       align-items: center;
       width: 100%;
     }
-  
+
     &_label {
       padding-right: 0.5rem;
       font-weight: 500;
+      width: 120px;
       & + * {
         flex-grow: 1;
       }
     }
+  }
+
+  p-accordionTab {
+    margin: 1rem 0;
+    display: block;
   }

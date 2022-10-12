@@ -12,7 +12,10 @@ import { DoctorService } from '../../services/doctor.service';
 })
 export class AddDoctorFormComponent implements OnInit {
 
-  doctorForm!: FormGroup;
+  personalInformationForm!: FormGroup;
+  profesionalInformationForm!: FormGroup;
+  public photo!: string;
+
 
   constructor(
     private builder: FormBuilder,
@@ -20,26 +23,40 @@ export class AddDoctorFormComponent implements OnInit {
     private medicalSpecialitySubject: MedicalSpecialitySubject
   ) {
 
-    this.doctorForm = this.builder.group({
+    this.personalInformationForm = this.builder.group({
       name: [null, Validators.required],
       lastName: [null, Validators.required],
       email: [null, Validators.email],
       phoneNumber: [null, Validators.max(13)],
-      identificationNumber: [null,Validators.required],
-      medicalLicense: [null, Validators.required]
+      identificationNumber: [null, Validators.required],
+
     });
+
+    this.profesionalInformationForm = this.builder.group({
+      medicalLicense: [null, Validators.required],
+      appointmentDuration: [15],
+      MedicalSpecialities: []
+    })
 
     const medicalSpecialityObservable = new GenericObserver<MedicalSpeciality>((medicalSpeciality: MedicalSpeciality) => console.log(medicalSpeciality));
 
     this.medicalSpecialitySubject.subject.attach(medicalSpecialityObservable);
-   }
+  }
 
   ngOnInit(): void {
   }
 
   addPersonalInformation(event: any) {
-    const data = this.doctorForm.value;
+    const data = this.personalInformationForm.value;
     this.doctorService.addDoctor(data).subscribe(res => console.log(res));
+  }
+
+  setPhoto(photo: string) {
+    this.photo = photo;
+  }
+
+  addMedicalSpeciality() {
+
   }
 
 }

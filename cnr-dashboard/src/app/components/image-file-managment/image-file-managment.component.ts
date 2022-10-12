@@ -1,31 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ImageCroppedEvent, ImageCropperComponent, LoadedImage } from 'ngx-image-cropper';
+
 
 @Component({
   selector: 'cnr-image-file-managment',
   templateUrl: './image-file-managment.component.html',
   styleUrls: ['./image-file-managment.component.scss']
 })
-export class ImageFileManagmentComponent implements OnInit {
+export class ImageFileManagmentComponent {
 
-  public files: File[] = [];
-  public photo?: SafeResourceUrl;
+  public imageChangedEvent: any = '';
+  public croppedImage: any = '';
 
-  constructor(private _sanitizer: DomSanitizer) { }
+  @Output() onSendPicture: EventEmitter<string> = new EventEmitter();
 
-  ngOnInit(): void {
+  @ViewChild(ImageCropperComponent) imageCropper!: ImageCropperComponent;
+
+  get hasPhoto() {
+    return this.imageChangedEvent !== '';
   }
 
-  selectFile(event: any) {
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      this.photo = this._sanitizer.bypassSecurityTrustResourceUrl(reader.result!.toString());    
+    fileChangeEvent(event: Event): void {
+        this.imageChangedEvent = event;
     }
 
-    reader.readAsDataURL(event.files[0]);
-  }
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64;
+        this.onSendPicture.emit(this.croppedImage);
+    }
 
+    imageLoaded(image: LoadedImage) {
+      console.log(arguments);
+    }
 
+    loadImageFailed() {
+        console.log(arguments);
+    }
 
+    cutPhoto() {
+      this.imageCropper.crop();
+    }
 }

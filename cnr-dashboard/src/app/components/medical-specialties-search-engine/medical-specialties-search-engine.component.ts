@@ -21,6 +21,8 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit {
 
   selectedMedicalSpeciality?: MedicalSpeciality;
 
+  @Output() onSelectMedicalSpeciality: EventEmitter<MedicalSpeciality> = new EventEmitter<MedicalSpeciality>();
+
   constructor(
     private doctorService: DoctorService,
     private medicalSpecialitiesSubject: MedicalSpecialitySubject,
@@ -43,6 +45,7 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit {
 
   public ChangeMedicalSpeciality(event: any) {
     if(event.value) {
+      this.onSelectMedicalSpeciality.emit(event.value);
       this.doctorService.getDoctorsByMedicalSpeciality(event.value.medicalSpecialtyId)
       .subscribe((doctors: Doctor[]) => this.doctorListSubject.subject?.update(doctors));
     }

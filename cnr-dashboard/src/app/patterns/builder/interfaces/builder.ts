@@ -2,8 +2,8 @@ import { Appointment } from "src/app/models/appointment";
 import { DoctorSchedule } from "src/app/models/doctor-schedule";
 
 /**
- * The Builder interface specifies methods for creating the different parts of
- * the Product objects.
+ * La interfaz Builder determina por pasos la construcción del arreglo de "AppointmentEvents".
+ *
  */
  export interface Builder {
   generateAllDoctorWorkDays(day: string): void;

@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { SearchDoctor } from 'src/app/models/search-doctor';
 import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
 import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
 import { DoctorListSubject } from 'src/app/patterns/observer/concrete-classes/doctors-list-subject';
@@ -46,6 +47,17 @@ export class DoctorSearchEngineComponent {
 
   get doctorOptions(): any[] {
     return this.doctors as any[];
+  }
+
+  @Input() set searchDoctors(searchDoctor: SearchDoctor) {
+
+      this.doctorService.searchDoctor(searchDoctor)
+      .subscribe((doctorsReponse: Doctor[]) => {
+        this.doctors = doctorsReponse;
+        this.doctorListSubject.subject?.update(doctorsReponse);
+      });
+
+
   }
 
   searchDoctor(value: {originalEvnet: any, filter: string}) {

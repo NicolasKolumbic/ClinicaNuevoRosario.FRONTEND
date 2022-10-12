@@ -1,0 +1,13 @@
+.doctor-schedules-manager {
+  &__options {
+    display: grid;
+    grid-template-columns: repeat(4,25%);
+    gap: 1rem;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.875rem;
+  }
+}
+

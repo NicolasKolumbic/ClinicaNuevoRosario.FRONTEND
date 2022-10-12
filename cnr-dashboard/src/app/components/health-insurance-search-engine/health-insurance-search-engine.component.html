@@ -1,0 +1,15 @@
+<div class="health-insurance-search-engine">
+  <label class="health-insurance-search-engine_label">
+    Seleccione obra social/prepaga
+  </label>
+  <div class="health-insurance-search-engine_control">
+    <p-dropdown [options]="healthInsurancesOptions"
+     [(ngModel)]="selectedHealthInsurance"
+      optionLabel="fullName"
+      [filter]="true"
+      filterby="fullName"
+      placeholder="Seleccione"
+      (ngModelChange)="selectHealthInsurance($event)"
+      (onFilter)="searchHealthInsurance($event)"></p-dropdown>
+  </div>
+</div>

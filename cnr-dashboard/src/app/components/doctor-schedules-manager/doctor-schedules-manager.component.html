@@ -1,0 +1,31 @@
+<div class="doctor-schedules-manager">
+  <h4>Horarios de Atención</h4>
+  <div class="doctor-schedules-manager__options">
+    <div>
+      <label class="doctor-schedules-manager__label">
+        Día
+      </label>
+      <p-dropdown [options]="daysOfWeek"
+          [(ngModel)]="selectedDay"
+          optionLabel="description"
+          (onChange)="ChangeDay($event)"></p-dropdown>
+      </div>
+      <div class="d-flex-inline">
+        <div class="mr-1">
+          <label class="doctor-schedules-manager__label">Desde</label>
+          <p-calendar [showTime]="true" [showSeconds]="true" inputId="time" [timeOnly]="true" [showSeconds]="false" [stepMinute]="30"></p-calendar>
+        </div>
+        <div>
+          <label class="doctor-schedules-manager__label">Hasta</label>
+          <p-calendar [showTime]="true" [showSeconds]="true" inputId="time" [timeOnly]="true" [showSeconds]="false" [stepMinute]="30"></p-calendar>
+        </div>
+      </div>
+      <div>
+        <label class="doctor-schedules-manager__label">Duración Turno</label>
+
+      </div>
+      <div>
+        <button type="button" pButton icon="pi pi-plus" label="Agregar" class="p-button-sm ml-1" (click)="addSchedule()"></button>
+      </div>
+  </div>
+</div>

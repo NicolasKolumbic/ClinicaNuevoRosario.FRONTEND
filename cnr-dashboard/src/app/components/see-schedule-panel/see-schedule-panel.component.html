@@ -1,12 +1,22 @@
 <div class="cnr-see-schedule-panel">
   <form>
     <fieldset>
+      <div class="field-control expand-cell-2">
+        <p class="cnr-see-schedule-panel_parragraph">Utilice los <strong>filtros</strong> o realice una <strong>buqueda</strong> desde el campo de profesionales. </p>
+        <h5 class="cnr-see-schedule-panel_title">Filtros</h5>
+      </div>
       <div class="fields-group">
         <div class="field-control">
-          <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
+          <cnr-medical-specialties-search-engine (onSelectMedicalSpeciality)="selectMedicalSpeciality($event)"></cnr-medical-specialties-search-engine>
         </div>
         <div class="field-control">
-          <cnr-doctor-search-engine></cnr-doctor-search-engine>
+          <cnr-health-insurance-search-engine (onSelectedHealthInsurrancePlan)="selectHealthInsurancePlan($event)"></cnr-health-insurance-search-engine>
+        </div>
+        <div class="field-control expand-cell-2">
+          <h5 class="cnr-see-schedule-panel_title">Profesional</h5>
+        </div>
+        <div class="field-control">
+          <cnr-doctor-search-engine [searchDoctors]="searchDoctorParams"></cnr-doctor-search-engine>
         </div>
         <div class="field-control doctor-information" *ngIf="doctor">
           <h4 class="doctor-information_title">Información (Profesional)</h4>

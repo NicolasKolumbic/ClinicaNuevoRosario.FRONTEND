@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
-import { Doctor } from 'src/app/models/doctor';
+import { Doctor } from '../../models/doctor';
+import { Plan } from '../../models/plan';
 import { AppointmentModalSubject } from 'src/app/patterns/observer/concrete-classes/appointment-modal-subject';
 import { AppointmentSubject } from 'src/app/patterns/observer/concrete-classes/appointments-subject';
 import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
 import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { MedicalSpeciality } from 'src/app/models/medical-speciality';
+import { SearchDoctor } from 'src/app/models/search-doctor';
 
 
 @Component({
@@ -18,6 +21,7 @@ export class SeeSchedulePanelComponent {
 
   public display: boolean = false;
   public doctor?: Doctor;
+  public searchDoctorParams: SearchDoctor = new SearchDoctor();
 
   constructor(
     private appointmentService: AppointmentService,
@@ -48,6 +52,18 @@ export class SeeSchedulePanelComponent {
                               });
 
     }
+  }
+
+  selectHealthInsurancePlan(plan: Plan) {
+    const searchDoctor =  new SearchDoctor();
+    searchDoctor.doctorCriteria = this.searchDoctorParams.doctorCriteria;
+    searchDoctor.medicalSpecialtyDto = this.searchDoctorParams.medicalSpecialtyDto;
+    searchDoctor.plan = this.searchDoctorParams.plan;
+    this.searchDoctorParams = searchDoctor;
+  }
+
+  selectMedicalSpeciality(medicalSpeciality: MedicalSpeciality) {
+    this.searchDoctorParams.medicalSpecialtyDto = medicalSpeciality
   }
 
 }

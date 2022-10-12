@@ -1,4 +1,26 @@
 .image-file-managment {
-    display: grid;
-    grid-template-columns: 60px 1fr;
+    &__control {
+      display: none;
+    }
+
+    &__text {
+      padding-left: 1rem;
+    }
+
+    &__crop-zone {
+      border: 3px dotted var(--cadet-blue-crayola);
+      padding: 1rem;
+      margin: 1rem;
+    }
+
+    &__top-controls{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__btn-crop {
+      align-self: flex-end;
+    }
+
+
 }

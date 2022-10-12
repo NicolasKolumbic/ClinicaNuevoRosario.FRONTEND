@@ -2,9 +2,9 @@
     <div class="cnr-doctors_content">
         <div class="cnr-doctors_header">
             <h2 class="cnr-doctors_title">Profesional Médico</h2>
-            <a label="Nuevo" pButton  icon="pi pi-plus" iconPos="left" routerLink="/agregar-medico" ></a>
+            <a label="Nuevo" class="cnr-doctors__add-doctor-btn" pButton  icon="pi pi-plus" iconPos="left" routerLink="/agregar-medico" ></a>
         </div>
-        <div class="cnr-doctors_grid">   
+        <div class="cnr-doctors_grid">
                 <p-table #doctorsTable [value]="doctors" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rows]="5"
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -13,12 +13,12 @@
                 [globalFilterFields]="['name','lastname']"
                 responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
-                    <div class="cnr-doctors_toolbar">                    
+                    <div class="cnr-doctors_toolbar">
                             <div class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
                                 <input pInputText type="text" class="searchBox" (input)="searchDoctor($event)" placeholder="Ingresar nombre o apellido" />
                             </div>
-                            <button pButton label="Limpiar filtros" class="p-button-outlined clear-button" icon="pi pi-filter-slash" (click)="clear(doctorsTable)"></button>                         
+                            <button pButton label="Limpiar filtros" class="p-button-outlined clear-button" icon="pi pi-filter-slash" (click)="clear(doctorsTable)"></button>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
