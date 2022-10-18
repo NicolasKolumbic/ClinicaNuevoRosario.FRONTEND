@@ -1,26 +1,30 @@
-<div>
-    <p-fileUpload name="files"
-     [customUpload]="true"
-     chooseLabel="Seleccionar"
-     cancelLabel="Cancelar"
-     uploadLabel="Subir"
-     (onSelect)="selectFile($event)">
-        <ng-template pTemplate="toolbar">
-            <p>Subir tu foto profesional</p>
-        </ng-template>
-        <ng-template let-file pTemplate="file">
-            <div class="image-file-managment">
-                <div>
-                    <img [src]="photo" />
-                </div>
-                <div>
-                    <span>{{file.name}}</span>
-                    <span>{{file.type}}</span>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="content" let-files>
-            <div>Additional content.</div>
-        </ng-template>
-    </p-fileUpload>
+<div class="image-file-managment">
+  <div class="image-file-managment__top-controls">
+    <div>
+      <p>
+        Seleccionar una foto de pérfil desde tu equipo.
+      </p>
+      <label pButton pRipple for="profileImage">
+        <i class="pi pi-upload"></i>
+        <span class="image-file-managment__text">Seleccionar...</span>
+        <input id="profileImage" type="file" (change)="fileChangeEvent($event)" class="image-file-managment__control" />
+      </label>
+    </div>
+    <button pButton type="button" *ngIf="hasPhoto" label="Cortar foto" (click)="cutPhoto()" class="image-file-managment__btn-crop"></button>
+  </div>
+  <div class="image-file-managment__crop-zone" *ngIf="hasPhoto">
+      <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 4"
+      [resizeToWidth]="400"
+      [resizeToHeight]="400"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded($event)"
+      (loadImageFailed)="loadImageFailed()"
+    >
+    </image-cropper>
+  </div>
+
 </div>

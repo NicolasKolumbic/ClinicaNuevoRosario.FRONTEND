@@ -1,13 +1,10 @@
 import {Component } from '@angular/core';
 import * as moment from 'moment';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
-import { Doctor } from 'src/app/models/doctor';
 import { Patient } from 'src/app/models/patient';
-import { AppointmentModalSubject } from 'src/app/patterns/observer/concrete-classes/appointment-modal-subject';
-import { AppointmentTimeSubject } from 'src/app/patterns/observer/concrete-classes/appointment-time';
-import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
 import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
-import { PatientSubject } from 'src/app/patterns/observer/concrete-classes/patient-subject';
+import { GenericSubject } from 'src/app/patterns/observer/concrete-classes/generic-subject';
+import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
 
 @Component({
@@ -22,26 +19,28 @@ export class AppointmentCardComponent {
   public fullNameDoctor?: string;
 
   constructor(
-    private doctorSubject: DoctorSubject,
-    private patientSubject: PatientSubject,
-    private appointmentTimeSubject: AppointmentTimeSubject,
-    private appointmentModalSubject: AppointmentModalSubject,
+    private subjectManagerService: SubjectManagerService
   ) {
 
-    const doctorObservable = new GenericObserver<Doctor>((doctor: Doctor) => this.fullNameDoctor = doctor.fullName);
-    this.doctorSubject.subject?.attach(doctorObservable);
+    // recibe doctor seleccionado
 
     const patientObservable = new GenericObserver<Patient>((patient: Patient) => this.fullNamePatient = patient.fullName);
-    this.patientSubject.subject?.attach(patientObservable);
+    const patientSubject = new GenericSubject<Patient>('appointment-card-patient');
+    patientSubject.attach(patientObservable);
+    this.subjectManagerService.add(patientSubject);
 
     const timeAppointmentObservable = new GenericObserver<moment.Moment>((time: moment.Moment) => {
       const appointmentDate = moment(time.toDate());
       this.date = appointmentDate.format('DD/MM/YYYY HH:mm');
     });
-    this.appointmentTimeSubject.subject?.attach(timeAppointmentObservable);
+    const timeAppointmentSubject = new GenericSubject<moment.Moment>('appointment-card-time');
+    timeAppointmentSubject.attach(timeAppointmentObservable);
+    this.subjectManagerService.add(timeAppointmentSubject);
 
     const appointmentObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => this.date = moment(appointmentModal.appointment?.time).format('DD/MM/YYYY HH:mm'));
-    this.appointmentModalSubject.subject?.attach(appointmentObservable);
+    const appointmentSubject = new GenericSubject<AppointmentModal>('appointment-card-modal');
+    appointmentSubject.attach(appointmentObservable);
+    this.subjectManagerService.add(appointmentSubject);
   }
 
 }

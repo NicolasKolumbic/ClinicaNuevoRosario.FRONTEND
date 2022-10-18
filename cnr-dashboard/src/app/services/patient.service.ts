@@ -23,7 +23,7 @@ export class PatientService {
   }
 
   getAllHealthInsurrance() {
-    return this.http.get<HealthInsurance[]>(`${this.environmentService.baseUrl}v1/Patient/GetAllHealthInsurances`)
+    return this.http.get<HealthInsurance[]>(`${this.environmentService.baseUrl}v1/HealthInsurance/GetAllPlans`)
                     .pipe(
                       map(patients => patients.map(h => new HealthInsurance(h)))
                     );

@@ -1,14 +1,12 @@
-
-
-.cnr-medical-specialties-search-engine {
+.health-insurance-search-engine {
   display: flex;
   align-items: center;
   width: 100%;
   &_label {
-    width: 220px;
+    width: 240px;
     font-weight: 500;
     font-size: 1rem;
-    color: var(--pewter-blue)
+    color: var(--pewter-blue);
   }
 
   &_control {

@@ -7,6 +7,7 @@ import { AppointmentsGridComponent } from './pages/appointments-grid/appointment
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DoctorsGridComponent } from './pages/doctors-grid/doctors-grid.component';
 import { PatientsGridComponent } from './pages/patients-grid/patients-grid.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'agregar-medico', component: AddDoctorComponent },
   { path: 'pacientes', component: PatientsGridComponent },
   { path: 'turnos', component: AppointmentsGridComponent },
+  { path: 'analisis-de-datos', component: StatisticsComponent },
   { path: '**', component: EmptyRouteComponent }
 ];
 

@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
-import { Doctor } from 'src/app/models/doctor';
-import { DoctorSchedule } from 'src/app/models/doctor-schedule';
 import { Patient } from 'src/app/models/patient';
-import { AppointmentModalSubject } from 'src/app/patterns/observer/concrete-classes/appointment-modal-subject';
-import { AppointmentTimeSubject } from 'src/app/patterns/observer/concrete-classes/appointment-time';
-import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
 import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
-import { PatientSubject } from 'src/app/patterns/observer/concrete-classes/patient-subject';
+import { GenericSubject } from 'src/app/patterns/observer/concrete-classes/generic-subject';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
 @Component({
   selector: 'cnr-add-appointment-form',
@@ -27,11 +23,7 @@ export class AddAppointmentFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private appointmentService: AppointmentService,
-    private doctorSubject: DoctorSubject,
-    private patientSubject: PatientSubject,
-    private appointmentTimeSubject: AppointmentTimeSubject,
-    private appointmentModalSubject: AppointmentModalSubject,
-
+    private subjectManagerService: SubjectManagerService,
   ) {
     this.addAppointmenttForm = this.formBuilder.group({
       time: [''],
@@ -47,22 +39,28 @@ export class AddAppointmentFormComponent implements OnInit {
     this.today?.setHours(6);
     this.today?.setMinutes(0);
 
-    const doctorObservable = new GenericObserver<Doctor>((doctor: Doctor) => {
+    /*const doctorObservable = new GenericObserver<Doctor>((doctor: Doctor) => {
       this.addAppointmenttForm.get('doctor')?.setValue(doctor);
       const availableDay: number[] = [];
       doctor.doctorSchedules?.forEach((doctorSchedule: DoctorSchedule) => availableDay.push(doctorSchedule.day));
       this.disabledDays = [1,2,3,4,5,6,7].filter((num) => !availableDay.includes(num));
-    });
-    this.doctorSubject.subject?.attach(doctorObservable);
+    });*/
+    // recibe el doctor seleccionado
 
     const patientObservable = new GenericObserver<Patient>((patient: Patient) => this.addAppointmenttForm.get('patient')?.setValue(patient));
-    this.patientSubject.subject?.attach(patientObservable);
+    const patientSubject = new GenericSubject<Patient>('add-appointment-form-patient');
+    patientSubject.attach(patientObservable);
+    this.subjectManagerService.add(patientSubject);
 
     const timeAppointmentObservable = new GenericObserver<moment.Moment>((time: moment.Moment) => this.addAppointmenttForm.get('time')?.setValue(time.add('s',0).utc().format()));
-    this.appointmentTimeSubject.subject?.attach(timeAppointmentObservable);
+    const timeAppointmentSubject = new GenericSubject<moment.Moment>('add-appointment-form-time');
+    timeAppointmentSubject.attach(timeAppointmentObservable);
+    this.subjectManagerService.add(timeAppointmentSubject);
 
     const appointmentObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => this.addAppointmenttForm.get('time')?.setValue(moment(appointmentModal.appointment?.time).add('s',0).utc().format()));
-    this.appointmentModalSubject.subject?.attach(appointmentObservable);
+    const appointmentSubject = new GenericSubject<AppointmentModal>('add-appointment-form-modal');
+    appointmentSubject.attach(appointmentObservable);
+    this.subjectManagerService.add(appointmentSubject);
 
    }
 
@@ -75,13 +73,13 @@ export class AddAppointmentFormComponent implements OnInit {
       this.appointmentService.addAppointment(appointment).subscribe(() => {
         const appointmentModal = new AppointmentModal();
         appointmentModal.open = false;
-        this.appointmentModalSubject.subject?.update(appointmentModal);
+        this.subjectManagerService.getSubjectByName('add-appointment-form-modal').update(appointmentModal);
       });
   }
 
   selectDate(date: Date) {
     const momentDate = moment(date)
-    this.appointmentTimeSubject.subject?.update(momentDate);
+    this.subjectManagerService.getSubjectByName('add-appointment-form-time').update(momentDate);
   }
 
 }

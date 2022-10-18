@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,6 +22,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
 import {TableModule} from 'primeng/table';
 import {AvatarModule} from 'primeng/avatar';
+import {AccordionModule} from 'primeng/accordion';
 
 
 import { AppComponent } from './app.component';
@@ -48,6 +49,11 @@ import { AppointmentCardComponent } from './components/appointment-card/appointm
 import { AddDoctorFormComponent } from './components/add-doctor-form/add-doctor-form.component';
 import { ImageFileManagmentComponent } from './components/image-file-managment/image-file-managment.component';
 import { AddDoctorComponent } from './pages/add-doctor/add-doctor.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { DoctorSchedulesManagerComponent } from './components/doctor-schedules-manager/doctor-schedules-manager.component';
+import { HealthInsuranceSearchEngineComponent } from './components/health-insurance-search-engine/health-insurance-search-engine.component';
+
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -81,7 +87,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AppointmentCardComponent,
     AddDoctorFormComponent,
     ImageFileManagmentComponent,
-    AddDoctorComponent
+    AddDoctorComponent,
+    StatisticsComponent,
+    DoctorSchedulesManagerComponent,
+    HealthInsuranceSearchEngineComponent
   ],
   imports: [
     BrowserModule,
@@ -100,9 +109,12 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TooltipModule,
     TableModule,
     FileUploadModule,
-    AvatarModule
+    AvatarModule,
+    AccordionModule,
+    ImageCropperModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

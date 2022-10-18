@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
 import { AppointmentEvent } from 'src/abstraction/appointment-event';
-import { AppointmentSubject } from '../../patterns/observer/concrete-classes/appointments-subject';
 import { Observer } from 'src/app/patterns/observer/interfaces/observer';
 import { Subject } from 'src/app/patterns/observer/interfaces/subject';
-import { AppointmentModalSubject } from 'src/app/patterns/observer/concrete-classes/appointment-modal-subject';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
 import { Appointment } from 'src/app/models/appointment';
+import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
 
 @Component({
@@ -42,8 +41,7 @@ export class CalendarComponent implements OnInit, Observer<AppointmentEvent[]> {
         appointment.time = appointmentEvent.event.startStr;
         appointmentModal.appointment = appointment;
         appointmentModal.open = true;
-        this.appointmentModalSubject.subject?.update(appointmentModal);
-
+        this.subjectManagerService.getSubjectByName('add-appointment-form-modal').update(appointmentModal);
     },
     slotLabelFormat: {
       hour:'2-digit',
@@ -57,9 +55,9 @@ export class CalendarComponent implements OnInit, Observer<AppointmentEvent[]> {
   };
 
   constructor(
-    private appointmentSubject: AppointmentSubject,
-    private appointmentModalSubject: AppointmentModalSubject
+    private subjectManagerService: SubjectManagerService
   ) {
+    var appointmentSubject = subjectManagerService.getSubjectByName('add-appointment-form-modal')
     appointmentSubject.attach(this);
   }
 
