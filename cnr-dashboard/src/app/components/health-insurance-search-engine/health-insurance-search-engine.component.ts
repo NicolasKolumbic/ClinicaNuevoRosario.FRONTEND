@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Plan } from '../../models/plan';
 import { HealthInsuranceService } from 'src/app/services/health-insurance.service';
+import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
 @Component({
   selector: 'cnr-health-insurance-search-engine',
@@ -11,14 +12,20 @@ export class HealthInsuranceSearchEngineComponent implements OnInit {
 
   private healthInsurances?: Plan[]= [];
 
-  selectedHealthInsurance?: any;
+  @Input() healthInsuranceSubjectName!: string;
+  @Input() healthInsuranceOptionsSubjectName!: string;
+  @Input() set healthInsurance(value: Plan) {
+    this.selectedHealthInsurance = value;
+  }
+
+  selectedHealthInsurance?: Plan;
 
   @Output() onSelectedHealthInsurrancePlan: EventEmitter<Plan> = new EventEmitter<Plan>();
 
-  constructor(private healthInsuranceService: HealthInsuranceService) {
-    this.healthInsuranceService.getAllHealthInsurrancePlans().subscribe(healthInsurancesPlans => {
-      this.healthInsurances = healthInsurancesPlans;
-    })
+  constructor(
+    private healthInsuranceService: HealthInsuranceService,
+    private subjectManagerService: SubjectManagerService
+  ) {
   }
 
   get healthInsurancesOptions(): any[] {
@@ -26,6 +33,9 @@ export class HealthInsuranceSearchEngineComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.healthInsuranceService.getAllHealthInsurrancePlans().subscribe(healthInsurancesPlans => {
+      this.healthInsurances = healthInsurancesPlans;
+    })
   }
 
   searchHealthInsurance(value: {originalEvnet: any, filter: string}) {
@@ -33,8 +43,12 @@ export class HealthInsuranceSearchEngineComponent implements OnInit {
   }
 
   selectHealthInsurance(healthInsurance: any) {
+    if(healthInsurance) {
       this.selectedHealthInsurance = healthInsurance;
+      this.subjectManagerService.getSubjectByName(this.healthInsuranceSubjectName).update(healthInsurance);
       this.onSelectedHealthInsurrancePlan.emit(healthInsurance);
+    }
+
   }
 
 }

@@ -3,10 +3,15 @@ import { Subject } from "../interfaces/subject";
 
 export class GenericSubject<T> implements Subject<T> {
 
+constructor(name: string) {
+  this.name = name
+}
+
   getState(): T {
     return this.state;
   }
 
+  public name: string;
   private state!: T;
   private observers: Observer<T>[] = [];
 

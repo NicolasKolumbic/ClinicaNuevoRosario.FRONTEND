@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EnvironmentService } from './environment.service';
-import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators'
 import { Doctor } from '../models/doctor';
 import { MedicalSpeciality } from '../models/medical-speciality';
 import { SearchDoctor } from '../models/search-doctor';

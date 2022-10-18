@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MedicalSpeciality } from 'src/app/models/medical-speciality';
-import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
-import { MedicalSpecialitySubject } from '../../patterns/observer/concrete-classes/medical-specialitity-subject';
 import { DoctorService } from '../../services/doctor.service';
 
 @Component({
@@ -19,8 +16,7 @@ export class AddDoctorFormComponent implements OnInit {
 
   constructor(
     private builder: FormBuilder,
-    private doctorService: DoctorService,
-    private medicalSpecialitySubject: MedicalSpecialitySubject
+    private doctorService: DoctorService
   ) {
 
     this.personalInformationForm = this.builder.group({
@@ -38,9 +34,6 @@ export class AddDoctorFormComponent implements OnInit {
       MedicalSpecialities: []
     })
 
-    const medicalSpecialityObservable = new GenericObserver<MedicalSpeciality>((medicalSpeciality: MedicalSpeciality) => console.log(medicalSpeciality));
-
-    this.medicalSpecialitySubject.subject.attach(medicalSpecialityObservable);
   }
 
   ngOnInit(): void {

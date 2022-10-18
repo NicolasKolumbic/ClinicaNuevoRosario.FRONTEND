@@ -1,13 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Doctor } from 'src/app/models/doctor';
 import { MedicalSpeciality } from 'src/app/models/medical-speciality';
-import { DoctorSubject } from 'src/app/patterns/observer/concrete-classes/doctor-subject';
-import { DoctorListSubject } from 'src/app/patterns/observer/concrete-classes/doctors-list-subject';
-import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
-import { MedicalSpecialitySubject } from 'src/app/patterns/observer/concrete-classes/medical-specialitity-subject';
-import { Observer } from 'src/app/patterns/observer/interfaces/observer';
-import { Subject } from 'src/app/patterns/observer/interfaces/subject';
 import { DoctorService } from 'src/app/services/doctor.service';
+import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
 
 @Component({
@@ -21,16 +16,19 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit {
 
   selectedMedicalSpeciality?: MedicalSpeciality;
 
+  @Input() medicalSpecialitySubjectName!: string;
+  @Input() medicalSpecialityOptionsSubjectName!: string;
+  @Input() set medicalSpeciality(value: MedicalSpeciality){
+    this.selectedMedicalSpeciality = value;
+  }
+
   @Output() onSelectMedicalSpeciality: EventEmitter<MedicalSpeciality> = new EventEmitter<MedicalSpeciality>();
 
   constructor(
     private doctorService: DoctorService,
-    private medicalSpecialitiesSubject: MedicalSpecialitySubject,
-    private doctorListSubject: DoctorListSubject
-  ) {
-    const medicalSpecialityObservable = new GenericObserver<MedicalSpeciality>((medicalSpeciality: MedicalSpeciality) => this.selectedMedicalSpeciality = medicalSpeciality);
-    this.medicalSpecialitiesSubject.subject?.attach(medicalSpecialityObservable);
-  }
+    private subjectManagerService: SubjectManagerService
+
+  ) {}
 
   ngOnInit(): void {
     this.doctorService.allMedicalSpeacilities()
@@ -45,12 +43,9 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit {
 
   public ChangeMedicalSpeciality(event: any) {
     if(event.value) {
+      this.selectedMedicalSpeciality = event.value;
       this.onSelectMedicalSpeciality.emit(event.value);
-      this.doctorService.getDoctorsByMedicalSpeciality(event.value.medicalSpecialtyId)
-      .subscribe((doctors: Doctor[]) => this.doctorListSubject.subject?.update(doctors));
+      this.subjectManagerService.getSubjectByName(this.medicalSpecialitySubjectName).update(event.value);
     }
-
   }
-
-
 }
