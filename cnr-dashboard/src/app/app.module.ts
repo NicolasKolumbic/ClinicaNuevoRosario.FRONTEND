@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -22,7 +22,6 @@ import {TooltipModule} from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
 import {TableModule} from 'primeng/table';
 import {AvatarModule} from 'primeng/avatar';
-import {AccordionModule} from 'primeng/accordion';
 
 
 import { AppComponent } from './app.component';
@@ -53,6 +52,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { DoctorSchedulesManagerComponent } from './components/doctor-schedules-manager/doctor-schedules-manager.component';
 import { HealthInsuranceSearchEngineComponent } from './components/health-insurance-search-engine/health-insurance-search-engine.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -90,7 +91,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddDoctorComponent,
     StatisticsComponent,
     DoctorSchedulesManagerComponent,
-    HealthInsuranceSearchEngineComponent
+    HealthInsuranceSearchEngineComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -109,11 +111,15 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TooltipModule,
     TableModule,
     FileUploadModule,
-    AvatarModule,
-    AccordionModule,
-    ImageCropperModule
+    AvatarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoggedUser } from '../../models/logged-user';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'cnr-login-form',
@@ -7,9 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor() { }
+  loginForm!: FormGroup;
+
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private accountService: AccountService
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: [],
+      password: []
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  login() {
+    const user = this.loginForm.value;
+    this.accountService.login(user).subscribe((response: LoggedUser) => {
+      this.router.navigate(['/']);
+    })
   }
 
 }

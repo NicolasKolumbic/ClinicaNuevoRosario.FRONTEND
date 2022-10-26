@@ -6,16 +6,27 @@ import { AddDoctorComponent } from './pages/add-doctor/add-doctor.component';
 import { AppointmentsGridComponent } from './pages/appointments-grid/appointments-grid.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DoctorsGridComponent } from './pages/doctors-grid/doctors-grid.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 import { PatientsGridComponent } from './pages/patients-grid/patients-grid.component';
-import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { AuthGuardGuard } from './services/auth-guard.guard';
+import { UserDataResolveService } from './services/user-data-resolve.service';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'medicos', component: DoctorsGridComponent },
-  { path: 'agregar-medico', component: AddDoctorComponent },
-  { path: 'pacientes', component: PatientsGridComponent },
-  { path: 'turnos', component: AppointmentsGridComponent },
-  { path: 'analisis-de-datos', component: StatisticsComponent },
+  {
+    path: '',
+    component: MainPageComponent,
+    canActivate: [AuthGuardGuard],
+    resolve: {
+      user: UserDataResolveService
+    },
+    children: [
+      { path: '', component: DashboardComponent },
+      { path: 'medicos', component: DoctorsGridComponent },
+      { path: 'agregar-medico', component: AddDoctorComponent },
+      { path: 'pacientes', component: PatientsGridComponent },
+      { path: 'turnos', component: AppointmentsGridComponent }
+    ]
+  },
   { path: '**', component: EmptyRouteComponent }
 ];
 
