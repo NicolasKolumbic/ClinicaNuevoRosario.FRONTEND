@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, Output, ViewChild, EventEmitter } from '@angular/core';
 import { ImageCroppedEvent, ImageCropperComponent, LoadedImage } from 'ngx-image-cropper';
 
 
@@ -21,16 +20,16 @@ export class ImageFileManagmentComponent {
     return this.imageChangedEvent !== '';
   }
 
-    fileChangeEvent(event: Event): void {
+    fileChangeEvent(event: any): void {
         this.imageChangedEvent = event;
     }
 
-    imageCropped(event: ImageCroppedEvent) {
+    imageCropped(event: any) {
         this.croppedImage = event.base64;
         this.onSendPicture.emit(this.croppedImage);
     }
 
-    imageLoaded(image: LoadedImage) {
+    imageLoaded(image: any) {
       console.log(arguments);
     }
 

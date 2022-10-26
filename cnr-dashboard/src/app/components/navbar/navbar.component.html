@@ -129,19 +129,20 @@
     <li class="navbar_item">
       <a href="#" class="navbar_link" routerLink="/" routerLinkActive="active">Inicio</a>
     </li>
-    <li class="navbar_item">
+    <li class="navbar_item" *ngIf="isAdministrator">
       <a href="#" class="navbar_link" routerLink="/analisis-de-datos">Estadísticas</a>
     </li>
-    <li class="navbar_item">
+    <li class="navbar_item" *ngIf="isAdministrative" >
+
       <a href="#" class="navbar_link" routerLink="/turnos">Turnos</a>
     </li>
-    <li class="navbar_item">
+    <li class="navbar_item" *ngIf="isAdministrative">
       <a href="#" class="navbar_link"  routerLink="/pacientes">Pacientes</a>
     </li>
-    <li class="navbar_item">
+    <li class="navbar_item" *ngIf="isAdministrative">
       <a href="#" class="navbar_link"  routerLink="/medicos">Medicos</a>
     </li>
-    <li class="navbar_item">
+    <li class="navbar_item" *ngIf="isAdministrator">
       <a href="#" class="navbar_link"  routerLink="/personal">Personal</a>
     </li>
   </ul>

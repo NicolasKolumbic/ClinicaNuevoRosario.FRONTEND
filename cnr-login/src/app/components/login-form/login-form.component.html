@@ -1,23 +1,20 @@
-<form class="login-form">
-    <fieldset class="login-form_container">
-        <div>
-          <label>
-            Usuario
-          </label>
-          <div>
-            <input type="text" />
-          </div>
-        </div>
-        <div>
-          <label>
-            Password
-          </label>
-          <div>
-            <input type="text" />
-          </div>
-        </div>
-        <button type="submit">Ingresar </button>
-        <a href="#" class="login-form_recover-password">Recuperar Contraseña</a>
-
-    </fieldset>
-  </form>
+<form class="login-form" [formGroup]="loginForm">
+  <fieldset class="login-form_container">
+    <div class="field-control">
+      <div class="field-control_control">
+        <label class="field-control_label" for="email">Email</label>
+        <input type="text" id="email" formControlName="email" pInputText />
+      </div>
+    </div>
+    <div class="field-control">
+      <div class="field-control_control">
+        <label class="field-control_label" for="password">Contraseña</label>
+        <p-password formControlName="password" styleClass="d-flex" [toggleMask]="true"></p-password>
+      </div>
+    </div>
+    <div class="button-list">
+      <button pButton pRipple type="button" label="Recuperar Contraseña" class="p-button-text"></button>
+      <button type="submit" pButton label="Ingresar" class="p-button ml-1"  (click)="login()"></button>
+    </div>
+  </fieldset>
+</form>
