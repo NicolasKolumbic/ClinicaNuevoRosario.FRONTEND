@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from 'src/app/services/account.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'cnr-recover-password',
   templateUrl: './recover-password.component.html',
   styleUrls: ['./recover-password.component.scss']
 })
-export class RecoverPasswordComponent implements OnInit {
+export class RecoverPasswordComponent {
 
   public recoverPasswordForm!: FormGroup;
-  public tokenRecovery: string = '';
   public baseUrl: string = '';
+
+  #tokenRecovery: string = '';
+
+  get token() {
+    return this.#tokenRecovery;
+  }
+
+  get email() {
+    return this.recoverPasswordForm.get('email')?.value;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,13 +31,11 @@ export class RecoverPasswordComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
   send() {
       this.accountService
           .recoverPassword(this.recoverPasswordForm.value.email)
-          .subscribe((token: string) => this.tokenRecovery = token);
+          .subscribe((data: any) => {
+            this.#tokenRecovery = data.token
+          });
   }
-
 }

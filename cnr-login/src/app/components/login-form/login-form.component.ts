@@ -34,4 +34,8 @@ export class LoginFormComponent implements OnInit {
     })
   }
 
+  recoverPassword() {
+    this.router.navigate(['/acceso/recuperar-contraseña']);
+  }
+
 }
