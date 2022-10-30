@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { EnvironmentService } from './environment.service';
 import {tap, shareReplay} from 'rxjs/operators'
 import * as moment from 'moment';
+import { ResetPassword } from '../models/reset-password';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,18 @@ export class AccountService {
   recoverPassword(email: string) {
     let body = new HttpParams();
     body = body.set('email', email);
+
+    let header = new HttpHeaders();
+    header.append('Content-Type', 'text/plain');
+
     return this.http
-      .post<string>(`${this.environmentService.baseUrl}v1/Account/RecoverPassword`, body);
+      .post<any>(`${this.environmentService.baseUrl}v1/Account/RecoverPassword`, body, {headers: header});
+  }
+
+  resetPassword(resetPassword: ResetPassword) {
+
+    return this.http
+      .post<any>(`${this.environmentService.baseUrl}v1/Account/ResetPassword`, resetPassword);
   }
 
   private setSession(authResult: LoggedUser) {

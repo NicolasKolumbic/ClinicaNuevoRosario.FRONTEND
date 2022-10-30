@@ -5,6 +5,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     component: LoginComponent,
     children: [
       { path: '', component: LoginFormComponent },
-      { path: 'recuperar', component: RecoverPasswordComponent },
+      { path: 'recuperar-contraseña', component: RecoverPasswordComponent },
+      { path: 'reestablecer-contraseña', component: ResetPasswordComponent }
     ]
   },
   { path: '**', component: EmptyRouteComponent }
