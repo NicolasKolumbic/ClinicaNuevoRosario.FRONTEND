@@ -1,5 +1,5 @@
 .login {
-  background: url(../../../assets/background-rosario.jpg);
+  background: url(../../../assets/login-background.jpg) no-repeat center bottom/cover;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -9,4 +9,15 @@
     padding: 1rem;
     width: 500px;
   }
+}
+
+#logo-centro-medico-pichinca {
+  width: 200px;
+  path {
+    fill: var(--primary);
+  }
+}
+
+.brand {
+  text-align: center;
 }

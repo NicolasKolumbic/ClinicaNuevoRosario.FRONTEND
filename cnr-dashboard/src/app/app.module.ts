@@ -54,6 +54,8 @@ import { DoctorSchedulesManagerComponent } from './components/doctor-schedules-m
 import { HealthInsuranceSearchEngineComponent } from './components/health-insurance-search-engine/health-insurance-search-engine.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { BrandComponent } from './components/brand/brand.component';
+import {AccordionModule} from 'primeng/accordion';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -92,7 +94,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     StatisticsComponent,
     DoctorSchedulesManagerComponent,
     HealthInsuranceSearchEngineComponent,
-    MainPageComponent
+    MainPageComponent,
+    BrandComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +114,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TooltipModule,
     TableModule,
     FileUploadModule,
-    AvatarModule
+    AvatarModule,
+    AccordionModule,
+    ImageCropperModule
   ],
   providers: [
     {

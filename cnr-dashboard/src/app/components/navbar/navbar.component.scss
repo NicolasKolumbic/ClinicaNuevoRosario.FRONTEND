@@ -1,5 +1,5 @@
 :host {
-  background-color: var(--cadet-blue-crayola);
+  background-color: var( --primary);
   color: white;
   display: inline-flex;
   flex-direction: column;
@@ -8,6 +8,10 @@
 
 .navbar {
 
+  &__brand {
+    width: 180px;
+    margin: 0 auto;
+  }
 
   &_list {
     margin:0;
@@ -25,7 +29,7 @@
     font-weight: 300;
     text-decoration: none;
     &:hover {
-      color: var(--pacific-blue);
+      color: #40bfc7;
     }
   }
 

@@ -1,11 +1,16 @@
 .cnr-see-schedule-panel {
   &_title {
     margin-bottom: 0;
+    padding-left: 0.25rem;
   }
 
   &_parragraph {
     font-weight: 100;
     font-size: 0.875rem;
+  }
+
+  &__separator {
+    margin-bottom: 0;
   }
 }
 
@@ -47,18 +52,18 @@
 
   &_label {
     font-weight: 600;
-    color: var(--cadet-blue-crayola);
+    color: var( --tertiary);
   }
 
   &_value {
     font-weight: 400;
-    color: var(--cnr-black);
+    color: var(--fourth);
   }
 }
 
 .modal-body {
   &_separator {
-    border: 1px solid var(--pewter-blue);
+    border: 1px solid var( --primary);
     height: 0;
   }
 }

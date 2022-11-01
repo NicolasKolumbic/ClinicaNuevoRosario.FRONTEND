@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
+import { Doctor } from 'src/app/models/doctor';
+import { DoctorSchedule } from 'src/app/models/doctor-schedule';
 import { Patient } from 'src/app/models/patient';
 import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
 import { GenericSubject } from 'src/app/patterns/observer/concrete-classes/generic-subject';
@@ -39,13 +41,17 @@ export class AddAppointmentFormComponent implements OnInit {
     this.today?.setHours(6);
     this.today?.setMinutes(0);
 
-    /*const doctorObservable = new GenericObserver<Doctor>((doctor: Doctor) => {
+    this.setDoctorCollectionObservable();
+
+    const doctorSubject = new GenericSubject<Doctor>('add-appointment-form-doctor');
+    const doctorObservable = new GenericObserver<Doctor>((doctor: Doctor) => {
       this.addAppointmenttForm.get('doctor')?.setValue(doctor);
       const availableDay: number[] = [];
       doctor.doctorSchedules?.forEach((doctorSchedule: DoctorSchedule) => availableDay.push(doctorSchedule.day));
       this.disabledDays = [1,2,3,4,5,6,7].filter((num) => !availableDay.includes(num));
-    });*/
-    // recibe el doctor seleccionado
+    })
+    doctorSubject.attach(doctorObservable)
+    this.subjectManagerService.add(doctorSubject);
 
     const patientObservable = new GenericObserver<Patient>((patient: Patient) => this.addAppointmenttForm.get('patient')?.setValue(patient));
     const patientSubject = new GenericSubject<Patient>('add-appointment-form-patient');
@@ -65,6 +71,11 @@ export class AddAppointmentFormComponent implements OnInit {
    }
 
   ngOnInit(): void {
+  }
+
+  setDoctorCollectionObservable() {
+    const doctorCollectionSubject = new GenericSubject<Doctor[]>("add-appointment-form-doctor-collection");
+    this.subjectManagerService.add(doctorCollectionSubject);
   }
 
   AddAppointment(event: any) {

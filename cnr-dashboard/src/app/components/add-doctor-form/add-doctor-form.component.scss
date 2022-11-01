@@ -13,7 +13,7 @@
       }
 
       &::-webkit-scrollbar-thumb {
-          background-color: var(--pacific-blue);
+          background-color: var( --secondary);
       }
     &_container {
         display: grid;
@@ -28,7 +28,7 @@
 
     &_title {
       margin:0;
-      color: var(--pewter-blue);
+      color: var( --primary);
     }
 
     &_detail-text {
@@ -44,7 +44,7 @@
     }
 
     &_default {
-      background-color: var(--gainsboro);
+      background-color: var(--five);
       height: 180px;
       margin-right: 1rem;
       text-align: center;

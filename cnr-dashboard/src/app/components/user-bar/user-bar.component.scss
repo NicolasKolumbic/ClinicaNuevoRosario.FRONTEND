@@ -1,7 +1,7 @@
 .user-bar {
   display: flex;
   justify-content: space-between;
-  background-color:  darken(#a2aebb, 10%);
+  background-color:  #9a9a9a;
   color: white;
   height: 4rem;
   &_icon {
@@ -9,7 +9,7 @@
   }
 
   &_icon-container {
-    background-color: #a2aebb;
+    background-color: #284b64;
     border-radius: 2rem;
     margin:0 0.5rem 0 1rem;
     padding: 0.25rem 0.5rem;

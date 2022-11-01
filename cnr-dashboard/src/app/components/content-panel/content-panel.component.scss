@@ -12,7 +12,7 @@
       font-size: 0.75rem;
       font-weight: 300;
       text-transform: uppercase;
-      color: var(--pewter-blue);
+      color: var( --primary);
       margin:0
     }
     &_name {
@@ -28,7 +28,7 @@
       display: inline-flex;
     }
     &_button {
-      color: var(--pewter-blue);
+      color: var( --primary);
       border: none;
       background-color: transparent;
       cursor: pointer;
@@ -38,7 +38,7 @@
 
   &_content {
     position: relative;
-    border: 2px solid var(--pewter-blue);
+    border: 2px solid var( --primary);
     border-top: none;
   }
 
@@ -51,14 +51,14 @@
     width: calc(100% + 4px);
     &_title {
       padding: 0 0.5rem;
-      color: var(--pewter-blue);
+      color: var( --primary);
     }
   }
 
   &_line::before {
     content: '';
     display: block;
-    border-bottom: 2px solid var(--pewter-blue);
+    border-bottom: 2px solid var( --primary);
     height: 50%;
   }
 
