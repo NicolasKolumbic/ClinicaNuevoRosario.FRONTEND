@@ -46,5 +46,4 @@ constructor(name: string) {
     this.state = state;
     this.notify();
   }
-
 }
