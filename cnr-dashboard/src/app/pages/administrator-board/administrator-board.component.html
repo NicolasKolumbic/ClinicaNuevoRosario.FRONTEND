@@ -1,0 +1,18 @@
+<div class="administrator-board">
+    <div class="d-flex align-items-center">
+        <label class="administrator-board__label">
+            Seleccionar role
+        </label>
+          <div class="health-insurance-search-engine_control">
+                <p-dropdown [options]="roles"
+                    [(ngModel)]="selectedRole"
+                    optionLabel="name"
+                    filterby="name"
+                    placeholder="Seleccione"
+                    (ngModelChange)="selectRole($event)">
+                </p-dropdown>
+          </div>
+          <button type="button" (click)="save($event)">Guardar</button>
+    </div>
+    
+</div>

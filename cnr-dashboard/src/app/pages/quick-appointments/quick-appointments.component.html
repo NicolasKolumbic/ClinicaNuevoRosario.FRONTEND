@@ -1,0 +1,25 @@
+<div>
+    <cnr-content-panel [panel]="seeSchedule"
+    (onMoveToTop)="moveToTop($event)"
+    (onMoveToDown)="moveToDown($event)"
+    (onMoveToUp)="moveToUp($event)"
+  >
+    <cnr-see-schedule-panel></cnr-see-schedule-panel>
+  </cnr-content-panel>
+
+  <cnr-content-panel [panel]="searchPatient"
+    (onMoveToTop)="moveToTop($event)"
+    (onMoveToDown)="moveToDown($event)"
+    (onMoveToUp)="moveToUp($event)"
+  >
+    <cnr-search-patient-panel></cnr-search-patient-panel>
+  </cnr-content-panel>
+
+  <cnr-content-panel [panel]="calendar"
+    (onMoveToTop)="moveToTop($event)"
+    (onMoveToDown)="moveToDown($event)"
+    (onMoveToUp)="moveToUp($event)"
+  >
+    <cnr-calendar></cnr-calendar>
+  </cnr-content-panel>
+</div>

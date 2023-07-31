@@ -1,0 +1,24 @@
+.billing-health-insurance-companies {
+    padding: 1rem;
+    &__content {
+        background-color: white;
+        padding: 1rem;
+    }
+
+    &__toolbar {
+        display: flex;
+    }
+
+    &__title {
+        margin:0;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+
+    
+}

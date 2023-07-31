@@ -1,0 +1,29 @@
+<div class="doctor-appointment">
+  <div class="doctor-appointment_content">
+      <div class="doctor-appointment_header">
+          <h2 class="doctor-appointment_title">Mis Turnos</h2>
+      </div>
+      <div>
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+  </div>
+  <p-dialog [(visible)]="display" [modal]="true" >
+    <ng-template pTemplate="header">
+      <div class="modal-header">
+        <h3 class="modal-header_title">Visualizar Turno</h3>
+      </div>
+    </ng-template>
+    <div class="modal-body">
+      <hr class="modal-body_separator" />
+      <div>
+        <cnr-view-appointment (update)="update($event)"></cnr-view-appointment>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="buttons">
+        <button form="add-patient" pButton type="submit" [disabled]="isInvalid" label="Guardar" icon="pi pi-save" (click)="save()"></button>
+        <button type="button" pButton label="Cerrar" icon="pi pi-times" iconPos="left" class="p-button-outlined mr-1" (click)="closeModal($event)"></button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

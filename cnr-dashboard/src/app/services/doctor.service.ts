@@ -61,6 +61,13 @@ export class DoctorService {
   addDoctor(doctor: Doctor) {
     return this.http.post(`${this.environmentService.baseUrl}v1/Doctor/AddDoctor`, doctor);
   }
+
+  getDoctorByEmail(email: string) {
+    return this.http.get<any>(`${this.environmentService.baseUrl}v1/Doctor/GetDoctorByEmail?email=${email}`)
+                    .pipe(
+                      map((doctor: any) => new Doctor(doctor))
+                    );
+  }
 }
 
 

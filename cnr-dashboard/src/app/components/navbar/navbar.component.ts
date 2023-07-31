@@ -13,17 +13,17 @@ export class NavbarComponent implements OnInit {
   isAdministrative: boolean = false;
   isAdministrator: boolean = false;
   isDoctor: boolean = false;
-  isBasic: boolean = false;
+  isContable: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ user }) => {
       const role = (user as UserData).roles[0];
-      this.isAdministrative = role === 'Administrativo';
-      this.isAdministrator = role === 'Administrador';
-      this.isBasic = role === 'Básico';
-      this.isDoctor = role === 'Medico';
+      this.isAdministrative = role === UserRoles.ADMINISTRATIVE;
+      this.isAdministrator = role === UserRoles.ADMINISTRATOR;
+      this.isContable = role === UserRoles.CONTABLE;
+      this.isDoctor = role === UserRoles.MEDICO;
     })
   }
 

@@ -1,0 +1,28 @@
+:host {
+    display: inline-flex;
+}
+
+.appointment-state-pill {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #13a89e;
+    color: white;
+    font-size: 0.785rem;
+    font-weight: 300;
+}
+
+.cancelled {
+    background-color: #0b9444;
+}
+
+.finalized {
+    background-color: #9f1f63;
+}
+
+.open {
+    background-color: #0e75bb;
+}
+
+.absent {
+    background-color: #262262;
+}

@@ -22,6 +22,8 @@ import {TooltipModule} from 'primeng/tooltip';
 import {FileUploadModule} from 'primeng/fileupload';
 import {TableModule} from 'primeng/table';
 import {AvatarModule} from 'primeng/avatar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CardModule } from 'primeng/card';
 
 
 import { AppComponent } from './app.component';
@@ -56,6 +58,17 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BrandComponent } from './components/brand/brand.component';
 import {AccordionModule} from 'primeng/accordion';
+import { DoctorAppointmentComponent } from './pages/doctor-appointment/doctor-appointment.component';
+import { QuickAppointmentsComponent } from './pages/quick-appointments/quick-appointments.component';
+import { BillingHealthInsuranceCompaniesComponent } from './pages/billing-health-insurance-companies/billing-health-insurance-companies.component';
+import { AdministratorBoardComponent } from './pages/administrator-board/administrator-board.component';
+import { AnalysisDataComponent } from './pages/analysis-data/analysis-data.component';
+import { ViewAppointmentComponent } from './components/view-appointment/view-appointment.component';
+import { ComunicationsComponent } from './pages/comunications/comunications.component';
+import { AppointmentStatePillComponent } from './components/appointment-state-pill/appointment-state-pill.component';
+import { ServiceTypePillComponent } from './components/service-type-pill/service-type-pill.component';
+import { MedicalSpecialitiesListPipe } from './pipes/medical-specialities-list.pipe';
+import { GenericAvatarComponent } from './components/generic-avatar/generic-avatar.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -95,7 +108,18 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DoctorSchedulesManagerComponent,
     HealthInsuranceSearchEngineComponent,
     MainPageComponent,
-    BrandComponent
+    BrandComponent,
+    DoctorAppointmentComponent,
+    QuickAppointmentsComponent,
+    BillingHealthInsuranceCompaniesComponent,
+    AdministratorBoardComponent,
+    AnalysisDataComponent,
+    ViewAppointmentComponent,
+    ComunicationsComponent,
+    AppointmentStatePillComponent,
+    ServiceTypePillComponent,
+    MedicalSpecialitiesListPipe,
+    GenericAvatarComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +140,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FileUploadModule,
     AvatarModule,
     AccordionModule,
-    ImageCropperModule
+    ImageCropperModule,
+    InputTextareaModule,
+    CardModule
   ],
   providers: [
     {

@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { Doctor } from 'src/app/models/doctor';
 import { MedicalSpeciality } from 'src/app/models/medical-speciality';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { SubjectManagerService } from 'src/app/services/subject-manager.service';

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Doctor } from 'src/app/models/doctor';
-import { Panel } from '../../models/panel';
-import { PanelManagmentService } from '../../services/panel-managment.service';
-
+import { ActivatedRoute } from '@angular/router';
+import { UserData } from 'src/app/models/user-data';
 
 @Component({
   selector: 'cnr-dashboard',
@@ -11,40 +9,22 @@ import { PanelManagmentService } from '../../services/panel-managment.service';
 })
 export class DashboardComponent implements OnInit {
 
-  public seeSchedule: Panel;
-  public searchPatient: Panel;
-  public calendar: Panel;
+  isAdministrative: boolean = false;
+  isAdministrator: boolean = false;
+  isDoctor: boolean = false;
+  isBasic: boolean = false;
+  isContable: boolean = false;
 
-
-  constructor(private panelManagmentService: PanelManagmentService ) {
-    this.calendar = this.panelManagmentService.calendar;
-    this.searchPatient = this.panelManagmentService.searchPatient;
-    this.seeSchedule = this.panelManagmentService.seeSchedule;
-  }
+constructor(private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
+    this.activatedRoute.data.subscribe(({ user }) => {
+      const role = (user as UserData).roles[0];
+      this.isAdministrative = role === 'Administrativo';
+      this.isAdministrator = role === 'Administrador';
+      this.isBasic = role === 'Básico';
+      this.isDoctor = role === 'Medico';
+      this.isContable = role === 'Contable';
+    })
   }
-
-  moveToTop(panel: any) {
-    this.panelManagmentService.moveToTop(panel);
-    this.calendar = this.panelManagmentService.calendar;
-    this.searchPatient = this.panelManagmentService.searchPatient;
-    this.seeSchedule = this.panelManagmentService.seeSchedule;
-  }
-
-  moveToUp(panel: any) {
-    this.panelManagmentService.moveToUp(panel);
-    this.calendar = this.panelManagmentService.calendar;
-    this.searchPatient = this.panelManagmentService.searchPatient;
-    this.seeSchedule = this.panelManagmentService.seeSchedule;
-  }
-
-  moveToDown(panel: any) {
-    this.panelManagmentService.moveToDown(panel);
-    this.calendar = this.panelManagmentService.calendar;
-    this.searchPatient = this.panelManagmentService.searchPatient;
-    this.seeSchedule = this.panelManagmentService.seeSchedule;
-  }
-
-
 }

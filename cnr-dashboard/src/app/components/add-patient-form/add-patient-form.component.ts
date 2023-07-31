@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HealthInsurance } from 'src/app/models/health-insurance';
 import { Patient } from 'src/app/models/patient';
 import { Plan } from 'src/app/models/plan';
-import { PatientService } from 'src/app/services/patient.service';
+import { HealthInsuranceService } from 'src/app/services/health-insurance.service';
 
 @Component({
   selector: 'cnr-add-patient-form',
@@ -23,7 +23,7 @@ export class AddPatientFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private patientService: PatientService
+    private healthInsuranceService: HealthInsuranceService
   ) {
 
     this.addPatientForm = this.formBuilder.group({
@@ -38,7 +38,7 @@ export class AddPatientFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientService.getAllHealthInsurrance()
+    this.healthInsuranceService.getAllHealthInsurrances()
       .subscribe((healthInsurrances: HealthInsurance[]) => this.healthInsurrances = healthInsurrances);
   }
 
@@ -55,7 +55,7 @@ export class AddPatientFormComponent implements OnInit {
 
   selectHealthInsurrance(healthInsurance: HealthInsurance) {
     if(healthInsurance) {
-      this.plans = healthInsurance.plans;
+      // BUG this.plans = healthInsurance.plans;
     }
 
   }

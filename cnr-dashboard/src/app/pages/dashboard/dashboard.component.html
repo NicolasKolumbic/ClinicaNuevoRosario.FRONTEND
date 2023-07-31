@@ -1,29 +1,11 @@
 <div class="dashboard">
   <div class="dashboard_content">
     <main class="main-cotent">
-      <cnr-content-panel [panel]="seeSchedule"
-        (onMoveToTop)="moveToTop($event)"
-        (onMoveToDown)="moveToDown($event)"
-        (onMoveToUp)="moveToUp($event)"
-      >
-        <cnr-see-schedule-panel></cnr-see-schedule-panel>
-      </cnr-content-panel>
-
-      <cnr-content-panel [panel]="searchPatient"
-        (onMoveToTop)="moveToTop($event)"
-        (onMoveToDown)="moveToDown($event)"
-        (onMoveToUp)="moveToUp($event)"
-      >
-        <cnr-search-patient-panel></cnr-search-patient-panel>
-      </cnr-content-panel>
-
-      <cnr-content-panel [panel]="calendar"
-        (onMoveToTop)="moveToTop($event)"
-        (onMoveToDown)="moveToDown($event)"
-        (onMoveToUp)="moveToUp($event)"
-      >
-        <cnr-calendar></cnr-calendar>
-      </cnr-content-panel>
+        <cnr-quick-appointments *ngIf="isAdministrative"></cnr-quick-appointments>
+        <cnr-doctor-appointment *ngIf="isDoctor"></cnr-doctor-appointment>
+        <cnr-administrator-board *ngIf="isAdministrator"></cnr-administrator-board>
+        <cnr-billing-health-insurance-companies *ngIf="isContable"></cnr-billing-health-insurance-companies>
+        <cnr-internal-comunications *ngIf="isBasic"></cnr-internal-comunications>
     </main>
   </div>
 </div>

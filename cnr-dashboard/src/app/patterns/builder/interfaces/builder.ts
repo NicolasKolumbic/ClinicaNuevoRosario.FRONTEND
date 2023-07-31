@@ -10,5 +10,6 @@ import { DoctorSchedule } from "src/app/models/doctor-schedule";
   generateAppointmentsByDay(doctorSchedule: DoctorSchedule, defaultDuration: number): void;
   generateAppointmentsTime(doctorSchedule: DoctorSchedule, defaultDuration: number): void;
   generateAppointmentEvents(): void;
+  filterActiveAppointments(): void;
   mergeWithRegisteredAppointment(appointments: Appointment[]): void;
 }

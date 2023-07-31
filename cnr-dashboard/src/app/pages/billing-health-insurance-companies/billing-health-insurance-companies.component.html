@@ -1,0 +1,56 @@
+<div class="billing-health-insurance-companies">
+    <div class="billing-health-insurance-companies__content">
+        <div class="billing-health-insurance-companies__header">
+            <h2 class="billing-health-insurance-companies__title">Facturación</h2>
+        </div>
+        <div>
+            <div>
+                <cnr-health-insurance-search-engine></cnr-health-insurance-search-engine>
+            </div>
+            <div>
+                <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
+            </div>
+            <p-table #appointmentsTable 
+            [value]="appointments"
+            styleClass="p-datatable-sm p-datatable-striped"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[5,10,25,50]"
+            [loading]="loading"
+            [globalFilterFields]="['name','lastname']"
+            responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="billing-health-insurance-companies_toolbar">
+                        <button pButton type="button" label="Generar Reporte" icon="pi pi-download" (click)="generateReport()"></button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Nombre Completo</th>
+                        <th>Numero de afiliado</th>
+                        <th>Plan</th>
+                        <th>Profesional</th>
+                        <th>Especialidad</th>
+                        <th>Tipo de Servicio</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-appointment>
+                    <tr>
+                        <td>{{appointment.time | date: 'dd-MM-yyyy'}}</td>
+                        <td>{{appointment.patient.fullName}}</td>
+                        <td>{{appointment.patient.healthInsurranceNumber}}</td>
+                        <td>{{appointment.patient.plan.name}}</td>
+                        <td>{{appointment.doctor.fullName}}</td>
+                        <td>{{appointment.doctor.medicalSpecialties | medicalSpecialitiesList}}</td>
+                        <td>
+                            <cnr-service-type-pill [appointment]="appointment"></cnr-service-type-pill>
+                        </td>
+                    </tr>
+                </ng-template>
+</p-table>
+        </div>
+    </div>
+</div>

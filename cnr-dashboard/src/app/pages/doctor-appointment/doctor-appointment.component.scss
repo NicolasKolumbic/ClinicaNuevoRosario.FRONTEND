@@ -1,0 +1,31 @@
+.doctor-appointment {
+  padding: 1rem;
+  &_content {
+      background-color: white;
+      padding: 1rem;
+  }
+
+  &_title {
+      margin:0;
+      margin-bottom: 1rem;
+  }
+}
+
+.calendar {
+  padding: 1rem;
+}
+
+.modal-body {
+  &_separator {
+    border: 1px solid var( --primary);
+    height: 0;
+  }
+}
+
+.modal-header {
+  &_title {
+    margin: 0;
+    padding-left: 0.5rem;
+    font-size: 1.3rem;
+  }
+}

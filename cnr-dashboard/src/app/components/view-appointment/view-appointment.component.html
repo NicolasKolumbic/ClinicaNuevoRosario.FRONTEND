@@ -1,0 +1,88 @@
+<div class="view-appointment">
+    <div class="view-appointment__container">
+        <div>
+            <div class="view-appointment__field">
+                <cnr-appointment-state-pill [appointment]="appointment" *ngIf="appointment"></cnr-appointment-state-pill>
+            </div>
+            <div class="view-appointment__field">
+                <span class="view-appointment__field__name">
+                    Fecha y Hora:
+                </span>
+                <span class="view-appointment__field__value">
+                    {{appointmentTime}}
+                </span>
+            </div>
+            <div class="view-appointment__field">
+                <span class="view-appointment__field__name">
+                    Paciente:
+                </span>
+                <span class="view-appointment__field__value">
+                    {{appointment?.patient?.fullName}}
+                </span>
+            </div>
+            <div class="view-appointment__field">
+                <span class="view-appointment__field__name">
+                    Email:
+                </span>
+                <span class="view-appointment__field__value">
+                    {{appointment?.patient?.email}}
+                </span>
+            </div>
+            <div class="view-appointment__field">
+                <span class="view-appointment__field__name">
+                    Teléfono:
+                </span>
+                <span class="view-appointment__field__value">
+                    {{appointment?.patient?.phoneNumber}}
+                </span>
+            </div>
+            <div class="view-appointment__field">
+                <span class="view-appointment__field__name">
+                    Cobertura:
+                </span>
+                <span class="view-appointment__field__value">
+                    {{healthInsurancePlan}}
+                </span>
+            </div>
+            <div class="view-appointment__field">
+                <div class="mt-1">
+                    <strong class="view-appointment__field__name">Actualizar estado</strong>
+                    <p-dropdown 
+                        [options]="appointmentStateOptions"
+                        optionLabel="value"
+                        [(ngModel)]="appointmentState"
+                        (ngModelChange)="selectAppointmentState($event)"
+                        appendTo="body">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="view-appointment__field">
+                <div class="mt-1">
+                    <label for="clinicHistory"> <strong class="view-appointment__field__name">Agregar a historia clínica</strong></label>
+                    <textarea id="clinicHistory" [(ngModel)]="comment" rows="5" cols="30" (input)="medicalHistoryChangeHandler($event)" pInputTextarea></textarea>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>Historia Clínica</h4>
+            
+            <div>
+                <ul class="reset-list scrollbar-content" *ngIf="appointment" [style.height.px]="300">
+                    <li class="mt-1" *ngFor="let medicalHistory of appointment.patient.medicalHistories">
+                        <p-card>
+                            <p-card-subheader>
+                                <time class="view-appointment__time">{{medicalHistory.createDate}}</time>
+                            </p-card-subheader>
+                            <p-card-content>
+                                <p class="view-appointment__comment">
+                                    {{medicalHistory.comments}}
+                                </p>
+                            </p-card-content>
+                        </p-card>
+                       
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

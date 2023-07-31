@@ -1,6 +1,7 @@
 export const UserRoles = {
   MEDICO : 'Medico',
-  ADMINISTRATIVE : 'Administrative',
+  ADMINISTRATIVE : 'Administrativo',
   ADMINISTRATOR : 'Administrador',
-  BASIC : 'Básico'
+  BASIC : 'Básico',
+  CONTABLE: 'Contable'
 }

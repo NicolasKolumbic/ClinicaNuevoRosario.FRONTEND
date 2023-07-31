@@ -5,13 +5,17 @@
             <a label="Nuevo" class="cnr-doctors__add-doctor-btn" pButton  icon="pi pi-plus" iconPos="left" routerLink="/agregar-medico" ></a>
         </div>
         <div class="cnr-doctors_grid">
-                <p-table #doctorsTable [value]="doctors" styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rows]="5"
-                [showCurrentPageReport]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[5,10,25,50]"
-                [loading]="loading"
-                [globalFilterFields]="['name','lastname']"
-                responsiveLayout="scroll">
+                <p-table #doctorsTable 
+                         [value]="doctors"
+                         styleClass="p-datatable-sm p-datatable-striped"
+                         [paginator]="true"
+                         [rows]="5"
+                         [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                         [rowsPerPageOptions]="[5,10,25,50]"
+                         [loading]="loading"
+                         [globalFilterFields]="['name','lastname']"
+                         responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="cnr-doctors_toolbar">
                             <div class="p-input-icon-left">

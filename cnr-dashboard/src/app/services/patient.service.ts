@@ -22,13 +22,6 @@ export class PatientService {
                     );
   }
 
-  getAllHealthInsurrance() {
-    return this.http.get<HealthInsurance[]>(`${this.environmentService.baseUrl}v1/HealthInsurance/GetAllPlans`)
-                    .pipe(
-                      map(patients => patients.map(h => new HealthInsurance(h)))
-                    );
-  }
-
   addPatient(patient: Patient) {
     return this.http.post<number>(`${this.environmentService.baseUrl}v1/Patient/AddPatient`, patient);
   }

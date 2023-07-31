@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:single-spa:cnr-login": "ng build cnr-login --prod",
-    "start:cnr-login": "ng s --project cnr-login --disable-host-check --port 4201 --live-reload false"
+    "start:cnr-login": "ng s --project cnr-login --disable-host-check --port 4200 --live-reload false"
   },
   "private": true,
   "dependencies": {

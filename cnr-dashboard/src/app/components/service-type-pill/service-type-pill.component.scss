@@ -1,0 +1,28 @@
+:host {
+    display: inline-flex;
+}
+
+.service-type-pill {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #0dbbaf;
+    color: white;
+    font-size: 0.785rem;
+    font-weight: 300;
+}
+
+.complex-study {
+    background-color: #4173e0;
+}
+
+.lab {
+    background-color: #29c937;
+}
+
+.medical-guard {
+    background-color: #3bc1e0;
+}
+
+.hospital-stay {
+    background-color: #207b7a;
+}

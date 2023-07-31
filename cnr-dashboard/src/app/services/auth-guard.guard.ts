@@ -8,7 +8,10 @@ import { AuthorizationService } from './authorization.service';
 })
 export class AuthGuardGuard implements CanActivate {
 
-  constructor(public auth: AuthorizationService, public router: Router) {}
+  constructor(
+    public auth: AuthorizationService,
+    public router: Router
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -16,7 +19,7 @@ export class AuthGuardGuard implements CanActivate {
       if (!this.auth.isLoggedIn()) {
         this.router.navigate(['./acceso']);
         return false;
-      }
+      } 
       return true;
   }
 

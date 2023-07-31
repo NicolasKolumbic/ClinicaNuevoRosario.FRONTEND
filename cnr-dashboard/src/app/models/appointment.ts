@@ -1,5 +1,6 @@
+import { AppointmentStates } from "../helpers/enums/appointment-states"
+import { ServiceTypes } from "../helpers/enums/service-types"
 import { Doctor } from "./doctor"
-import { HealthInsurance } from "./health-insurance"
 import { Patient } from "./patient"
 
 export class Appointment {
@@ -8,6 +9,8 @@ export class Appointment {
   comments?: string
   patient!: Patient
   doctor!: Doctor
+  appointmentState!: AppointmentStates
+  serviceType!: ServiceTypes
 
   constructor(ap?: Appointment) {
     if(ap) {
@@ -16,6 +19,8 @@ export class Appointment {
       this.doctor = new Doctor(ap.doctor);
       this.patient = new Patient(ap.patient);
       this.time = ap.time;
+      this.appointmentState = ap.appointmentState;
+      this.serviceType = ap.serviceType;
     }
 
   }

@@ -4,5 +4,5 @@ export interface AppointmentEvent {
   title: string;
   backgroundColor: string;
   borderColor: string;
-
+  id: string;
 }

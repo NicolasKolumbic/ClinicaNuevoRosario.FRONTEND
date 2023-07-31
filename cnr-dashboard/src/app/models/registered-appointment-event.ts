@@ -1,16 +1,19 @@
 import { AppointmentEvent } from "src/abstraction/appointment-event";
 
 export class RegisteredAppointmentEvent implements AppointmentEvent {
-  start!: string;
-  end!: string;
-  title!: string;
+  start: string;
+  end: string;
+  title: string;
+  id: string;
   backgroundColor: string = '#23b5d3';
   borderColor: string = '#23b5d3';
 
-  constructor(appointmentStart: string, appointmentEnd: string, title: string) {
+  constructor(appointmentStart: string, appointmentEnd: string, title: string, appointmentId: number) {
     this.start = appointmentStart;
     this.end = appointmentEnd;
     this.title = title;
+    this.id = appointmentId.toString();
   }
+  
 
 }

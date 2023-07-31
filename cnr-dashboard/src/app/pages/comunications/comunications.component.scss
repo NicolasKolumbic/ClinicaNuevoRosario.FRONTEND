@@ -1,0 +1,154 @@
+.comunications {
+    padding: 1rem;
+    &__content {
+        background-color: white;
+        padding: 1rem 0.5rem;
+    }
+
+    &__chat {
+      display: flex;
+    }
+  
+    &_title {
+        margin:0;
+        margin-bottom: 1rem;
+    }
+
+    &__contact {
+      height: calc(100vh - 110px);
+      width: 400px;
+      &__list {
+        margin:0;
+        padding: 0;
+        list-style-type: none;
+
+        &__discussion {
+          height: 80px;
+          display: flex;
+          border-bottom: 1px solid gray;
+          padding: 0 0.5rem;
+
+          &:hover {
+            background-color:  #22b5d34d;
+          }
+
+          &__photo {
+            background-color: #4f6ebd;
+            width: 60px;
+            height: 60px;
+            position: relative;
+            border-radius: 2rem;
+            margin: 0;
+            overflow: hidden;
+          }
+        }
+      }
+
+    }
+
+    &__messages {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &__dialog {
+        flex: 1 1 auto;
+
+        &__message {
+          text-align: right;
+
+          span {
+            font-size: 0.785rem;
+            color: gray;
+            font-weight: 300;
+            display: block;
+          }
+
+          p {
+            background-color: #daf2f7;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+            display: inline-block;
+
+            &.isMine{
+              background-color: white;
+            }
+          }
+
+          time {
+            display: block;
+            font-size: 0.785rem;
+          }
+        }
+      }
+
+      &__field {
+        display: flex;
+        border-radius: 0.25rem;
+        box-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+        padding: 0.75rem;
+      }
+
+      &__header {
+        background-color:  var(--primary);
+        color: white;
+        display: flex;
+        padding: 0.5rem;
+
+        p.name {
+          color: white;
+          font-size: 1.1rem;
+        }
+
+        p.last-message {
+          color: white;
+        }
+      }
+    }
+
+   
+
+  }
+
+  .name {
+    font-size: 0.785rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin:0;
+  }
+
+  .last-message {
+    font-size: 0.785rem;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .write-message {
+    flex: 1 1 auto;
+    border:none;
+  }
+
+  .write-message:focus {
+    outline: none;
+  }
+
+  .online {
+    position: relative;
+    top: 30px;
+    left: 35px;
+    width: 13px;
+    height: 13px;
+    background-color: #8BC34A;
+    border-radius: 13px;
+    border: 3px solid #FAFAFA;
+  }
+
+  .d-flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  
+ 

@@ -31,7 +31,7 @@ export class AppointmentEventBuilder implements Builder {
   mergeWithRegisteredAppointment(appointments: Appointment[]): void {
       const registeredAppointmentEvents = appointments.map((appointment: Appointment) => {
           const appointmentEventStart = moment(appointment.time).set('s',0).format(this.timeFormat).toString();
-          const appointmentEvent = new RegisteredAppointmentEvent(appointmentEventStart, appointmentEventStart, appointment.patient.fullName);
+          const appointmentEvent = new RegisteredAppointmentEvent(appointmentEventStart, appointmentEventStart, appointment.patient.fullName, appointment.appointmentId);
           return appointmentEvent
       });
 
@@ -96,11 +96,16 @@ export class AppointmentEventBuilder implements Builder {
           const appointmentTimeStart = appointmentTimeIterator.next();
           const nextKey = appointmentTimeIterator.key();
           const appointmentTimeEnd = appointmentTimeIterator.next(nextKey);
-          const appointmentEvent = new AvailableAppointmentEvent(appointmentTimeStart, appointmentTimeEnd);
+          const appointmentEvent = new AvailableAppointmentEvent(appointmentTimeStart, appointmentTimeEnd, '0');
           this.availableAppointmentEvent.push(appointmentEvent);
         }
     }
   }
+
+  filterActiveAppointments() {
+    this.availableAppointmentEvent = this.availableAppointmentEvent.filter((appointmentEvent: AppointmentEvent) => appointmentEvent instanceof  RegisteredAppointmentEvent);
+  }
+  
 
   getEvents() {
     const result = this.availableAppointmentEvent;

@@ -1,0 +1,48 @@
+<div class="comunications">
+    <div class="comunications__content">
+            <section class="comunications__chat">
+                  <div class="comunications__contact scrollbar-content">
+                      <ul class="comunications__contact__list">
+                        <li class="comunications__contact__list__discussion" *ngFor="let chat of chats" (click)="setActive(chat)">
+                          <div class="d-flex">
+                            <figure class="comunications__contact__list__discussion__photo">
+                              <cnr-generic-avatar></cnr-generic-avatar>
+                              <span class="online"></span>
+                            </figure>
+                            <div class="comunications__contact__list__discussion__contact">
+                              <p class="name">{{chat.receiver.fullName}}</p>
+                              <p class="last-message">{{chat.receiver.lastMessage}}</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                  </div>
+                  <div class="comunications__messages">
+                      <div class="comunications__messages__header">
+                          <div class="d-flex" *ngIf="activeChat">
+                            <figure class="comunications__contact__list__discussion__photo">
+                              <cnr-generic-avatar></cnr-generic-avatar>
+                              <span class="online"></span>
+                            </figure>
+                            <div class="comunications__contact__list__discussion__contact">
+                              <p class="name">{{activeChat.receiver.fullName}}</p>
+                              <p class="last-message">{{activeChat.receiver.lastMessage}}</p>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="comunications__messages__dialog">
+                        <div *ngFor="let message of activeChat?.messages" class="comunications__messages__dialog__message">
+                          <span>{{message.user.fullName}}</span>
+                          <p [class.isMine]="message.isMine">{{message.message}}</p>
+                          <time>{{message.time}}</time>
+                        </div>
+                      </div>
+                      <div class="comunications__messages__field">
+                        <input type="text" (keyup.enter)="send()" [(ngModel)]="currentMessage" class="write-message" placeholder="Type your message here" />
+                        <button pButton type="button" styleClass="p-button-rounded" icon="pi pi-send" (click)="send()"></button>
+                      </div>
+                  </div>
+            </section>
+    </div>
+
+</div>

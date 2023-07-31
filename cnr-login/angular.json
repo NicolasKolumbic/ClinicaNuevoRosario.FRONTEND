@@ -42,7 +42,7 @@
               "libraryName": "cnr-login",
               "libraryTarget": "umd"
             },
-            "deployUrl": "http://localhost:4201/"
+            "deployUrl": "http://localhost:4200/"
           },
           "configurations": {
             "production": {

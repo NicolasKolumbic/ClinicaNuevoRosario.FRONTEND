@@ -1,3 +1,4 @@
+import { MedicalHistory } from "./clinical-history";
 import { HealthInsurance } from "./health-insurance";
 import { Plan } from "./plan";
 
@@ -10,6 +11,9 @@ export class Patient {
   fullName!: string;
   healthInsurance!: HealthInsurance;
   plan!: Plan;
+  medicalHistories!: MedicalHistory[];
+  identificationNumber!: number;
+  healthInsurranceNumber!: number;
 
   constructor(patient: Patient) {
     this.patientId = patient.patientId;
@@ -20,6 +24,8 @@ export class Patient {
     this.fullName = `${this.name} ${this.lastname}`;
     this.healthInsurance = patient.healthInsurance;
     this.plan = patient.plan;
-
+    this.identificationNumber = patient.identificationNumber;
+    this.healthInsurranceNumber = patient.healthInsurranceNumber;
+    this.medicalHistories = patient.medicalHistories && patient.medicalHistories.map((medicalHistory: MedicalHistory) => new MedicalHistory(medicalHistory));
   }
 }

@@ -49,7 +49,9 @@ export class AccountService {
     localStorage.setItem('user_data', JSON.stringify({
         name: authResult.name,
         lastName: authResult.lastName,
-        roles: authResult.roles
+        roles: authResult.roles,
+        id: authResult.id,
+        email: authResult.email
       }));
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
   }
