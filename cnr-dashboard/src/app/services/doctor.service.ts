@@ -44,13 +44,6 @@ export class DoctorService {
       );
   }
 
-  getDoctorsByMedicalSpeciality(medicalSpeciality: number) {
-    return this.http.get<Doctor[]>(`${this.environmentService.baseUrl}v1/Doctor/GetDoctorsByMedicalSpeciality?medicalSpecialityId=${medicalSpeciality}`)
-      .pipe(
-        map((doctors: any[]) => doctors.map(d => new Doctor(d)))
-      );
-  }
-
   getAllDoctor() {
     return this.http.get<Doctor[]>(`${this.environmentService.baseUrl}v1/Doctor/GetAllDoctors`)
       .pipe(
