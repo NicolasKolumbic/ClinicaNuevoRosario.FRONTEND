@@ -19,11 +19,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ user }) => {
-      const role = (user as UserData).roles[0];
-      this.isAdministrative = role === UserRoles.ADMINISTRATIVE;
-      this.isAdministrator = role === UserRoles.ADMINISTRATOR;
-      this.isContable = role === UserRoles.CONTABLE;
-      this.isDoctor = role === UserRoles.MEDICO;
+      const roles= (user as UserData).roles;
+      this.isAdministrative = roles.includes(UserRoles.ADMINISTRATIVE);
+      this.isAdministrator = roles.includes(UserRoles.ADMINISTRATOR);
+      this.isContable = roles.includes(UserRoles.CONTABLE);
+      this.isDoctor = roles.includes(UserRoles.MEDICO);
     })
   }
 

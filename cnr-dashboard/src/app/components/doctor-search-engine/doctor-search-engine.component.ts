@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
 import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 import { Doctor } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor.service';
+import { Dropdown } from 'primeng/dropdown';
 
 @Component({
   selector: 'cnr-doctor-search-engine',
@@ -22,10 +23,11 @@ export class DoctorSearchEngineComponent implements OnInit {
     this.selectedDoctor = value;
   }
 
+  @ViewChild('doctorEngine') doctorEngine!: Dropdown
+
   @Output() onSelectDoctor: EventEmitter<Doctor> = new EventEmitter();
 
   constructor(
-    private doctorService: DoctorService,
     private subjectManagerService: SubjectManagerService
   ) {
    }
@@ -59,6 +61,12 @@ export class DoctorSearchEngineComponent implements OnInit {
       doctorSubject.update(doctor);
       this.onSelectDoctor.emit(doctor);
     }
+  }
+
+  clear() {
+    this.doctorEngine.resetFilter();
+    this.selectedDoctor = undefined;
+    this.doctors = [];
   }
 
 }

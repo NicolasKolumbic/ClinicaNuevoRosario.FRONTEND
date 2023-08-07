@@ -21,7 +21,11 @@
    </g>
    </svg>
     </figure>
-    <span class="user-bar_username">{{fullName}}</span>
+    <div>
+      <span class="user-bar_username">{{fullName}}</span>
+      <span class="role-pill" *ngFor="let role of user.roles">{{role}}</span>
+    </div>
+    
   </div>
   <button type="button" class="user-bar_logout" (click)="logout()">
     Cerrar Sesión

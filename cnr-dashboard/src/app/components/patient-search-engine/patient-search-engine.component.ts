@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef, Input, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
+import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
 import { PatientService } from 'src/app/services/patient.service';
 import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
@@ -8,7 +9,7 @@ import { SubjectManagerService } from 'src/app/services/subject-manager.service'
   templateUrl: './patient-search-engine.component.html',
   styleUrls: ['./patient-search-engine.component.scss']
 })
-export class PatientSearchEngineComponent {
+export class PatientSearchEngineComponent implements OnInit {
 
   patients?: Patient[] = [];
 
@@ -31,11 +32,24 @@ export class PatientSearchEngineComponent {
     private subjectManagerService: SubjectManagerService
   ) {}
 
+  ngOnInit(): void {
+    const patientObservable = new GenericObserver<Patient>((patient: Patient) => {
+      this.onSelectPatient.emit(patient);
+    });
+    
+    this.subjectManagerService.getSubjectByName(this.patientSubjectName).attach(patientObservable)
+
+    const patientsObservable = new GenericObserver<Patient[]>((patients: Patient[]) => {
+      this.patients = patients
+    });
+    
+    this.subjectManagerService.getSubjectByName(this.patientOptionsSubjectName).attach(patientsObservable)
+  }
+
   searchPatient(value: {originalEvnet: any, filter: string}) {
     if(value && value.filter && value.filter.length > 3) {
       this.patientService.search(value.filter)
       .subscribe((patientsReponse: Patient[]) => {
-        this.patients = patientsReponse
         this.subjectManagerService.getSubjectByName(this.patientOptionsSubjectName).update(patientsReponse);
       });
     }
@@ -44,7 +58,6 @@ export class PatientSearchEngineComponent {
 
   PatientUpdateBlur(evento: any) {
     if(this.selectedPatient) {
-      this.onSelectPatient.emit(this.selectedPatient);
       this.subjectManagerService.getSubjectByName(this.patientSubjectName).update(this.selectedPatient);
     }
   }

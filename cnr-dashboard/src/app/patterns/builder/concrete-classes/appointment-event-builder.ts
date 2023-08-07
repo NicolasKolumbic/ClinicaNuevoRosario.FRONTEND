@@ -45,8 +45,8 @@ export class AppointmentEventBuilder implements Builder {
       })
   }
 
-  generateAllDoctorWorkDays(day: string): void {
-    const availableDay = moment().startOf('month').day(day);
+  generateAllDoctorWorkDays(day: string, date: string): void {
+    const availableDay = moment(date).startOf('month').day(day);
 
     if (availableDay.date() > 7) {
       availableDay.add(7,'d');

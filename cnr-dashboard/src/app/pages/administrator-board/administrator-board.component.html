@@ -1,18 +1,69 @@
 <div class="administrator-board">
-    <div class="d-flex align-items-center">
-        <label class="administrator-board__label">
-            Seleccionar role
-        </label>
-          <div class="health-insurance-search-engine_control">
-                <p-dropdown [options]="roles"
-                    [(ngModel)]="selectedRole"
-                    optionLabel="name"
-                    filterby="name"
-                    placeholder="Seleccione"
-                    (ngModelChange)="selectRole($event)">
-                </p-dropdown>
-          </div>
-          <button type="button" (click)="save($event)">Guardar</button>
+    <div class="administrator-board__content">
+      <h3>Cambiar role de usuario logueado</h3>
+        <div class="administrator-board__field">
+            <label class="administrator-board__field__label">
+                Seleccionar role
+            </label>
+              <div class="administrator-board__field__control">
+                    <p-dropdown [options]="roles"
+                        [(ngModel)]="selectedRole"
+                        optionLabel="name"
+                        filterby="name"
+                        placeholder="Seleccione"
+                        (ngModelChange)="selectRole($event)">
+                    </p-dropdown>
+              </div>
+              <button pButton type="button" label="Actualizar Role" icon="pi pi-save" (click)="save($event)"></button>
+              <p class="administrator-board__field__response">{{response}}</p>
+        </div>
+        <hr>
+        <div class="register-user">
+            <h3>Registrar Usuario</h3>
+            <form id="add-user" [formGroup]="addUserForm"  (ngSubmit)="addUser()">
+                <div>
+                    <div class="field-control">
+                      <div class="field-control_control">
+                        <label class="field-control_label">Nombre</label>
+                        <input id="name" type="text" formControlName="name" pInputText maxlength="50" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="field-control">
+                      <div class="field-control_control">
+                        <label class="field-control_label">Apellido</label>
+                        <input id="name" type="text" formControlName="lastName" pInputText maxlength="50" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="field-control">
+                      <div class="field-control_control">
+                        <label class="field-control_label">Email</label>
+                        <input id="name" type="email" formControlName="email" pInputText maxlength="250"  />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="field-control">
+                      <div class="field-control_control">
+                        <label class="field-control_label">Usuario</label>
+                        <input id="userName" type="text" formControlName="userName" pInputText maxlength="50" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="field-control">
+                      <div class="field-control_control">
+                        <label class="field-control_label">Password</label>
+                        <input id="password" type="text" formControlName="password" pInputText maxlength="50" />
+                      </div>
+                    </div>
+                  </div>
+                  <button form="add-user" pButton type="submit" label="Guardar" icon="pi pi-save"></button>
+            </form>
+            
+        </div>
     </div>
-    
 </div>

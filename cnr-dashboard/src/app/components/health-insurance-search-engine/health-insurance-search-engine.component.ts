@@ -51,4 +51,8 @@ export class HealthInsuranceSearchEngineComponent implements OnInit {
 
   }
 
+  clear() {
+    this.selectedHealthInsurance = undefined;
+  }
+
 }

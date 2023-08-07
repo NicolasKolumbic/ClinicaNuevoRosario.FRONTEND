@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Roles } from 'src/abstraction/roles';
 import { UserData } from 'src/app/models/user-data';
@@ -32,11 +33,23 @@ export class AdministratorBoardComponent implements OnInit {
   ];
   selectedRole!: Roles;
   user!: UserData;
+  response?: string;
+  public addUserForm!: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private authorizationService: AuthorizationService,
     private userService: UserService
-  ) { }
+  ) { 
+
+    this.addUserForm = this.formBuilder.group({
+      name: [''],
+      lastName: [''],
+      email: [''],
+      userName: [''],
+      password: ['']
+    })
+  }
 
   ngOnInit(): void {
     var user = this.authorizationService.getUserData()
@@ -53,7 +66,11 @@ export class AdministratorBoardComponent implements OnInit {
 
   save(event: Event) {
     this.userService.updateUserRole(this.user.email, this.selectedRole.name).subscribe((data) => {
-        console.log(data);
+        this.response= 'Se actualizado el role correctamente, cierre sesión y vuelva a iniciar';
     })
+  }
+
+  addUser() {
+      this.userService.addUser(this.addUserForm.value).subscribe((user) => console.log(user));
   }
 }

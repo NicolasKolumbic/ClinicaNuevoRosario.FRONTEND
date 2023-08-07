@@ -11,14 +11,14 @@ export class AppointmentStatePillComponent implements OnInit {
 
   @Input() appointment!: Appointment; 
 
-  appointmentStateName!: string;
-
   constructor() { }
 
   ngOnInit(): void {
-    if(this.appointment) {
-      this.appointmentStateName = AppointmentStates[this.appointment.appointmentState];
-    } 
+    
+  }
+
+  get appointmentStateName() {
+    return this.appointment && AppointmentStates[this.appointment.appointmentState];
   }
 
   get isAbsent() {

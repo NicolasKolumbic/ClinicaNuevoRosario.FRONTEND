@@ -100,6 +100,13 @@ export class ComunicationsComponent implements OnInit {
       newMessage.time = moment().format('dd-MM-yyyy HH:mm:ss');
       newMessage.user =  system; 
 
+      this.chats = this.chats.map((chat: Chat) => {
+          if(chat.receiver.email === this.activeChat?.receiver.email && !(message.includes(this.user.email))) {
+            chat.receiver.isOnline = true;
+          }
+          return chat;
+      });
+
     this.activeChat?.messages.push(newMessage);
   }
 
@@ -135,13 +142,18 @@ export class ComunicationsComponent implements OnInit {
   }
 
   setActive(chat: Chat) {
+      this.chats = this.chats.map((chat: Chat) => {
+        chat.receiver.isActive = false;
+        return chat;
+      })
+      chat.receiver.isActive = true;
       if(!chat.sender) {
         chat.sender = this.user;
+        chat.name = [chat.sender, chat.receiver].sort((a: UserChat, b: UserChat) => a.fullName.localeCompare(b.fullName)).map((user: UserChat) => user.email).join(' - ');
+        this.join(chat);
       }
-
-      chat.name = [chat.sender, chat.receiver].sort((a: UserChat, b: UserChat) => a.fullName.localeCompare(b.fullName)).map((user: UserChat) => user.email).join(' - ');
-      this.activeChat = chat;
-      this.join(chat);
+ 
+      this.activeChat = chat;     
   }
 
 

@@ -51,6 +51,7 @@
                         [options]="appointmentStateOptions"
                         optionLabel="value"
                         [(ngModel)]="appointmentState"
+                        [disabled]="isNotAssigned"
                         (ngModelChange)="selectAppointmentState($event)"
                         appendTo="body">
                     </p-dropdown>
@@ -67,11 +68,11 @@
             <h4>Historia Clínica</h4>
             
             <div>
-                <ul class="reset-list scrollbar-content" *ngIf="appointment" [style.height.px]="300">
-                    <li class="mt-1" *ngFor="let medicalHistory of appointment.patient.medicalHistories">
+                <ul class="reset-list scrollbar-content medical-histories" *ngIf="appointment" [style.height.px]="300">
+                    <li class="mt-1" *ngFor="let medicalHistory of medicalHistories">
                         <p-card>
                             <p-card-subheader>
-                                <time class="view-appointment__time">{{medicalHistory.createDate}}</time>
+                                <time class="view-appointment__time">{{medicalHistory.createdDate}}</time>
                             </p-card-subheader>
                             <p-card-content>
                                 <p class="view-appointment__comment">

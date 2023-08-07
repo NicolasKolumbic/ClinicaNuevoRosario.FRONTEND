@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarOptions, EventClickArg } from '@fullcalendar/angular';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Calendar, CalendarOptions, EventClickArg, EventInput, EventSourceInput, FullCalendarComponent } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
 import { Appointment } from 'src/app/models/appointment';
@@ -12,19 +12,26 @@ import { SubjectManagerService } from 'src/app/services/subject-manager.service'
 import { AppointmentStates } from 'src/app/helpers/enums/appointment-states';
 import { UpdatedAppointment } from 'src/app/models/updated-appointment';
 import { UserData } from 'src/app/models/user-data';
+import { AppointmentEvent } from 'src/abstraction/appointment-event';
+import * as moment from 'moment';
 
 @Component({
   selector: 'cnr-doctor-appointment',
   templateUrl: './doctor-appointment.component.html',
   styleUrls: ['./doctor-appointment.component.scss']
 })
-export class DoctorAppointmentComponent implements OnInit {
+export class DoctorAppointmentComponent implements OnInit, AfterViewInit {
 
   public display: boolean = false;
   public appointment!: Appointment;
   public updatedAppointment = new UpdatedAppointment();
   public comment?: string;
   public user!: UserData;
+  public events: AppointmentEvent[] = [];
+
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+
+  #calendar!: Calendar;
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridDay',
@@ -33,7 +40,7 @@ export class DoctorAppointmentComponent implements OnInit {
     headerToolbar: {
       start: 'title',
       center: 'prev,next,today',
-      end: 'dayGridMonth,timeGridWeek,timeGridDay',
+      end: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     titleFormat: {
       day: '2-digit',
@@ -43,7 +50,6 @@ export class DoctorAppointmentComponent implements OnInit {
     nowIndicator: true,
     dayMaxEvents: 7,
     moreLinkClick: 'popover',
-    events: [],
     eventClick: (appointmentEvent: EventClickArg) => {
         this.appointmentService.getAppointmentById(appointmentEvent.event.id).subscribe((appointment: Appointment) => {
           const appointmentModal = new AppointmentModal();
@@ -55,6 +61,28 @@ export class DoctorAppointmentComponent implements OnInit {
           this.subjectManagerService.getSubjectByName('view-appointment-form-modal').update(appointmentModal); 
         })
 
+    },
+    customButtons: {
+      next: {
+        click: () => {
+          this.#calendar.next();
+          if(!this.monthWasLoaded(this.#calendar.view.currentStart)) {
+            this.loadEvents(this.#calendar.view.currentStart.toISOString())
+          } else if(!this.monthWasLoaded(this.#calendar.view.currentEnd)) {
+            this.loadEvents(this.#calendar.view.currentEnd.toISOString())
+          }
+        }
+      },
+      prev: {
+        click: () => {
+          this.#calendar.prev();
+          if(!this.monthWasLoaded(this.#calendar.view.currentStart)) {
+            this.loadEvents(this.#calendar.view.currentStart.toISOString())
+          } else if(!this.monthWasLoaded(this.#calendar.view.currentEnd)) {
+            this.loadEvents(this.#calendar.view.currentEnd.toISOString())
+          }
+        }
+      }
     },
     slotLabelFormat: {
       hour:'2-digit',
@@ -72,30 +100,48 @@ export class DoctorAppointmentComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
+
+  ngAfterViewInit(): void {
+    this.#calendar = this.calendarComponent.getApi();
+  }
+
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({user}) => {
         this.user = user;
-        this.loadAppointments();
-    })
+        this.loadEvents(moment().toISOString());
+    });
+  }
+
+  loadEvents(date: string) {
+    this.loadAppointments()
+    .subscribe(([appointments, doctor]: [Appointment[], Doctor]) => {
+      
+        const events = this.appointmentService
+                           .generateEvents(
+                                doctor.doctorSchedules!,
+                                doctor.appointmentDurationDefault,
+                                appointments,
+                                date,
+                                true
+                            );
+
+        this.events = [
+          ...this.events,
+          ...events
+        ];
+          
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          events: this.events
+        };
+    });
   }
   
   loadAppointments() {
-
-    forkJoin([
-      this.appointmentService.getAppointmentsByEmail(this.user.email),
-      this.doctorService.getDoctorByEmail(this.user.email)
-    ])
-    .subscribe(([appointments, doctor]: [Appointment[], Doctor]) => {
-
-        const events = this.appointmentService
-                           .generateEvents(doctor.doctorSchedules!, doctor.appointmentDurationDefault, appointments, true);
-
-                           
-        this.calendarOptions = {
-          ...this.calendarOptions,
-          events
-        };
-    });
+    return forkJoin([
+        this.appointmentService.getAppointmentsByEmail(this.user.email),
+        this.doctorService.getDoctorByEmail(this.user.email)
+      ]); 
   }
 
   update(updateAppointment: any) {
@@ -105,7 +151,6 @@ export class DoctorAppointmentComponent implements OnInit {
         this.updatedAppointment.medicalHistoryComment = updateAppointment.comment;
       }
     }
- 
   }
 
   closeModal(event: any) {
@@ -123,6 +168,10 @@ export class DoctorAppointmentComponent implements OnInit {
       this.display = false;
       this.loadAppointments();
     })
+  }
+
+  private monthWasLoaded(date: Date) {
+    return this.events.some((event: AppointmentEvent) => moment(event.start).month() === moment(date).month())
   }
 
 }

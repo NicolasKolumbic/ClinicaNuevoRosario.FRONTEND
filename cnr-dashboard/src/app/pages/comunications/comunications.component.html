@@ -3,11 +3,15 @@
             <section class="comunications__chat">
                   <div class="comunications__contact scrollbar-content">
                       <ul class="comunications__contact__list">
-                        <li class="comunications__contact__list__discussion" *ngFor="let chat of chats" (click)="setActive(chat)">
+                        <li class="comunications__contact__list__discussion"
+                         *ngFor="let chat of chats"
+                         (click)="setActive(chat)"
+                         [class.isActive]="chat.receiver.isActive"
+                         [class.is-online]="chat.receiver.isOnline">
                           <div class="d-flex">
                             <figure class="comunications__contact__list__discussion__photo">
-                              <cnr-generic-avatar></cnr-generic-avatar>
-                              <span class="online"></span>
+                              <cnr-generic-avatar class="avatar"></cnr-generic-avatar>
+                              <span class="signal"></span>
                             </figure>
                             <div class="comunications__contact__list__discussion__contact">
                               <p class="name">{{chat.receiver.fullName}}</p>
@@ -32,7 +36,7 @@
                       </div>
                       <div class="comunications__messages__dialog">
                         <div *ngFor="let message of activeChat?.messages" class="comunications__messages__dialog__message">
-                          <span>{{message.user.fullName}}</span>
+                          <span><strong>{{message.user.fullName}}</strong> dice:</span>
                           <p [class.isMine]="message.isMine">{{message.message}}</p>
                           <time>{{message.time}}</time>
                         </div>

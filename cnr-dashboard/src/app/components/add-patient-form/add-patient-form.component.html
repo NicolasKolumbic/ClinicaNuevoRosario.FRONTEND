@@ -1,11 +1,11 @@
 <div class="cnr-add-patient-form">
-  <form id="add-patient" [formGroup]="addPatientForm" (ngSubmit)="AddPatient($event)">
+  <form id="add-patient" [formGroup]="addPatientForm"  (ngSubmit)="AddPatient($event)">
     <div class="cnr-add-patient-form_container">
         <div>
           <div class="field-control">
             <div class="field-control_control">
               <label class="field-control_label">Nombre</label>
-              <input id="name" type="text" formControlName="name" pInputText maxlength="50" />
+              <input id="name" type="text" formControlName="name" pInputText maxlength="50" [value]="patient?.name" />
             </div>
           </div>
         </div>
@@ -13,7 +13,7 @@
           <div class="field-control">
             <div class="field-control_control">
               <label class="field-control_label">Apellido</label>
-              <input id="name" type="text" formControlName="lastName" pInputText maxlength="50" />
+              <input id="name" type="text" formControlName="lastName" pInputText maxlength="50" [value]="patient?.lastname" />
             </div>
           </div>
         </div>
@@ -21,7 +21,7 @@
           <div class="field-control">
             <div class="field-control_control">
               <label class="field-control_label">Email</label>
-              <input id="name" type="email" formControlName="email" pInputText maxlength="250" />
+              <input id="name" type="email" formControlName="email" pInputText maxlength="250" [value]="patient?.email" />
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
           <div class="field-control">
             <div class="field-control_control">
               <label class="field-control_label">DNI</label>
-              <p-inputNumber inputId="dni" formControlName="identificationNumber">
+              <p-inputNumber inputId="dni" formControlName="identificationNumber" [value]="patient?.identificationNumber">
               </p-inputNumber>
             </div>
           </div>
@@ -38,7 +38,16 @@
           <div class="field-control">
             <div class="field-control_control">
               <label class="field-control_label">Teléfono</label>
-              <p-inputNumber  mode="decimal" formControlName="phoneNumber" inputId="withoutgrouping" [useGrouping]="false">
+              <p-inputNumber  mode="decimal" formControlName="phoneNumber" inputId="withoutgrouping" [useGrouping]="false" [value]="patient?.phoneNumber">
+                </p-inputNumber>
+                </div>
+          </div>
+        </div>
+        <div>
+          <div class="field-control">
+            <div class="field-control_control">
+              <label class="field-control_label">Número de Afiliado (Prepaga/Obra Social)</label>
+              <p-inputNumber  mode="decimal" formControlName="healthInsurranceNumber" inputId="healthInsuranceNumberPerson" [useGrouping]="false" [value]="patient?.healthInsurranceNumber">
                 </p-inputNumber>
                 </div>
           </div>

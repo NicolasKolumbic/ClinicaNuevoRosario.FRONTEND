@@ -8,17 +8,21 @@
       </div>
       <div class="fields-group">
         <div class="field-control">
-          <cnr-medical-specialties-search-engine medicalSpecialitySubjectName="panel-dashboard-medical-speciality" (onSelectMedicalSpeciality)="selectMedicalSpeciality($event)"></cnr-medical-specialties-search-engine>
+          <cnr-medical-specialties-search-engine #medicalSpecialityEngine medicalSpecialitySubjectName="panel-dashboard-medical-speciality" (onSelectMedicalSpeciality)="selectMedicalSpeciality($event)"></cnr-medical-specialties-search-engine>
         </div>
         <div class="field-control">
-          <cnr-health-insurance-search-engine healthInsuranceSubjectName="see-schedule-health-insurrance" (onSelectedHealthInsurrancePlan)="selectHealthInsurancePlan($event)"></cnr-health-insurance-search-engine>
+          <cnr-health-insurance-search-engine #healthInsurancePlanEngine healthInsuranceSubjectName="see-schedule-health-insurrance" (onSelectedHealthInsurrancePlan)="selectHealthInsurancePlan($event)"></cnr-health-insurance-search-engine>
         </div>
         <div class="field-control expand-cell-2">
           <h5 class="cnr-see-schedule-panel_title">Profesional</h5>
           <hr class="cnr-see-schedule-panel__separator">
         </div>
         <div class="field-control">
-          <cnr-doctor-search-engine searchDoctorSubjectName="panel-dashboard-search-doctor" doctorSubjectName="panel-dashboard-doctor" doctorOptionsSubjectName="panel-dashboard-doctor-collection" [searchDoctors]="searchDoctorParams"></cnr-doctor-search-engine>
+          <cnr-doctor-search-engine #doctorEngine searchDoctorSubjectName="panel-dashboard-search-doctor"
+           doctorSubjectName="panel-dashboard-doctor"
+            doctorOptionsSubjectName="panel-dashboard-doctor-collection"
+             [searchDoctors]="searchDoctorParams">
+          </cnr-doctor-search-engine>
         </div>
         <div class="field-control doctor-information" *ngIf="doctor">
           <h4 class="doctor-information_title">Información (Profesional)</h4>

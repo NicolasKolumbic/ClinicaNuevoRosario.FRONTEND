@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HealthInsurance } from 'src/app/models/health-insurance';
 import { Patient } from 'src/app/models/patient';
@@ -19,6 +19,7 @@ export class AddPatientFormComponent implements OnInit {
   selectedhealthInsurrance?: HealthInsurance;
   selectedPlan?: Plan;
 
+  @Input() patient?: Patient;
   @Output() onAddPatient: EventEmitter<Patient> = new EventEmitter();
 
   constructor(
@@ -32,7 +33,8 @@ export class AddPatientFormComponent implements OnInit {
       identificationNumber: [null],
       phoneNumber: [null],
       healthInsurrance: [null],
-      email: ['']
+      email: [''],
+      healthInsurranceNumber: ['']
     })
 
   }
@@ -40,6 +42,10 @@ export class AddPatientFormComponent implements OnInit {
   ngOnInit(): void {
     this.healthInsuranceService.getAllHealthInsurrances()
       .subscribe((healthInsurrances: HealthInsurance[]) => this.healthInsurrances = healthInsurrances);
+
+     
+
+    
   }
 
   AddPatient(e: any) {
@@ -55,7 +61,9 @@ export class AddPatientFormComponent implements OnInit {
 
   selectHealthInsurrance(healthInsurance: HealthInsurance) {
     if(healthInsurance) {
-      // BUG this.plans = healthInsurance.plans;
+      this.healthInsuranceService.getAllHealthInsurrancePlans(healthInsurance).subscribe((plans: Plan[]) => {
+        this.plans = plans;
+      })
     }
 
   }

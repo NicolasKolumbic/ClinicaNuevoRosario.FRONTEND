@@ -3,7 +3,8 @@
     Seleccionar un profesional
   </label>
   <div class="cnr-doctor-search-engine_control">
-    <p-dropdown [options]="doctorOptions"
+    <p-dropdown #doctorEngine
+     [options]="doctorOptions"
      [(ngModel)]="selectedDoctor"
       optionLabel="fullName"
       [filter]="true"

@@ -19,6 +19,23 @@
         margin-bottom: 1rem;
         align-items: center;
     }
+}
 
-    
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.health-insurance-dropdown {
+    margin: 1rem;
+    display: inline-flex;
+    align-items: center;
+    &__label {
+        padding-right: 1rem;
+    }
+
+    &__control {
+       min-width: 200px;
+    }
 }

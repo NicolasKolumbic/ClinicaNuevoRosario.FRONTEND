@@ -4,12 +4,31 @@
             <h2 class="billing-health-insurance-companies__title">Facturación</h2>
         </div>
         <div>
-            <div>
-                <cnr-health-insurance-search-engine></cnr-health-insurance-search-engine>
+            <h3>Filtros</h3>
+            <div class="filters">
+                <div>
+                    <label class="health-insurance-dropdown__label">Periodo</label>
+                    <p-calendar [(ngModel)]="time" view="month" dateFormat="MM-yy" (onSelect)="change($event)"></p-calendar>
+                </div>
+                <div class="health-insurance-dropdown">
+                    <label class="health-insurance-dropdown__label">
+                        Seleccione obra social/prepaga
+                    </label>
+                      <div class="health-insurance-dropdown__control">
+                        <p-dropdown [options]="healthInsuranceOptions"
+                         [(ngModel)]="selectedHealthInsurance"
+                          optionLabel="name"
+                          placeholder="Seleccione"
+                          (ngModelChange)="selectHealthInsurance($event)"></p-dropdown>
+                      </div>
+                </div>
+                <div>
+                    <button pButton type="button" label="Limpiar Filtros" icon="pi pi-filter" (click)="clear()"></button>
+                </div>
             </div>
-            <div>
-                <cnr-medical-specialties-search-engine></cnr-medical-specialties-search-engine>
-            </div>
+           
+           
+
             <p-table #appointmentsTable 
             [value]="appointments"
             styleClass="p-datatable-sm p-datatable-striped"
@@ -23,7 +42,7 @@
             responsiveLayout="scroll">
                 <ng-template pTemplate="caption">
                     <div class="billing-health-insurance-companies_toolbar">
-                        <button pButton type="button" label="Generar Reporte" icon="pi pi-download" (click)="generateReport()"></button>
+                        <button pButton type="button" label="Generar Reporte" icon="pi pi-download" [disabled]="selectedHealthInsurance === null" (click)="generateReport()"></button>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">

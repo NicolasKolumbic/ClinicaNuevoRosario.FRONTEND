@@ -4,7 +4,7 @@
     <fieldset>
       <div class="fields-group">
         <div class="field-control">
-          <cnr-patient-search-engine (onSelectPatient)="selectPatient($event)"></cnr-patient-search-engine>
+          <cnr-patient-search-engine patientSubjectName="panel-patient" patientOptionsSubjectName="panel-patient-collection" (onSelectPatient)="selectPatient($event)"></cnr-patient-search-engine>
         </div>
         <div class="field-control">
           <ul class="button-list">
@@ -53,7 +53,7 @@
     </ng-template>
     <div class="modal-body">
       <hr class="modal-body_separator" />
-      <cnr-add-patient-form (onAddPatient)="addPatient($event)"></cnr-add-patient-form>
+      <cnr-add-patient-form [patient]="patient" (onAddPatient)="addPatient($event)"></cnr-add-patient-form>
     </div>
 
     <ng-template pTemplate="footer">

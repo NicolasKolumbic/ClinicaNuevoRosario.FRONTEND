@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { Panel } from '../../models/panel';
+import { GenericSubject } from 'src/app/patterns/observer/concrete-classes/generic-subject';
+import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
+import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
 @Component({
   selector: 'cnr-search-patient-panel',
@@ -11,11 +14,23 @@ import { Panel } from '../../models/panel';
 export class SearchPatientPanelComponent implements OnInit {
 
   public display: boolean = false;
-  public patient?: Patient
+  public patient?: Patient;
 
-  constructor(private patientService: PatientService) {}
+  constructor(
+    private patientService: PatientService,
+    private subjectManagerService: SubjectManagerService
+  ) {
+    const patientCollectionSubject = new GenericSubject<Patient[]>("panel-patient-collection");
+    this.subjectManagerService.add(patientCollectionSubject);
+
+    const patientSubject = new GenericSubject<Patient>("panel-patient");
+    this.subjectManagerService.add(patientSubject);
+
+  }
 
   ngOnInit(): void {
+    
+    
   }
 
   CloseModal(event: any) {

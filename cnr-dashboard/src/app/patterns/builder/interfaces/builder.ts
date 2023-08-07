@@ -6,7 +6,7 @@ import { DoctorSchedule } from "src/app/models/doctor-schedule";
  *
  */
  export interface Builder {
-  generateAllDoctorWorkDays(day: string): void;
+  generateAllDoctorWorkDays(day: string, date: string): void;
   generateAppointmentsByDay(doctorSchedule: DoctorSchedule, defaultDuration: number): void;
   generateAppointmentsTime(doctorSchedule: DoctorSchedule, defaultDuration: number): void;
   generateAppointmentEvents(): void;

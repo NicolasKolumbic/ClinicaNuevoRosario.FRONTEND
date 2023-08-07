@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { AppointmentStates } from 'src/app/helpers/enums/appointment-states';
 import { KeyValue } from '@angular/common';
 import { MedicalHistory } from 'src/app/models/clinical-history';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'cnr-view-appointment',
@@ -27,14 +28,15 @@ export class ViewAppointmentComponent implements OnInit {
   public appointmentState!: AppointmentStates;
   public comment!: string;
   public appointmentStateOptions: KeyValue<number,string>[] = [
-    {key: 1, value: 'Asignado'},
     {key: 3, value: 'Finalizado'},
     {key: 4, value: 'Ausente'}
-  ]
+  ];
+  public medicalHistories: MedicalHistory[] = []
 
 
   constructor(
-    private subjectManagerService: SubjectManagerService
+    private subjectManagerService: SubjectManagerService,
+    private patientService: PatientService,
   ) { }
 
   get appointmentTime() {
@@ -44,6 +46,10 @@ export class ViewAppointmentComponent implements OnInit {
     } else {
       return '';
     }   
+  }
+
+  get isNotAssigned() {
+    return this.appointment && this.appointment.appointmentState !== AppointmentStates.Asignado;
   }
 
   get healthInsurancePlan() {
@@ -57,8 +63,16 @@ export class ViewAppointmentComponent implements OnInit {
   setAppointmentViewObservable() {
     const appointmentSubject = new GenericSubject<AppointmentModal>('view-appointment-form-modal');
     const appointmentModalObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => {
+      this.comment = '';
       this.appointment = appointmentModal.appointment!;
-      this.appointment.patient.medicalHistories = this.appointment.patient.medicalHistories.sort((a: MedicalHistory, b: MedicalHistory) =>  b.medicalHistoryId - a.medicalHistoryId)
+      this.patientService
+      .getMedicalHistories(
+        this.appointment.doctor.doctorId,
+        this.appointment.patient.patientId
+      ).subscribe((medicalHistories: MedicalHistory[]) => {
+          this.medicalHistories = medicalHistories.sort((a: MedicalHistory, b: MedicalHistory) =>  b.medicalHistoryId - a.medicalHistoryId);
+          
+      });
     });
     appointmentSubject.attach(appointmentModalObservable);
     this.subjectManagerService.add(appointmentSubject);

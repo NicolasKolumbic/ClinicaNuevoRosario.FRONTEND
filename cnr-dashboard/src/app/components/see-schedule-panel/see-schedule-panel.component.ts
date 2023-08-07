@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentModal } from 'src/app/models/appointment-modal';
 import { Doctor } from '../../models/doctor';
@@ -10,6 +10,10 @@ import { SearchDoctor } from 'src/app/models/search-doctor';
 import { SubjectManagerService } from '../../services/subject-manager.service';
 import { GenericSubject } from 'src/app/patterns/observer/concrete-classes/generic-subject';
 import { DoctorService } from 'src/app/services/doctor.service';
+import { DoctorSearchEngineComponent } from '../doctor-search-engine/doctor-search-engine.component';
+import { MedicalSpecialtiesSearchEngineComponent } from '../medical-specialties-search-engine/medical-specialties-search-engine.component';
+import { HealthInsuranceSearchEngineComponent } from '../health-insurance-search-engine/health-insurance-search-engine.component';
+import * as moment from 'moment';
 
 
 @Component({
@@ -23,6 +27,10 @@ export class SeeSchedulePanelComponent {
   public doctor?: Doctor;
   public searchDoctorParams: SearchDoctor = new SearchDoctor();
 
+  @ViewChild('doctorEngine') doctorEngine!: DoctorSearchEngineComponent;
+  @ViewChild('medicalSpecialityEngine') medicalSpecialityEngine!: MedicalSpecialtiesSearchEngineComponent;
+  @ViewChild('healthInsurancePlanEngine') healthInsurancePlanEngine!: HealthInsuranceSearchEngineComponent;
+
   constructor(
     private appointmentService: AppointmentService,
     private subjectManagerService: SubjectManagerService,
@@ -35,13 +43,24 @@ export class SeeSchedulePanelComponent {
       this.setMedicalSpecialityObservable();
       this.setHealthInsuranceObservable();
       this.setSearchDoctorObservable();
+
+      const appointmentCalendarSubject = new GenericSubject<string>("appointment-calendar");
+      const apointmentCalendarObservable = new GenericObserver<string>((date: string) => {
+        this.calendarNavegation(date);
+      });
+  
+      appointmentCalendarSubject.attach(apointmentCalendarObservable);
+      this.subjectManagerService.add(appointmentCalendarSubject);
   }
 
   setSearchDoctorObservable() {
     const searchDoctorSubject = new GenericSubject<string>("panel-dashboard-search-doctor");
     const searchDoctorObservable = new GenericObserver<string>((text: string) => {
-      this.searchDoctorParams.doctorCriteria = text;
-      this.searchDoctor();
+      if(text.length > 3) {
+        this.medicalSpecialityEngine.clear();
+        this.searchDoctorParams.doctorCriteria = text;
+        this.searchDoctor();
+      }  
     });
 
     searchDoctorSubject.attach(searchDoctorObservable);
@@ -68,6 +87,7 @@ export class SeeSchedulePanelComponent {
     const medicalSpecialitySubject = new GenericSubject<MedicalSpeciality>("panel-dashboard-medical-speciality");
     const medicalSpecialityObservable = new GenericObserver<MedicalSpeciality>((medicalSpeciality: MedicalSpeciality) => {
       this.searchDoctorParams.medicalSpecialtyDto = medicalSpeciality;
+      this.doctor = undefined;
       this.searchDoctor();
     });
 
@@ -86,6 +106,7 @@ export class SeeSchedulePanelComponent {
     const healthInsurancePlanSubject = new GenericSubject<Plan>('see-schedule-health-insurrance');
     const healthInsurancePlanObservable = new GenericObserver<Plan>((plan: Plan) => {
       this.searchDoctorParams.plan = plan;
+      this.doctor = undefined;
       this.searchDoctor();
     });
     healthInsurancePlanSubject.attach(healthInsurancePlanObservable);
@@ -96,18 +117,31 @@ export class SeeSchedulePanelComponent {
     this.display = false;
   }
 
-  seeSchedule(event: any) {
+  calendarNavegation(date: string) {
+    this.loadEvents(date);
+  }
+
+  loadEvents(date: string) {
     if(this.doctor && this.doctor.doctorSchedules && this.doctor.doctorSchedules.length > 0) {
       this.appointmentService.getAppointmentByDoctorId(this.doctor.doctorId)
                              .subscribe((appointments: Appointment[]) => {
                                 if(this.doctor && this.doctor.doctorSchedules &&  this.doctor.doctorSchedules.length > 0){
-                                  const events = this.appointmentService.generateEvents(this.doctor.doctorSchedules, this.doctor.appointmentDurationDefault, appointments);
+                                  const events = this.appointmentService.generateEvents(
+                                    this.doctor.doctorSchedules,
+                                    this.doctor.appointmentDurationDefault,
+                                    appointments,
+                                    date
+                                  );
                                   const appointmentSubject = this.subjectManagerService.getSubjectByName('add-appointment-form-modal');
                                   appointmentSubject.update(events);
                                 }
                               });
 
     }
+  }
+
+  seeSchedule(event: any) {
+    this.loadEvents(moment().toISOString());
   }
 
   selectHealthInsurancePlan(plan: Plan) {

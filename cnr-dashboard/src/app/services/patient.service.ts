@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HealthInsurance } from '../models/health-insurance';
 import { Patient } from '../models/patient';
 import { EnvironmentService } from './environment.service';
+import { MedicalHistory } from '../models/clinical-history';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,12 @@ export class PatientService {
 
   addPatient(patient: Patient) {
     return this.http.post<number>(`${this.environmentService.baseUrl}v1/Patient/AddPatient`, patient);
+  }
+
+  getMedicalHistories(doctorId: number, patientId: number) {
+    return this.http.get<MedicalHistory[]>(`${this.environmentService.baseUrl}v1/MedicalHistory/GetMedicalHistoriesByPatient?doctorId=${doctorId}&patientId=${patientId}`)
+    .pipe(
+      map(medicalHistories => medicalHistories.map(p => new MedicalHistory(p)))
+    );
   }
 }

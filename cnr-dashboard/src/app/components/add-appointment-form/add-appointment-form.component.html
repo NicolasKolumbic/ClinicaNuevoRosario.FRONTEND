@@ -1,15 +1,20 @@
 <div class="cnr-add-appointment-form">
-  <form id="add-patient" [formGroup]="addAppointmenttForm" (ngSubmit)="AddAppointment($event)">
+  <form id="add-patient" [formGroup]="addAppointmenttForm" (ngSubmit)="addAppointment($event)">
     <div class="cnr-add-appointment-form_container">
       <div>
         <div class="field-control">
-          <cnr-doctor-search-engine doctorSubjectName="add-appointment-form-doctor" doctorOptionsSubjectName="add-appointment-form-doctor-collection"></cnr-doctor-search-engine>
+          <cnr-doctor-search-engine doctorSubjectName="panel-dashboard-doctor"
+            searchDoctorSubjectName="add-appointment-form-search-doctor"
+            doctorOptionsSubjectName="panel-dashboard-doctor-collection">
+          </cnr-doctor-search-engine>
       </div>
       <div class="field-control">
-          <cnr-patient-search-engine></cnr-patient-search-engine>
+          <cnr-patient-search-engine patientSubjectName="panel-patient" patientOptionsSubjectName="panel-patient-collection" (onSelectPatient)="selectPatient($event)">
+            
+          </cnr-patient-search-engine>
       </div>
       <div class="field-control" >
-          <p-calendar
+        <p-calendar
           [showTime]="true"
           [showSeconds]="true"
           inputId="time"
@@ -20,7 +25,8 @@
           [showSeconds]="false"
           [stepMinute]="15"
           [disabledDays]="disabledDays"
-          (onSelect)="selectDate($event)"></p-calendar>
+          (onSelect)="selectDate($event)">
+        </p-calendar>
       </div>
       </div>
 

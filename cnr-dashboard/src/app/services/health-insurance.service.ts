@@ -15,17 +15,23 @@ export class HealthInsuranceService {
     private http: HttpClient
   ) { }
 
-  getAllHealthInsurrancePlans() {
+  getAllHealthInsurrancePlans(healthInsurance?: HealthInsurance) {
     return this.http.get<Plan[]>(`${this.environmentService.baseUrl}v1/HealthInsurance/GetAllPlans`)
                     .pipe(
-                      map(plans => plans.map(p => new Plan(p)))
+                      map(plans => {
+                        let allPlans =plans.map(p => new Plan(p));
+                        if(healthInsurance) {
+                          allPlans = allPlans.filter((plan: Plan) => plan.healthInsurance.id === healthInsurance.id)
+                        }
+                        return allPlans;
+                      })
                     );
   }
 
   getAllHealthInsurrances() {
     return this.http.get<HealthInsurance[]>(`${this.environmentService.baseUrl}v1/HealthInsurance/GetAllHealthInsurances`)
                     .pipe(
-                      map(patients => patients.map(h => new HealthInsurance(h)))
+                      map(healthInsurances => healthInsurances.map(h => new HealthInsurance(h)))
                     );
   }
 

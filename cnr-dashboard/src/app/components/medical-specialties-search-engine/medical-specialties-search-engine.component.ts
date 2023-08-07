@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MedicalSpeciality } from 'src/app/models/medical-speciality';
+import { GenericObserver } from 'src/app/patterns/observer/concrete-classes/generic-observer';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { SubjectManagerService } from 'src/app/services/subject-manager.service';
 
@@ -31,20 +32,30 @@ export class MedicalSpecialtiesSearchEngineComponent implements OnInit {
 
   ngOnInit(): void {
     this.doctorService.allMedicalSpeacilities()
-      .subscribe((medicalSpecialities: MedicalSpeciality[]) => {
-        this.medicalSpecialities = medicalSpecialities;
-      });
+                      .subscribe((medicalSpecialities: MedicalSpeciality[]) => {
+                        this.medicalSpecialities = medicalSpecialities;
+                      });
+
+    const medicalSpecialityObservable = new GenericObserver<MedicalSpeciality>((medicalSpeciality: MedicalSpeciality) => {
+      this.selectedMedicalSpeciality = medicalSpeciality;
+      this.onSelectMedicalSpeciality.emit(medicalSpeciality);
+    });
+
+    this.subjectManagerService.getSubjectByName(this.medicalSpecialitySubjectName).attach(medicalSpecialityObservable);
   }
 
   get medicalSpecialitiesOptions(): any[] {
     return this.medicalSpecialities as any[];
   }
-
+ 
   public ChangeMedicalSpeciality(event: any) {
     if(event.value) {
-      this.selectedMedicalSpeciality = event.value;
-      this.onSelectMedicalSpeciality.emit(event.value);
-      this.subjectManagerService.getSubjectByName(this.medicalSpecialitySubjectName).update(event.value);
+      const medicalSpeciality = event.value;
+      this.subjectManagerService.getSubjectByName(this.medicalSpecialitySubjectName).update(medicalSpeciality);
     }
+  }
+
+  public clear() {
+    this.selectedMedicalSpeciality = undefined;
   }
 }

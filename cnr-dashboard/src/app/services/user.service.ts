@@ -3,6 +3,7 @@ import { EnvironmentService } from './environment.service';
 import { HttpClient } from '@angular/common/http';
 import { UserChat } from '../models/user-chat';
 import { map } from 'rxjs/operators';
+import { NewUser } from '../models/new-user';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class UserService {
                   .filter((user: UserChat) => user.email !== userChat.email)
       })
     )
+  }
+
+  addUser(user: NewUser) {
+    return this.http.post(`${this.environmentService.baseUrl}v1/Account/Register`, user)
   }
 }

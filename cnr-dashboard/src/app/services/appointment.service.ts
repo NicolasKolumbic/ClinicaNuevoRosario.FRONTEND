@@ -9,6 +9,7 @@ import { Appointment } from '../models/appointment';
 import { map } from 'rxjs/operators';
 import { UpdatedAppointment } from '../models/updated-appointment';
 import { HealthInsuranceReportRequest } from '../models/health-insurance-report-request';
+import { AppointmentFilterRequest } from '../models/appointment-filter-request';
 
 @Injectable({
   providedIn: 'root'
@@ -34,13 +35,18 @@ export class AppointmentService {
                     );
   }
 
-  public generateEvents(schedules: DoctorSchedule[], defaultDuration: number, appointments: Appointment[], onlyActives?: boolean) {
+  public generateEvents(
+    schedules: DoctorSchedule[],
+    defaultDuration: number,
+    appointments: Appointment[],
+    date: string,
+    onlyActives?: boolean) {
 
     let events: AppointmentEvent[] = []
 
     schedules.forEach((doctorSchedule: DoctorSchedule) => {
       const appointmentEventsDirector = new AppointmentEventBuilder();
-      appointmentEventsDirector.generateAllDoctorWorkDays(doctorSchedule.day.toFixed());
+      appointmentEventsDirector.generateAllDoctorWorkDays(doctorSchedule.day.toFixed(), date);
       appointmentEventsDirector.generateAppointmentsByDay(doctorSchedule, defaultDuration);
       appointmentEventsDirector.generateAppointmentsTime(doctorSchedule, defaultDuration);
       appointmentEventsDirector.generateAppointmentEvents();
@@ -74,6 +80,14 @@ export class AppointmentService {
   public getAllAppointments() {
     return this.http.get<Appointment[]>(
       `${this.environmentService.baseUrl}v1/Appointment/GetAllAppointments`
+    ).pipe(
+      map((appointments: any[]) => appointments.map((appointment: Appointment) => new Appointment(appointment)) )
+    );
+  }
+
+  public filter(request: AppointmentFilterRequest) {
+    return this.http.post<Appointment[]>(
+      `${this.environmentService.baseUrl}v1/Appointment/AppointmentsFilter`, request
     ).pipe(
       map((appointments: any[]) => appointments.map((appointment: Appointment) => new Appointment(appointment)) )
     );

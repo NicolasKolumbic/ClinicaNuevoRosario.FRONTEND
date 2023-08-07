@@ -16,7 +16,7 @@ export class Patient {
   healthInsurranceNumber!: number;
 
   constructor(patient: Patient) {
-    this.patientId = patient.patientId;
+    this.patientId = patient.patientId || (patient as any).id;
     this.name = patient.name;
     this.lastname = patient.lastname;
     this.email = patient.email;

@@ -1,5 +1,45 @@
 .administrator-board {
-    &__label {
-        padding-right: 1rem;
+    padding: 1rem;
+    &__field {
+        display: flex;
+        align-items: center;
+        &__label {
+            padding-right: 1rem;
+        }
+
+        &__control {
+            padding-right: 1rem;
+            width: 200px;
+        }
+
+        &__response {
+          padding-left: 1rem;
+          font-weight: 600;
+          color: var(--pewter-blue);
+        }
+       
+    }
+
+    &__content {
+        background-color: white;
+        padding: 1rem;
     }
 }
+
+.field-control {
+    padding: 0.75rem 0.25rem;
+    &_control {
+      display: inline-flex;
+      align-items: center;
+      width: 100%;
+    }
+  
+    &_label {
+      padding-right: 0.5rem;
+      font-weight: 500;
+      & + * {
+        flex-grow: 1;
+      }
+    }
+  }
+
