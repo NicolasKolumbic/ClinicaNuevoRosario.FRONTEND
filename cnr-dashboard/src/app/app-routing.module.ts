@@ -5,7 +5,6 @@ import { EmptyRouteComponent } from './empty-route/empty-route.component';
 import { AddDoctorComponent } from './pages/add-doctor/add-doctor.component';
 import { AppointmentsGridComponent } from './pages/appointments-grid/appointments-grid.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DoctorAppointmentComponent } from './pages/doctor-appointment/doctor-appointment.component';
 import { DoctorsGridComponent } from './pages/doctors-grid/doctors-grid.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { PatientsGridComponent } from './pages/patients-grid/patients-grid.component';
@@ -14,9 +13,7 @@ import { UserDataResolveService } from './services/user-data-resolve.service';
 import { AnalysisDataComponent } from './pages/analysis-data/analysis-data.component';
 import { AdministratorBoardComponent } from './pages/administrator-board/administrator-board.component';
 import { ComunicationsComponent } from './pages/comunications/comunications.component';
-import { BillingHealthInsuranceCompaniesComponent } from './pages/billing-health-insurance-companies/billing-health-insurance-companies.component';
 import { DatabaseBackupComponent } from './pages/database-backup/database-backup.component';
-import { RestoreDatabaseComponent } from './pages/restore-database/restore-database.component';
 
 const routes: Routes = [
   {
@@ -35,8 +32,7 @@ const routes: Routes = [
       { path: 'analisis-de-datos', component: AnalysisDataComponent},
       { path: 'switch-roles', component: AdministratorBoardComponent},
       { path: 'chat', component: ComunicationsComponent},
-      { path: 'backup-database', component: DatabaseBackupComponent},
-      { path: 'restore-database', component: RestoreDatabaseComponent}
+      { path: 'backup-database', component: DatabaseBackupComponent}
     ]
   },
   { path: '**', component: EmptyRouteComponent }
