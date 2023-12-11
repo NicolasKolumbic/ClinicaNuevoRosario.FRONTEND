@@ -16,5 +16,11 @@
     <li class="navbar_item" *ngIf="isAdministrator">
       <a href="#" class="navbar_link" routerLink="/analisis-de-datos">Estadísticas</a>
     </li>
+    <li class="navbar_item" *ngIf="isAdministrator">
+      <a href="#" class="navbar_link" routerLink="/backup-database">Copias de Respaldo</a>
+    </li>
+    <li class="navbar_item" *ngIf="isAdministrator">
+      <a href="#" class="navbar_link" routerLink="/restore-database">Restaurar Base de datos</a>
+    </li>
   </ul>
 </nav>

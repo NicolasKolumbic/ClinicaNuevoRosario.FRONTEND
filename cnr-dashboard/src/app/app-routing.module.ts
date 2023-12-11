@@ -15,6 +15,8 @@ import { AnalysisDataComponent } from './pages/analysis-data/analysis-data.compo
 import { AdministratorBoardComponent } from './pages/administrator-board/administrator-board.component';
 import { ComunicationsComponent } from './pages/comunications/comunications.component';
 import { BillingHealthInsuranceCompaniesComponent } from './pages/billing-health-insurance-companies/billing-health-insurance-companies.component';
+import { DatabaseBackupComponent } from './pages/database-backup/database-backup.component';
+import { RestoreDatabaseComponent } from './pages/restore-database/restore-database.component';
 
 const routes: Routes = [
   {
@@ -32,7 +34,9 @@ const routes: Routes = [
       { path: 'turnos', component: AppointmentsGridComponent },
       { path: 'analisis-de-datos', component: AnalysisDataComponent},
       { path: 'switch-roles', component: AdministratorBoardComponent},
-      { path: 'chat', component: ComunicationsComponent}
+      { path: 'chat', component: ComunicationsComponent},
+      { path: 'backup-database', component: DatabaseBackupComponent},
+      { path: 'restore-database', component: RestoreDatabaseComponent}
     ]
   },
   { path: '**', component: EmptyRouteComponent }

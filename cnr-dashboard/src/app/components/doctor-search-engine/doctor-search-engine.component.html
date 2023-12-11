@@ -7,6 +7,7 @@
      [options]="doctorOptions"
      [(ngModel)]="selectedDoctor"
       optionLabel="fullName"
+      [showClear]="true"
       [filter]="true"
       filterby="fullName"
       (ngModelChange)="selectDoctor($event)"

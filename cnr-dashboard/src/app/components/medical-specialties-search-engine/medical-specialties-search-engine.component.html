@@ -6,6 +6,7 @@
     <p-dropdown [options]="medicalSpecialitiesOptions"
                 [(ngModel)]="selectedMedicalSpeciality"
                 optionLabel="name"
+                [showClear]="true"
                 [filter]="true"
                 filterby="name"
                 placeholder="Seleccionar una especialidad"

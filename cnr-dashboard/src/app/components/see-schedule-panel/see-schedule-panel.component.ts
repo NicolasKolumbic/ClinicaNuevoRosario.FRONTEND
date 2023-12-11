@@ -26,6 +26,8 @@ export class SeeSchedulePanelComponent {
   public display: boolean = false;
   public doctor?: Doctor;
   public searchDoctorParams: SearchDoctor = new SearchDoctor();
+  
+  private modal!: GenericSubject<Doctor>;
 
   @ViewChild('doctorEngine') doctorEngine!: DoctorSearchEngineComponent;
   @ViewChild('medicalSpecialityEngine') medicalSpecialityEngine!: MedicalSpecialtiesSearchEngineComponent;
@@ -45,12 +47,16 @@ export class SeeSchedulePanelComponent {
       this.setSearchDoctorObservable();
 
       const appointmentCalendarSubject = new GenericSubject<string>("appointment-calendar");
+      this.modal = new GenericSubject<Doctor>("appointment-modal");
+
       const apointmentCalendarObservable = new GenericObserver<string>((date: string) => {
         this.calendarNavegation(date);
       });
   
       appointmentCalendarSubject.attach(apointmentCalendarObservable);
+
       this.subjectManagerService.add(appointmentCalendarSubject);
+      this.subjectManagerService.add(this.modal);
   }
 
   setSearchDoctorObservable() {
@@ -97,9 +103,11 @@ export class SeeSchedulePanelComponent {
 
   setAppointmentObservable() {
     const appointmentSubject = new GenericSubject<AppointmentModal>('add-appointment-form-modal');
+    const appointmentEventsSubject = new GenericSubject<AppointmentModal>('appointment-events-form-modal');
     const appointmentModalObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => this.display = appointmentModal.open);
     appointmentSubject.attach(appointmentModalObservable);
     this.subjectManagerService.add(appointmentSubject);
+    this.subjectManagerService.add(appointmentEventsSubject);
   }
 
   setHealthInsuranceObservable() {
@@ -132,7 +140,7 @@ export class SeeSchedulePanelComponent {
                                     appointments,
                                     date
                                   );
-                                  const appointmentSubject = this.subjectManagerService.getSubjectByName('add-appointment-form-modal');
+                                  const appointmentSubject = this.subjectManagerService.getSubjectByName('appointment-events-form-modal');
                                   appointmentSubject.update(events);
                                 }
                               });
@@ -160,6 +168,12 @@ export class SeeSchedulePanelComponent {
     this.doctorService.searchDoctor(this.searchDoctorParams).subscribe((doctors: Doctor[]) => {
       this.subjectManagerService.getSubjectByName("panel-dashboard-doctor-collection").update(doctors)
     })
+  }
+
+  afterModelInit() {
+    if(this.doctor) {
+      this.modal.update(this.doctor);
+    }    
   }
 
 }

@@ -54,7 +54,7 @@ export class AddAppointmentFormComponent {
       this.addAppointmenttForm.get('doctor')?.setValue(doctor);
       const availableDay: number[] = [];
       doctor.doctorSchedules?.forEach((doctorSchedule: DoctorSchedule) => availableDay.push(doctorSchedule.day));
-      this.disabledDays = [1,2,3,4,5,6,7].filter((num) => !availableDay.includes(num));
+      this.disabledDays = [0,1,2,3,4,5,6].filter((num) => !availableDay.includes(num-1));
     })
     doctorSubject.attach(doctorObservable)
 
@@ -65,14 +65,20 @@ export class AddAppointmentFormComponent {
     timeAppointmentSubject.attach(timeAppointmentObservable);
     this.subjectManagerService.add(timeAppointmentSubject);
 
-    const appointmentObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => this.addAppointmenttForm.get('time')?.setValue(moment(appointmentModal.appointment?.time).add('s',0).utc().format()));
-    const appointmentSubject = new GenericSubject<AppointmentModal>('add-appointment-form-modal');
+    const appointmentObservable = new GenericObserver<AppointmentModal>((appointmentModal: AppointmentModal) => {
+      if(appointmentModal && appointmentModal.appointment?.time) {
+        this.defaultDate = moment(appointmentModal.appointment?.time).toDate();
+        this.today = moment(appointmentModal.appointment?.time).toDate();
+        this.subjectManagerService.getSubjectByName('add-appointment-form-time').update(moment(appointmentModal.appointment?.time));
+      }
+      this.addAppointmenttForm.get('time')?.setValue(moment(appointmentModal.appointment?.time).add('s',0).utc().format())
+    });
+    const appointmentSubject =  this.subjectManagerService.getSubjectByName<AppointmentModal>('add-appointment-form-modal')
     appointmentSubject.attach(appointmentObservable);
     this.subjectManagerService.add(appointmentSubject);
 
-
+    this.initModal();
    }
-
 
   setSearchDoctorObservable() {
     const searchDoctorSubject = new GenericSubject<string>("add-appointment-form-search-doctor");
@@ -95,8 +101,17 @@ export class AddAppointmentFormComponent {
   }
 
   selectDate(date: Date) {
-    const momentDate = moment(date);
-    this.subjectManagerService.getSubjectByName('add-appointment-form-time').update(momentDate);
+    const mDate = moment(date);
+    const days = mDate.diff(this.defaultDate, 'days');
+    const hours = mDate.diff(this.defaultDate, 'hours');
+    const minutes = mDate.diff(this.defaultDate, 'minutes');
+
+    if(days !== 0) {
+      this.validateDate(mDate, true)
+    } else if(days === 0 && (hours !== 0 || minutes !== 0)) {
+      this.validateDate(mDate, false)
+    } 
+    this.subjectManagerService.getSubjectByName('add-appointment-form-time').update(mDate);
   }
 
   searchDoctor() {
@@ -107,6 +122,51 @@ export class AddAppointmentFormComponent {
 
   selectPatient(patient: Patient) {
     this.addAppointmenttForm.get('patient')?.setValue(patient)
+  }
+
+  afterModalShow(doctor: Doctor) {
+    this.defaultDate = moment().toDate();
+  }
+
+  initModal() {
+    const modal = this.subjectManagerService.getSubjectByName("appointment-modal");
+    const modalOpenedObservable = new GenericObserver<Doctor>(this.afterModalShow);
+    modal.attach(modalOpenedObservable);   
+  }
+
+  private ValidateDay(mDate: moment.Moment) {
+    if(this.doctor && this.doctor.doctorSchedules) {
+      const appointmentDay = this.doctor.doctorSchedules.find((doctorSchedule: DoctorSchedule) => doctorSchedule.day === (mDate.day() - 1));
+      if(appointmentDay) {
+        const startTime = appointmentDay && appointmentDay?.startTime || 0;
+        const endTime = appointmentDay && appointmentDay?.endTime || 24;
+        if(mDate.hours() < startTime || mDate.hours() > endTime) {
+          mDate.hours(appointmentDay.startTime);
+        }
+      }
+    }
+    this.defaultDate = mDate.toDate();
+  }
+
+  private ValidateHours(mDate: moment.Moment) {
+    if(this.doctor && this.doctor.doctorSchedules) {
+      const appointmentDay = this.doctor.doctorSchedules.find((doctorSchedule: DoctorSchedule) => doctorSchedule.day === (mDate.day() - 1));
+      if(appointmentDay) {
+        const startTime = appointmentDay && appointmentDay?.startTime || 0;
+        const endTime = appointmentDay && appointmentDay?.endTime || 24;
+        if(mDate.hours() >= startTime && mDate.hours() < endTime) {
+          this.defaultDate = mDate.toDate();
+        }
+      }
+    }
+  }
+
+  private validateDate(mDate: moment.Moment, isSelect: boolean) {
+    if(isSelect) {
+        this.ValidateDay(mDate);
+    } else {
+        this.ValidateHours(mDate);
+    }
   }
 
 }

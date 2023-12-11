@@ -1,0 +1,26 @@
+<div class="restore-database">
+    <div class="restore-database_content">
+        <div class="restore-database_header">
+            <h2 class="restore-database_title">Restaurar Base de Datos</h2>
+        </div>
+        <div class="restore-database_form">
+            <form [formGroup]="restoreDataForm" (ngSubmit)="restoreDatabase()">
+                <div>
+                    <p-fileUpload name="demo[]"
+                     (onUpload)="onUpload($event)"
+                     accept="application/octet-stream"
+                     [maxFileSize]="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button pButton type="submit" icon="pi pi-upload" label="Restaurar" class="restore-database__save"></button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="backup-database">
+    <div class="backup-database_content">
+        <div class="backup-database_header">
+            <h2 class="backup-database_title">Copia de Respaldo (Backup)</h2>
+        </div>
+        <div class="backup-database_form w-50">
+            <a href="#" #link class="d-none"></a>
+            <form [formGroup]="backupDataForm" (ngSubmit)="generateBackupFile()">
+                <div class="front-color">
+                    <i class="pi pi-database" [ngStyle]="{'font-size':'2rem','padding-right': '0.5rem'}"></i>
+                    <span>
+                        <span class="file-name-field">
+                            {{fileName}}
+                        </span>
+                        <span>
+                            _{{today}}.bak
+                        </span>
+                    </span>
+                    
+                </div>
+                <div class="field-control">
+                    <div class="field-control_control">
+                        <label class="field-control_label" for="fileName">Nombre del archivo</label>
+                        <input type="text" id="fileName" formControlName="fileName" pInputText maxlength="150" />
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button pButton type="submit" icon="pi pi-download" label="Descargar" class="backup-database__save"></button>
+                  </div>
+            </form>
+        </div>
+        <div class="w-50">
+
+        </div>
+    </div>
+</div>

@@ -69,6 +69,8 @@ import { AppointmentStatePillComponent } from './components/appointment-state-pi
 import { ServiceTypePillComponent } from './components/service-type-pill/service-type-pill.component';
 import { MedicalSpecialitiesListPipe } from './pipes/medical-specialities-list.pipe';
 import { GenericAvatarComponent } from './components/generic-avatar/generic-avatar.component';
+import { DatabaseBackupComponent } from './pages/database-backup/database-backup.component';
+import { RestoreDatabaseComponent } from './pages/restore-database/restore-database.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -119,7 +121,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AppointmentStatePillComponent,
     ServiceTypePillComponent,
     MedicalSpecialitiesListPipe,
-    GenericAvatarComponent
+    GenericAvatarComponent,
+    DatabaseBackupComponent,
+    RestoreDatabaseComponent
   ],
   imports: [
     BrowserModule,

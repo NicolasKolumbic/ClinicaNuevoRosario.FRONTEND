@@ -8,6 +8,7 @@
                   [(ngModel)]="selectedPatient"
                   optionLabel="fullName"
                   [filter]="true"
+                  [showClear]="true"
                   filterby="fullName"
                   (ngModelChange)="PatientUpdateBlur($event)"
                   (onFilter)="searchPatient($event)">

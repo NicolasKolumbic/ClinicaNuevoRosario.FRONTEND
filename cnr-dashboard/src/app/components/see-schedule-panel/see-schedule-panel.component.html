@@ -62,7 +62,7 @@
       </div>
     </fieldset>
   </form>
-  <p-dialog [(visible)]="display" [modal]="true">
+  <p-dialog [(visible)]="display" [modal]="true" (onShow)="afterModelInit()">
     <ng-template pTemplate="header">
       <div class="modal-header">
         <h3 class="modal-header_title">Nuevo Turno</h3>

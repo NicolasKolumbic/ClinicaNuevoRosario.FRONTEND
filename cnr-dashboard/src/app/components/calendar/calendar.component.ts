@@ -88,7 +88,7 @@ export class CalendarComponent implements AfterViewInit, Observer<AppointmentEve
     private subjectManagerService: SubjectManagerService
 
   ) {
-    var appointmentSubject = subjectManagerService.getSubjectByName('add-appointment-form-modal')
+    var appointmentSubject = subjectManagerService.getSubjectByName('appointment-events-form-modal')
     appointmentSubject.attach(this);
 
     this.subject =  this.subjectManagerService.getSubjectByName('appointment-calendar');

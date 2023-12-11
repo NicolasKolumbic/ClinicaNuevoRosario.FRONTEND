@@ -9,13 +9,11 @@
           </cnr-doctor-search-engine>
       </div>
       <div class="field-control">
-          <cnr-patient-search-engine patientSubjectName="panel-patient" patientOptionsSubjectName="panel-patient-collection" (onSelectPatient)="selectPatient($event)">
-            
-          </cnr-patient-search-engine>
+          <cnr-patient-search-engine patientSubjectName="panel-patient" patientOptionsSubjectName="panel-patient-collection" (onSelectPatient)="selectPatient($event)"></cnr-patient-search-engine>
       </div>
       <div class="field-control" >
         <p-calendar
-          [showTime]="true"
+          [showTime]="defaultDate !== undefined"
           [showSeconds]="true"
           inputId="time"
           [inline]="true"
@@ -24,6 +22,7 @@
           [defaultDate]="defaultDate"
           [showSeconds]="false"
           [stepMinute]="15"
+          [disabled]="doctor === undefined"
           [disabledDays]="disabledDays"
           (onSelect)="selectDate($event)">
         </p-calendar>

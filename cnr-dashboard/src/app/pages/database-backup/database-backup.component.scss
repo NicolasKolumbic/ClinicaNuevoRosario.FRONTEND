@@ -1,0 +1,49 @@
+.field-control {
+    padding: 0.75rem 0.25rem;
+    margin: 0.25rem 0;
+    &_control {
+      display: inline-flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    &_label {
+      padding-right: 0.5rem;
+      font-weight: 500;
+      flex: 0 0 auto;
+      & + * {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  .backup-database {
+    padding: 1rem;
+    &_content {
+        background-color: white;
+        padding: 1rem;
+    }
+
+    &_title {
+        margin:0;
+        margin-bottom: 1rem;
+    }
+
+}
+
+.front-color {
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+}
+
+.file-name-field {
+  display: inline-flex;
+  min-width: 100px;
+  border-bottom: 1px dashed var(--cadet-blue-crayola);
+}
+
+
+.w-50 {
+  width: 50%;
+}

@@ -35,6 +35,13 @@ export class AppointmentService {
                     );
   }
 
+  public GetAssignedAppointmentByDoctorId(doctorId: number) {
+    return this.http.get<any[]>(`${this.environmentService.baseUrl}v1/Appointment/GetAssignedAppointmentByDoctorId?doctorId=${doctorId}`)
+                    .pipe(
+                      map((appointments: Appointment[]) => appointments.map((appointment: Appointment) => new Appointment(appointment)) )
+                    );
+  }
+
   public generateEvents(
     schedules: DoctorSchedule[],
     defaultDuration: number,
