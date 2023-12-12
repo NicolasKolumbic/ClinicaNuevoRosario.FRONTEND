@@ -70,8 +70,6 @@ import { ServiceTypePillComponent } from './components/service-type-pill/service
 import { MedicalSpecialitiesListPipe } from './pipes/medical-specialities-list.pipe';
 import { GenericAvatarComponent } from './components/generic-avatar/generic-avatar.component';
 import { DatabaseBackupComponent } from './pages/database-backup/database-backup.component';
-import { RestoreDatabaseComponent } from './pages/restore-database/restore-database.component';
-
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -122,8 +120,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ServiceTypePillComponent,
     MedicalSpecialitiesListPipe,
     GenericAvatarComponent,
-    DatabaseBackupComponent,
-    RestoreDatabaseComponent
+    DatabaseBackupComponent
   ],
   imports: [
     BrowserModule,
